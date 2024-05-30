@@ -1,4 +1,4 @@
-name: Testes API CI
+name: Testes web CI
 
 on:
   push:

@@ -1,7 +1,7 @@
 {
-  "name": "testes-api-bugbusters",
+  "name": "testes-web-bugbusters",
   "version": "1.0.0",
-  "description": "Testes automatizados da API RAROMDB",
+  "description": "Testes automatizados da web RAROMDB",
   "main": "index.js",
   "scripts": {
     "test": "cypress open",
