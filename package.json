@@ -1,0 +1,23 @@
+{
+  "name": "testes-api-bugbusters",
+  "version": "1.0.0",
+  "description": "Testes automatizados da API RAROMDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open",
+    "test:headless": "cypress run"
+  },
+  "keywords": [],
+  "author": "BugBusters",
+  "license": "ISC",
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": "cypress/support/steps/[filepart].step.js"
+  },
+  "dependencies": {
+    "cypress": "^13.7.3",
+    "@faker-js/faker": "^8.4.1",
+    "esbuild": "^0.20.2",
+    "@badeball/cypress-cucumber-preprocessor": "^20.0.5",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0"
+  }
+}
