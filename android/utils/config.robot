@@ -5,11 +5,11 @@ Resource     ../../base.robot
 
 *** Variables ***
 
-${ANDROID_AUTOMATION_NAME}  UIAutomator2
-${ANDROID_PLATFORM_NAME}  Android
+${ANDROID_AUTOMATION_NAME}   UIAutomator2
+${ANDROID_PLATFORM_NAME}     Android
 ${ANDROID_PLATFORM_VERSION}  14
-${ANDROID_APP_PACKAGE}  com.ricardodalarme.nubank_clone
-${ANDROID_APP_ACTIVITY}  .MainActivity
+${ANDROID_APP_PACKAGE}       com.example.raromdb
+${ANDROID_APP_ACTIVITY}      .MainActivity
 
 *** Keywords ***
 Abrir App
