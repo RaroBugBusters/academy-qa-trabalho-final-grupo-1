@@ -10,40 +10,30 @@ Test Teardown    Teardown
 CT001 - Deve ser possível cadastrar um usuário com sucesso
     Dado que acessei a página de cadastro
     Quando o usuário preencher um nome válido
-    E um email válido
-    E uma senha válida 
+    E preencher um email válido
+    E preencher uma senha válida 
     E confirmar a senha corretamente
     Então o cadastro deve ser realizado com sucesso e o usuário deve ver a mensagem de sucesso
 
-# CT002 - Deve exibir mensagem de erro ao tentar cadastrar um usuário com email inválido
-#     Dado que acessei a página de cadastro
-#     Quando o usuário preencher um nome válido
-#     E preencher um email inválido "<email>"
-#     E preencher uma senha válida e confirmar a senha corretamente
-#     E clicar no botão de Cadastrar
-#     Então o usuário deve ver a mensagem de erro "Não foi possível cadastrar o usuário."
-#     [Teardown] Limpar Campos
-#     [Arguments] ${email}
-#     [Template]
-#     | jey@          |
-#     | jey@gmail     |
-#     | @gmail.com    |
-#     | jey@.com      |
+CT002 - Deve exibir mensagem de erro ao tentar cadastrar um usuário com email inválido
+    Dado que acessei a página de cadastro
+    Quando preencher um email inválido
+    E preencher as demais informações corretamente
+    Então o usuário deve ver a mensagem de erro que o email é inválido
 
-# CT003 - Deve exibir mensagem de erro ao tentar cadastrar um usuário com senha inválida
-#     Dado que acessei a página de cadastro
-#     Quando o usuário preencher um nome válido
-#     E preencher um email válido
-#     E preencher os campos de senha e confirmação de senha com uma senha inválida "<senha>"
-#     E clicar no botão de Cadastrar
-#     Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro "<mensagemDeErro>"
-#     [Teardown] Limpar Campos
-#     [Arguments] ${senha} ${mensagemDeErro}
-#     [Template]
-#     | 12345             | A senha deve ter pelo menos 6 dígitos. |
-#     | 1                 | A senha deve ter pelo menos 6 dígitos. |
-#     | 1234567891023     | A senha deve ter no máximo 12 dígitos. |
-#     | 12345678910123468 | A senha deve ter no máximo 12 dígitos. |
+CT003 - Deve exibir mensagem de erro ao tentar cadastrar um usuário com senha inválida menor que 6 dígitos
+    Dado que acessei a página de cadastro
+    Quando o usuário preencher um nome válido
+    E preencher um email válido
+    E preencher os campos de senha e confirmação de senha com uma senha menor que 6 dígitos
+    Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro que a senha deve ter pelo menos 6 dígitos
+ 
+CT004 - Deve exibir mensagem de erro ao tentar cadastrar um usuário com senha inválida maior que 12 dígitos
+    Dado que acessei a página de cadastro
+    Quando o usuário preencher um nome válido
+    E preencher um email válido
+    E preencher os campos de senha e confirmação de senha com uma senha maior que 12 dígitos
+    Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro que a senha deve ter no máximo 12 dígitos
 
 # CT004 - Deve exibir mensagem de erro ao confirmar a senha incorretamente
 #     Dado que acessei a página de cadastro
