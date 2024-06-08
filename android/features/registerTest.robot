@@ -35,21 +35,19 @@ CT004 - Deve exibir mensagem de erro ao tentar cadastrar um usuário com senha i
     E preencher os campos de senha e confirmação de senha com uma senha maior que 12 dígitos
     Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro que a senha deve ter no máximo 12 dígitos
 
-# CT004 - Deve exibir mensagem de erro ao confirmar a senha incorretamente
-#     Dado que acessei a página de cadastro
-#     Quando o usuário preencher um nome válido
-#     E preencher um email válido
-#     E preencher uma senha válida
-#     E confirmar a senha incorretamente
-#     E clicar no botão de Cadastrar
-#     Então o cadastro não deve ser realizado e o usuário deve ver a mensagem que as senhas devem ser iguais.
-#     [Teardown] Limpar Campos
+CT004 - Deve exibir mensagem de erro ao confirmar a senha incorretamente
+    Dado que acessei a página de cadastro
+    Quando o usuário preencher um nome válido
+    E preencher um email válido
+    E preencher uma senha válida
+    E confirmar a senha incorretamente
+    Então o cadastro não deve ser realizado e o usuário deve ver a mensagem que as senhas devem ser iguais.
 
-# CT005 - Deve exibir mensagem de erro ao cadastrar um usuário com email já cadastrado
-#     Dado que acessei a página de cadastro
-#     Quando o usuário preencher um nome válido
-#     E preencher um email já cadastrado
-#     E preencher uma senha válida e confirmar a senha corretamente
-#     E clicar no botão de Cadastrar
-#     Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro que o e-mail já está cadastrado
-#     [Teardown] Limpar Campos
+CT005 - Deve exibir mensagem de erro ao cadastrar um usuário com email já cadastrado
+    Dado que existe um usuario cadastrado
+    Quando o usuário preencher um nome válido
+    E preencher um email já cadastrado
+    E preencher uma senha válida 
+    E confirmar a senha corretamente
+    Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro que o e-mail já está cadastrado
+
