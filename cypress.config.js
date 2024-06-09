@@ -9,6 +9,7 @@ const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
 
 module.exports = defineConfig({
   e2e: {
+    baseUrl: "https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/",
     specPattern: "cypress/e2e/**/*.feature",
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);
