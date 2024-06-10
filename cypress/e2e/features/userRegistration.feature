@@ -8,6 +8,13 @@ Cenario: Cadastro de usuário
     Quando eu informar os dados de cadastro corretamente
     Então uma mensagem de sucesso deve ser exibida
 
+Cenario: Cadastro de usuário com email ja existente
+
+    Dado que eu acesso o site
+    E quero registrar um usuário
+    Quando eu informar os dados de email ja existente
+    Então uma mensagem de email ja existente deve ser exibida
+
 Cenario: Cadastro de usuário com campo email invalido
 
     Dado que eu acesso o site
@@ -27,13 +34,6 @@ Cenario: Cadastro de usuário com campo senha e confirmar senha diferentes
     E quero registrar um usuário
     Quando eu informar os dados com senha e confirmar senha diferentes
     Então uma mensagem de senhas diferentes deve ser exibida
-
-Cenario: Cadastro de usuário com email ja existente
-
-    Dado que eu acesso o site
-    E quero registrar um usuário
-    Quando eu informar os dados de email ja existente
-    Então uma mensagem de email ja existente deve ser exibida
 
 Cenario: Cadastro de usuário com campos obrigatórios vazios
 
@@ -60,4 +60,32 @@ Cenario: Cadastro de email de usuário com caracteres especiais
     Dado que eu acesso o site
     E quero registrar um usuário
     Quando eu informar um email com caracteres especiais
+    Então uma mensagem de sucesso deve ser exibida
+
+Cenario: Cadastro de senha de usuário com caracteres especiais
+
+    Dado que eu acesso o site
+    E quero registrar um usuário
+    Quando eu informar uma senha com caracteres especiais
+    Então uma mensagem de sucesso deve ser exibida
+
+Cenario: Cadastro de nome com mais de 100 caracteres
+
+    Dado que eu acesso o site
+    E quero registrar um usuário
+    Quando eu informar um nome com mais de 100 caracteres
+    Então uma mensagem de máximo de 100 deve ser exibida
+
+Cenario: Cadastro de nome com de 99 caracteres
+
+    Dado que eu acesso o site
+    E quero registrar um usuário
+    Quando eu informar um nome com 99 caracteres
+    Então uma mensagem de sucesso deve ser exibida
+
+Cenario: Cadastro de nome com 100 caracteres
+
+    Dado que eu acesso o site
+    E quero registrar um usuário
+    Quando eu informar um nome com 100 caracteres
     Então uma mensagem de sucesso deve ser exibida

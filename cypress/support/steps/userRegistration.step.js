@@ -80,6 +80,42 @@ When("eu informar um email com caracteres especiais", () => {
   userRegistrationPage.Submit();
 });
 
+When("eu informar uma senha com caracteres especiais", () => {
+
+  userRegistrationPage.typeName(faker.person.fullName())
+  userRegistrationPage.typeEmail(faker.internet.email())
+  userRegistrationPage.typePassword("!#$$%^&*")
+  userRegistrationPage.typeConfirmPassword("!#$$%^&*")
+  userRegistrationPage.Submit();
+});
+
+When("eu informar um nome com mais de 100 caracteres", () => {
+
+  userRegistrationPage.typeName("pneumoultramicroscopicossilicovulcanoconiosesquelepticosilicovulcanoconiose alcoilbenzenossulfonático")
+  userRegistrationPage.typeEmail(faker.internet.email())
+  userRegistrationPage.typePassword("123456")
+  userRegistrationPage.typeConfirmPassword("123456")
+  userRegistrationPage.Submit();
+});
+
+When("eu informar um nome com 99 caracteres", () => {
+
+  userRegistrationPage.typeName("pneumoultramicroscopicossilicovulcanoconiosesquelepticosilicovulcanoconiose amidoazobenzossulfônico")
+  userRegistrationPage.typeEmail(faker.internet.email())
+  userRegistrationPage.typePassword("123456")
+  userRegistrationPage.typeConfirmPassword("123456")
+  userRegistrationPage.Submit();
+});
+
+When("eu informar um nome com 100 caracteres", () => {
+
+  userRegistrationPage.typeName("pneumoultramicroscopicossilicovulcanoconiosesquelepticosilicovulcanoconiose cineangiocoronariografia")
+  userRegistrationPage.typeEmail(faker.internet.email())
+  userRegistrationPage.typePassword("123456")
+  userRegistrationPage.typeConfirmPassword("123456")
+  userRegistrationPage.Submit();
+});
+
 Then("uma mensagem de sucesso deve ser exibida", () => {
 
   cy.get(".error-message").should("contain", "Cadastro realizado!");
@@ -103,6 +139,11 @@ Then("uma mensagem de email ja existente deve ser exibida", () => {
 });
 
 Then("uma mensagem de preenchimento obrigatório deve ser exibida", () => {
+
+  cy.get(".input-error").should("be.visible");
+});
+
+Then("uma mensagem de máximo de 100 deve ser exibida", () => {
 
   cy.get(".input-error").should("be.visible");
 });
