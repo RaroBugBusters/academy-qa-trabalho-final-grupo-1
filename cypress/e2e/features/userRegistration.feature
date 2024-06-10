@@ -5,15 +5,18 @@ Cenario: Cadastro de usuário
 
     Dado que eu acesso o site
     E quero registrar um usuário
-    Quando eu informar os dados de cadastro
+    Quando eu informar os dados de cadastro corretamente
     Então uma mensagem de sucesso deve ser exibida
-@ignore
-Cenario: Cadastro de usuário com campos em branco
+
+Cenario: Cadastro de usuário com campo email invalido
 
     Dado que eu acesso o site
     E quero registrar um usuário
-    Quando eu informar os dados de cadastro em branco
+    Quando eu informar o dado de <nome>, <email> invalido, <senha> e <confirmarSenha>
     Então uma mensagem de erro deve ser exibida
     Exemplos:
-    | nome | email | senha | confirmar senha |
-    
+    | nome         | email              | senha    | confirmarSenha  |
+    | "BugBusters" | "bugbusters@.com"  | "123456" | "123456"        |
+    | "BugBusters" | "bugbusters.com"   | "123456" | "123456"        |
+    | "BugBusters" | "bugbusters@qa"    | "123456" | "123456"        |
+    | "BugBusters" | "@qa.com"          | "123456" | "123456"        |

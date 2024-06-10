@@ -1,5 +1,5 @@
 import { Before, Given, Then, When, } from "@badeball/cypress-cucumber-preprocessor";
-import { UserRegistrationPage } from "../pages/userRegistration.page.js";
+import UserRegistrationPage from "../pages/UserRegistration.page";
 import { faker } from "@faker-js/faker";
 
 const userRegistrationPage = new UserRegistrationPage();
@@ -16,16 +16,33 @@ When("quero registrar um usuário", () => {
   userRegistrationPage.registerUser();
 });
 
-When("eu informar os dados de cadastro em branco", () => {
+When("eu informar os dados de cadastro corretamente", () => {
 
-  userRegistrationPage
-    .typeName(faker.internet.fullName())
-    .typeEmail(faker.internet.email())
-    .typePassword("123456")
-    .typeConfirmPassword("123456")
-    .clickSubmit();
+  userRegistrationPage.typeName(faker.person.fullName())
+  userRegistrationPage.typeEmail(faker.internet.email())
+  userRegistrationPage.typePassword("123456")
+  userRegistrationPage.typeConfirmPassword("123456")
+  userRegistrationPage.Submit();
 });
 
-Then("uma mensagem de sucesso deve ser exibida");
-  cy.get(".error-message").shouldContain("Cadastro realizado!");
+When("eu informar o dado de {string}, {string} invalido, {string} e {string}", (nome, email, senha, confirmarSenha) => {
+
+  userRegistrationPage.typeName(nome)
+  userRegistrationPage.typeEmail(email)
+  userRegistrationPage.typePassword(senha)
+  userRegistrationPage.typeConfirmPassword(confirmarSenha)
+  userRegistrationPage.Submit();
+});
+
+Then("uma mensagem de sucesso deve ser exibida", () => {
+
+  cy.get(".error-message").should("contain", "Cadastro realizado!");
   cy.get("div.modal-actions > button").click();
+
+});
+
+Then("uma mensagem de erro deve ser exibida", () => {
+
+  cy.get(".input-error").should("contain", "Informe um e-mail válido.");
+
+});
