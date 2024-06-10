@@ -47,3 +47,17 @@ Cenario: Cadastro de usuário com campos obrigatórios vazios
     | "BugBusters" | ""                   | "123456"    | "123456"         |
     | "BugBusters" | "bugbusters@qa.com"  | ""          | "123456"         |
     | "BugBusters" | "bugbusters@qa.com"  | "123456"    | ""               |
+
+Cenario: Cadastro de nome de usuário com caracteres especiais
+
+    Dado que eu acesso o site
+    E quero registrar um usuário
+    Quando eu informar um nome com caracteres especiais
+    Então uma mensagem de sucesso deve ser exibida
+
+Cenario: Cadastro de email de usuário com caracteres especiais
+
+    Dado que eu acesso o site
+    E quero registrar um usuário
+    Quando eu informar um email com caracteres especiais
+    Então uma mensagem de sucesso deve ser exibida

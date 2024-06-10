@@ -62,6 +62,24 @@ When("eu informar os dados de {string}, {string}, {string} e {string} vazios", (
   userRegistrationPage.Submit();
 });
 
+When("eu informar um nome com caracteres especiais", () => {
+
+  userRegistrationPage.typeName("!@#$$%^&*()")	
+  userRegistrationPage.typeEmail(faker.internet.email())
+  userRegistrationPage.typePassword("123456")
+  userRegistrationPage.typeConfirmPassword("123456")
+  userRegistrationPage.Submit();
+});
+
+When("eu informar um email com caracteres especiais", () => {
+
+  userRegistrationPage.typeName(faker.person.fullName())
+  userRegistrationPage.typeEmail("!#$$%^&*@" + faker.lorem.word() + ".com")
+  userRegistrationPage.typePassword("123456")
+  userRegistrationPage.typeConfirmPassword("123456")
+  userRegistrationPage.Submit();
+});
+
 Then("uma mensagem de sucesso deve ser exibida", () => {
 
   cy.get(".error-message").should("contain", "Cadastro realizado!");
