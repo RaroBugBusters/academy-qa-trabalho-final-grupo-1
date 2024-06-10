@@ -1,24 +1,15 @@
 import { faker } from "@faker-js/faker";
 
-Cypress.Commands.add('criaUsuario', () => {
-  const fakeUserData = {
+Cypress.Commands.add("criaMockUsuario", () => {
+  return {
     name: faker.person.fullName(),
     email: faker.internet.email(),
-    password: faker.internet.password({ length: 6 })
-};
-return cy.request({
-    method: 'POST',
-    url: '/users',
-    body: fakeUserData
-})
-    .then((response) => {
-        expect(response.status).to.equal(201);
-        return fakeUserData;
-  });
+    password: "senha123",
+  };
 });
 
 Cypress.Commands.add("logaUsuario", () => {
-  cy.criaUsuario().then((usuarioCriado) => {
+  cy.criaMockUsuario().then((usuarioCriado) => {
     cy.request("POST", "/users", usuarioCriado)
       .then(({ body }) => {
         Cypress.env("usuarioAtual", body);
@@ -35,35 +26,31 @@ Cypress.Commands.add("logaUsuario", () => {
 });
 
 Cypress.Commands.add("logaUsuarioAdmin", () => {
-  cy.criaUsuario().then((usuarioCriado) => {
-    cy.request("POST", "/users", usuarioCriado)
-      .then(({ body }) => {
-        body.type = 1;
-        Cypress.env("usuarioAtual", body);
+  cy.logaUsuario().then(() => {
+    cy.request({
+      method: "PATCH",
+      url: "/users/admin",
+      headers: {
+        Authorization: `Bearer ${Cypress.env("accessToken")}`,
+      },
+    });
+  });
+});
 
-        cy.request("POST", `/auth/login`, {
-          email: usuarioCriado.email,
-          password: usuarioCriado.password,
-        });
-      })
-      .then(({ body }) => {
-        Cypress.env("accessToken", body.accessToken);
-      })
-      .then(() => {
-        cy.request({
-          method: "PATCH",
-          url: "/users/admin",
-          headers: {
-            Authorization: `Bearer ${Cypress.env("accessToken")}`,
-          },
-        });
-      });
+Cypress.Commands.add("logaUsuarioCritico", () => {
+  cy.logaUsuario().then(() => {
+    cy.request({
+      method: "PATCH",
+      url: "/users/apply",
+      headers: {
+        Authorization: `Bearer ${Cypress.env("accessToken")}`,
+      },
+    });
   });
 });
 
 Cypress.Commands.add("deletaUsuario", () => {
-  const id = Cypress.env("usuarioAtual").id;
-  const type = Cypress.env("usuarioAtual").type;
+  const { type, id } = Cypress.env("usuarioAtual");
 
   if (type === 0) {
     cy.request({
@@ -72,16 +59,22 @@ Cypress.Commands.add("deletaUsuario", () => {
       headers: {
         Authorization: `Bearer ${Cypress.env("accessToken")}`,
       },
+    }).then(() => {
+      Cypress.env("usuarioAtual", null);
+      Cypress.env("accessToken", null);
     });
   }
 
-  if (type === 1) {
+  if (type === 1 && id) {
     cy.request({
       method: "DELETE",
       url: `/users/${id}`,
       headers: {
         Authorization: `Bearer ${Cypress.env("accessToken")}`,
       },
+    }).then(() => {
+      Cypress.env("usuarioAtual", null);
+      Cypress.env("accessToken", null);
     });
   }
 });
