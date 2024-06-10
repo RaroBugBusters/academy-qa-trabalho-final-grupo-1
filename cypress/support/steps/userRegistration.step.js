@@ -20,7 +20,7 @@ When("quero registrar um usuário", () => {
 When("eu informar os dados de cadastro corretamente", () => {
 
   userRegistrationPage.typeName(faker.person.fullName())
-  userRegistrationPage.typeEmail(Email)
+  userRegistrationPage.typeEmail(mail)
   userRegistrationPage.typePassword("123456")
   userRegistrationPage.typeConfirmPassword("123456")
   userRegistrationPage.Submit();
@@ -53,7 +53,7 @@ When("eu informar os dados de email ja existente", () => {
   userRegistrationPage.Submit();
 });
 
-When("eu informar os dados de <Nome>, <Email>, <Senha> e <ConfirmarSenha> vazios", (Nome, Email, Senha, ConfirmarSenha) => {
+When("eu informar os dados de {string}, {string}, {string} e {string} vazios", (Nome, Email, Senha, ConfirmarSenha) => {
 
   userRegistrationPage.typeName(Nome)
   userRegistrationPage.typeEmail(Email)
@@ -80,7 +80,8 @@ Then("uma mensagem de senhas diferentes deve ser exibida", () => {
 
 Then("uma mensagem de email ja existente deve ser exibida", () => {
 
-  cy.get(".input-error").should("contain", "E-mail ja existente.");
+  cy.get(".error-message").should("contain", "E-mail já cadastrado. Utilize outro e-mail");
+  cy.get("div.modal-actions > button").click();
 });
 
 Then("uma mensagem de preenchimento obrigatório deve ser exibida", () => {

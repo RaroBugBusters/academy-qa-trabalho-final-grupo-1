@@ -13,19 +13,31 @@ export default class UserRegistrationPage {
     }
 
     typeName(name) {
-        cy.get(this.inputName).type(name)
+        cy.get(this.inputName).clear()
+        if (name !== "") {
+            cy.get(this.inputName).type(name)
+        }
     }
 
     typeEmail(email) {
-        cy.get(this.inputEmail).type(email)
+        cy.get(this.inputEmail).clear()
+        if (email !== "") {
+            cy.get(this.inputEmail).type(email)
+        }
     }
 
     typePassword(password) {
-        cy.get(this.inputPassword).type(password)
+        cy.get(this.inputPassword).clear()
+        if (password !== "") {
+            cy.get(this.inputPassword).type(password)
+        }
     }
 
     typeConfirmPassword(confirmPassword) {
-        cy.get(this.inputConfirmPassword).type(confirmPassword)
+        cy.get(this.inputConfirmPassword).clear()
+        if (confirmPassword !== "") {
+            cy.get(this.inputConfirmPassword).type(confirmPassword)
+        }
     }
 
     Submit() {
