@@ -1,11 +1,20 @@
 import { faker } from "@faker-js/faker";
 
-Cypress.Commands.add("criaUsuario", () => {
-  return {
+Cypress.Commands.add('criaUsuario', () => {
+  const fakeUserData = {
     name: faker.person.fullName(),
     email: faker.internet.email(),
-    password: "senha123",
-  };
+    password: faker.internet.password({ length: 6 })
+};
+return cy.request({
+    method: 'POST',
+    url: '/users',
+    body: fakeUserData
+})
+    .then((response) => {
+        expect(response.status).to.equal(201);
+        return fakeUserData;
+  });
 });
 
 Cypress.Commands.add("logaUsuario", () => {
