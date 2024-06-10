@@ -1,9 +1,11 @@
 import { filmesFixture } from "../../fixture/filmesFixture";
 
-const verificaFilmes = (responseFilmes) => {
+const verificaListaDeFilmes = (responseFilmes) => {
   const { body, status } = responseFilmes;
   const filmes = body.slice(0, 10);
-  const filmeType = Object.values(filmesFixture.filme).map((value) => typeof value);
+  const filmeType = Object.values(filmesFixture.filme).map(
+    (value) => typeof value,
+  );
 
   expect(status).to.eq(200);
   expect(body).to.be.an("array");
@@ -12,12 +14,15 @@ const verificaFilmes = (responseFilmes) => {
     expect(filme).to.have.property("title");
     expect(filme).to.have.property("description");
     expect(filme).to.have.property("totalRating");
+    expect(filme).to.have.property("id");
   });
 
   filmes.forEach((filme) => {
     Object.entries(filmesFixture.filme).forEach(([key], i) => {
       if (key === "totalRating") {
-        expect(filme[key]).to.satisfy((val) => val === null || typeof val === filmeType[i]);
+        expect(filme[key]).to.satisfy(
+          (val) => val === null || typeof val === filmeType[i],
+        );
       } else {
         expect(filme[key]).to.be.a(filmeType[i]);
       }
@@ -27,28 +32,18 @@ const verificaFilmes = (responseFilmes) => {
 
 describe("Listagem de filmes", () => {
   describe("Usuário não logado", () => {
-    let filme;
-
-    beforeEach(() => {
-      cy.criaFilme().then((filmeCriado) => {
-        filme = filmeCriado;
-      });
-    });
-
     it("Deve ser retornado a lista de filmes", () => {
-      cy.request("GET", "/movies").then(verificaFilmes);
+      cy.request("GET", "/movies").then(verificaListaDeFilmes);
     });
   });
 
   describe("Usuário logado", () => {
-    let filme;
-
     beforeEach(() => {
-      cy.logaUsuario().then(() => {
-        cy.criaFilme().then((filmeCriado) => {
-          filme = filmeCriado;
-        });
-      });
+      cy.logaUsuario().then(() => {});
+    });
+
+    afterEach(() => {
+      cy.deletaUsuario().then(() => {});
     });
 
     it("Deve ser retornado a lista de filmes", () => {
@@ -58,7 +53,7 @@ describe("Listagem de filmes", () => {
         headers: {
           Authorization: `Bearer ${Cypress.env("accessToken")}`,
         },
-      }).then(verificaFilmes);
+      }).then(verificaListaDeFilmes);
     });
   });
 });
