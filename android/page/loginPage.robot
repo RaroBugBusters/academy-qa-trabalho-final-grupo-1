@@ -23,9 +23,10 @@ Dado que estou cadastrado
   Set Global Variable    ${USER_NOME}     ${FAKER_NOME}
   Set Global Variable    ${USER_EMAIL}    ${FAKER_EMAIL}
 
-  &{headers}=  Create Dictionary  Content-Type=application/json
-  &{body}=   Create Dictionary    name=${FAKER_NOME}  email=${USER_EMAIL}  password=${USER_SENHA}
-  ${response}=  POST  url=${HOST}/${POST_USER} ${headers}=&{headers}  json=&{body}
+  ${body}=   Create Dictionary    name=${FAKER_NOME}  email=${USER_EMAIL}  password=${USER_SENHA}
+
+  ${response}=  POST On Session    alias=CreateUser    url=${HOST}/api/users  json=&{body}
+  Log To Console    ${response}
   Should Be Equal As Numbers    ${response.status_code}    201
 
 Quando acesso a pagina de login

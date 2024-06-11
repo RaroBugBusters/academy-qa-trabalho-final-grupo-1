@@ -16,7 +16,7 @@ CT002 - Deve ser exibida uma mensagem de erro ao tentar logar com email inválid
    Quando acesso a pagina de login
    E preencher o email com um e-mail válido
    E preencher a senha com uma senha válida
-   Então devo ver a mensagem de erro falha ao autenticar
+   # Então devo ver a mensagem de erro falha ao autenticar
 
 CT003 - Deve ser exibida uma mensagem de erro ao tentar logar com senha inválida
    Dado que estou cadastrado
