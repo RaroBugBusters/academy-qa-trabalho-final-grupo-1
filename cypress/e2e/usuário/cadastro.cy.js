@@ -4,7 +4,10 @@ describe('Testes Registro de Usuários', function () {
     var randomPassword;
 
     it('Criar um usuário preenchendo os campos obrigatórios deve retornar sucesso', function () {
-        cy.logaUsuario();
+        cy.criaUsuario()
+        .then((response) => {
+            expect(response.status).to.equal(201);
+          });
     });
 
     it('O usuário criado deve ser tipo 0 (administrador)', function () {
