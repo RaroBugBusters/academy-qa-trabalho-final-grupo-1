@@ -37,7 +37,7 @@ describe("Atualização de filmes", () => {
           Authorization: `Bearer ${Cypress.env("accessToken")}`,
         },
       }).then((response) => {
-        const { body, status } = response;
+        const { status } = response;
 
         expect(status).to.eq(204);
       });
