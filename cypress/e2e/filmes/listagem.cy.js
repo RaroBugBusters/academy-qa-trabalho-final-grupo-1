@@ -1,10 +1,10 @@
-import { filmesFixture } from "../../fixture/filmesFixture";
+import { filmeFixture } from "../fixture/filmes/filmeFixture";
 
 const verificaListaDeFilmes = (responseFilmes) => {
   const { body, status } = responseFilmes;
   const filmes = body.slice(0, 10);
-  const filmeType = Object.values(filmesFixture.filme).map(
-    (value) => typeof value,
+  const filmeType = Object.values(filmeFixture.filme).map(
+    (value) => typeof value
   );
 
   expect(status).to.eq(200);
@@ -18,10 +18,10 @@ const verificaListaDeFilmes = (responseFilmes) => {
   });
 
   filmes.forEach((filme) => {
-    Object.entries(filmesFixture.filme).forEach(([key], i) => {
+    Object.entries(filmeFixture.filme).forEach(([key], i) => {
       if (key === "totalRating") {
         expect(filme[key]).to.satisfy(
-          (val) => val === null || typeof val === filmeType[i],
+          (val) => val === null || typeof val === filmeType[i]
         );
       } else {
         expect(filme[key]).to.be.a(filmeType[i]);
