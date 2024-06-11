@@ -1,4 +1,4 @@
-export const filmesFixture = {
+export const filmeFixture = {
   filme: {
     id: 0,
     title: "string",
