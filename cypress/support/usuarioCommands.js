@@ -18,7 +18,7 @@ Cypress.Commands.add("criaUsuario", () => {
     method: 'POST',
     url: '/users',
     body: fakeUserData,
-  })
+  });
 });
 
 Cypress.Commands.add("logaUsuario", () => {
