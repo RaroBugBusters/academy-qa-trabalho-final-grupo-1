@@ -2,6 +2,9 @@
 
 Resource    ../../base.robot
 
+Test Setup    Abrir App
+Test Teardown    Teardown
+
 *** Test Cases ***
 
 CT001 - Deve ser possivel realizar login com credenciais válidas
