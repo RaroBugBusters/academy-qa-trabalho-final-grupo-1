@@ -44,3 +44,15 @@ Funcionalidade: Gerenciamento de conta
    E preencher os campos de senha e confirmação de senha corretamente
    E clicar em Salvar
    Então devo visualizar a mensagem que a informação foi alterada com sucesso
+  
+  Esquema do Cenário: CT008 - Deve exibir mensagem de erro ao tentar alterar a senha com menos de 6 dígitos
+   E que acesso a pagina de gerenciamento de conta
+   E os campos de senha e confirmação de senha estão desabilitados
+   Quando clicar em Alterar senha
+   E preencher os campos de senha e confirmação de senha incorretamente "<senha>"
+   E clicar em Salvar
+   Então devo visualizar a mensagem de erro que a senha deve ter pelo menos 6 dígitos
+   Exemplos:
+    | senha |
+    | 12345 |
+    | 1     |
