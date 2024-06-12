@@ -8,3 +8,9 @@ Funcionalidade: Gerenciamento de conta
    E que acesso a pagina de gerenciamento de conta
    Então devo visualizar as minhas informações
    E o tipo de usuário deve ser "Comum"
+
+  Cenário: CT002 - Deve ser possivel visualizar as informações no gerenciamento de conta com o tipo de usuário Administrador
+   Quando o tipo de usuário for do tipo "1"
+   E que acesso a pagina de gerenciamento de conta
+   Então devo visualizar as minhas informações
+   E o tipo de usuário deve ser "Administrador"
