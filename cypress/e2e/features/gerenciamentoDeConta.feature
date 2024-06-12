@@ -56,3 +56,15 @@ Funcionalidade: Gerenciamento de conta
     | senha |
     | 12345 |
     | 1     |
+
+  Esquema do Cenário: CT009 - Deve exibir mensagem de erro ao tentar alterar a senha com senha maior que 12 dígitos
+   E que acesso a pagina de gerenciamento de conta
+   E os campos de senha e confirmação de senha estão desabilitados
+   Quando clicar em Alterar senha
+   E preencher os campos de senha e confirmação de senha incorretamente "<senha>"
+   E clicar em Salvar
+   Então devo visualizar a mensagem de erro que a senha deve ter no máximo 12 dígitos
+   Exemplos:
+    | senha            |
+    | 1234567890123    |
+    | 1234567890123456 |
