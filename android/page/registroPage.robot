@@ -16,8 +16,8 @@ ${TEXTO_EMAIL_CADASTRADO}       E-mail já cadastrado. Utilize outro e-mail.
 
 #input
 ${INPUT_NOME}         xpath=//android.widget.ImageView/android.widget.EditText[1]
-${INPUT_EMAIL}        xpath=//android.widget.ImageView/android.widget.EditText[2]
-${INPUT_SENHA}        xpath=//android.widget.ImageView/android.widget.EditText[3]
+${INPUT_EMAIL_REGISTRO}        xpath=//android.widget.ImageView/android.widget.EditText[2]
+${INPUT_SENHA_REGISTRO}        xpath=//android.widget.ImageView/android.widget.EditText[3]
 ${INPUT_CONF_SENHA}   xpath=//android.widget.ImageView/android.widget.EditText[4]
 
 #botão
@@ -48,9 +48,9 @@ Dado que existe um usuario cadastrado
     Clica no elemento e insere o texto    ${INPUT_NOME}    ${FAKER_NOME}
     ${FAKER_EMAIL}=    FakerLibrary.Email
     Set Global Variable    ${EMAIL_CADASTRADO}    ${FAKER_EMAIL}
-    Clica no elemento e insere o texto    ${INPUT_EMAIL}    ${FAKER_EMAIL}
+    Clica no elemento e insere o texto    ${INPUT_EMAIL_REGISTRO}    ${FAKER_EMAIL}
     ${SENHA}=    Set Variable    123456
-    Clica no elemento e insere o texto    ${INPUT_SENHA}         ${SENHA}
+    Clica no elemento e insere o texto    ${INPUT_SENHA_REGISTRO}         ${SENHA}
     Clica no elemento e insere o texto    ${INPUT_CONF_SENHA}    ${SENHA}
     Click Element                    ${BTN_REGISTRAR}
     Aguarda o elemento e faz o clique    ${TEXTO_PAGINA_INICIAL}    ${MENU_HAMBURGUER}  
@@ -62,38 +62,38 @@ Quando o usuário preencher um nome válido
     Clica no elemento e insere o texto    ${INPUT_NOME}    ${FAKER_NOME}
 
 Quando preencher um email inválido
-    Clica no elemento e insere o texto    ${INPUT_EMAIL}    emailinvalido
+    Clica no elemento e insere o texto    ${INPUT_EMAIL_REGISTRO}    emailinvalido
 
 E preencher um email válido
     ${FAKER_EMAIL}=    FakerLibrary.Email
-    Clica no elemento e insere o texto    ${INPUT_EMAIL}    ${FAKER_EMAIL}
+    Clica no elemento e insere o texto    ${INPUT_EMAIL_REGISTRO}    ${FAKER_EMAIL}
 
 
 E preencher uma senha válida
     ${SENHA}=    Set Variable    123456
-    Clica no elemento e insere o texto    ${INPUT_SENHA}    ${SENHA}
+    Clica no elemento e insere o texto    ${INPUT_SENHA_REGISTRO}    ${SENHA}
 
 E preencher as demais informações corretamente
     ${FAKER_NOME}=    FakerLibrary.name
     Clica no elemento e insere o texto    ${INPUT_NOME}    ${FAKER_NOME}
     ${SENHA}=    Set Variable    123456
-    Clica no elemento e insere o texto    ${INPUT_SENHA}    ${SENHA}
+    Clica no elemento e insere o texto    ${INPUT_SENHA_REGISTRO}    ${SENHA}
     Clica no elemento e insere o texto    ${INPUT_CONF_SENHA}    ${SENHA}
 
 E confirmar a senha corretamente
     Clica no elemento e insere o texto    ${INPUT_CONF_SENHA}    123456
 
 E preencher um email já cadastrado
-    Clica no elemento e insere o texto    ${INPUT_EMAIL}    ${EMAIL_CADASTRADO}
+    Clica no elemento e insere o texto    ${INPUT_EMAIL_REGISTRO}    ${EMAIL_CADASTRADO}
 
 E preencher os campos de senha e confirmação de senha com uma senha menor que 6 dígitos
     ${SENHA}=    Set Variable    12345
-    Clica no elemento e insere o texto    ${INPUT_SENHA}         ${SENHA}
+    Clica no elemento e insere o texto    ${INPUT_SENHA_REGISTRO}         ${SENHA}
     Clica no elemento e insere o texto    ${INPUT_CONF_SENHA}    ${SENHA}
 
 E preencher os campos de senha e confirmação de senha com uma senha maior que 12 dígitos
     ${SENHA}=    Set Variable    12345678910123456
-    Clica no elemento e insere o texto    ${INPUT_SENHA}         ${SENHA}
+    Clica no elemento e insere o texto    ${INPUT_SENHA_REGISTRO}         ${SENHA}
     Clica no elemento e insere o texto    ${INPUT_CONF_SENHA}    ${SENHA}
 
 Então o cadastro deve ser realizado com sucesso e o usuário deve ver a mensagem de sucesso
