@@ -26,3 +26,7 @@ Funcionalidade: Gerenciamento de conta
    Quando realizar o logout
    E acessar a página de gerenciamento de conta sem estar logado
    Então devo ser redirecionado para página de login
+  
+  Cenário: CT005 - Não deve ser possivel alterar o email no gerenciamento de conta
+   E que acesso a pagina de gerenciamento de conta
+   Então o campo de email deve estar desabilitado
