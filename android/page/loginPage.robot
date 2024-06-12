@@ -13,6 +13,11 @@ ${BTN_LOGIN}      xpath=//android.widget.Button[@content-desc="Login"]
 ${INPUT_EMAIL_LOGIN}      xpath=//android.widget.ImageView/android.widget.EditText[1]
 ${INPUT_SENHA_LOGIN}      xpath=//android.widget.ImageView/android.widget.EditText[2]
 
+${ERROR_EMAIL_INVALIDO}    xpath=//android.view.View[@content-desc="Informe um e-mail válido."]
+${ERROR_SENHA_INVALIDA}    xpath=//android.view.View[@content-desc="Usuário ou senha inválidos."]
+${ERROR_EMAIL_SEM_PREENCHIMENTO}    xpath=//android.view.View[@content-desc="Informe o e-mail."]
+${ERROR_SENHA_SEM_PREENCHIMENTO}    xpath=//android.view.View[@content-desc="Informe uma senha."]
+
 ${TEXTO_LOGIN_SUCESSO}    xpath=//android.view.View[@content-desc="Login realizado!"]
 
 *** Keywords ***
@@ -36,7 +41,6 @@ Dado que estou cadastrado
 Quando acesso a pagina de login
   Aguarda o elemento e faz o clique  ${MENU_HAMBURGUER}  ${MENU_HAMBURGUER}
   Aguarda o elemento e faz o clique  ${MENU_LOGIN}       ${MENU_LOGIN}
-  Aguarda o elemento e faz o clique  ${BTN_LOGIN}        ${BTN_LOGIN}
 
 E preencher o email com um e-mail válido
   Clica no elemento e insere o texto  ${INPUT_EMAIL_LOGIN}  ${USER_EMAIL}
@@ -44,16 +48,42 @@ E preencher o email com um e-mail válido
 E preencher a senha com uma senha válida
   Clica no elemento e insere o texto  ${INPUT_SENHA_LOGIN}  ${USER_SENHA}
 
+E preencher o email com um e-mail inválido
+  Clica no elemento e insere o texto  ${INPUT_EMAIL_LOGIN}  j@gm342123
+
+E preencher a senha com uma senha inválida
+  Clica no elemento e insere o texto  ${INPUT_SENHA_LOGIN}  123
+
+E não preencher o email com um e-mail
+  Click Element    ${INPUT_EMAIL_LOGIN}
+  Hide Keyboard
+
+E não preencher a senha com uma senha
+  Click Element    ${INPUT_SENHA_LOGIN}
+  Hide Keyboard
+  
 Então devo ser autenticado e ser redirecionado para a página inicial
   Click Element    ${BTN_LOGIN}
-  Wait Until Element Is Visible    ${TEXTO_LOGIN_SUCESSO}
+  Aguarda o elemento estar visível e verifica o texto    ${TEXTO_LOGIN_SUCESSO}    Login realizado!
   Page Should Contain Element      ${TEXTO_LOGIN_SUCESSO} 
-  Should Contain    ${TEXTO_LOGIN_SUCESSO}    Login realizado!
-  Wait Until Element Is Visible    ${TEXTO_PAGINA_INICIAL}
-  Page Should Contain Text         Home
+  Aguarda o elemento estar visível e verifica o texto    ${TEXTO_PAGINA_INICIAL}    Home
 
+Então devo ver a mensagem de erro de e-mail inválido
+  Click Element    ${BTN_LOGIN}
+  Aguarda o elemento estar visível e verifica o texto    ${ERROR_EMAIL_INVALIDO}    Informe um e-mail válido.
+  Page Should Contain Element      ${ERROR_EMAIL_INVALIDO}
   
+Então devo ver a mensagem de erro falha ao autenticar
+  Click Element    ${BTN_LOGIN}
+  Aguarda o elemento estar visível e verifica o texto    ${ERROR_SENHA_INVALIDA}    Usuário ou senha inválidos.
+  Page Should Contain Element      ${ERROR_SENHA_INVALIDA}
 
-  
+Então devo ver a mensagem de erro que deve ser preenchido o campo email e senha
+  Click Element    ${BTN_LOGIN}
+  Aguarda o elemento estar visível e verifica o texto    ${ERROR_EMAIL_SEM_PREENCHIMENTO}    Informe o e-mail.
+  Page Should Contain Element      ${ERROR_EMAIL_SEM_PREENCHIMENTO}
+  Aguarda o elemento estar visível e verifica o texto    ${ERROR_SENHA_SEM_PREENCHIMENTO}    Informe uma senha.
+  Page Should Contain Element      ${ERROR_SENHA_SEM_PREENCHIMENTO}
+
 
 
