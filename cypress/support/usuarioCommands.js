@@ -12,16 +12,22 @@ Cypress.Commands.add("criaUsuario", () => {
   const fakeUserData = {
     name: faker.person.fullName(),
     email: faker.internet.email(),
-    password: faker.internet.password({ length: 6 })
+    password: faker.internet.password({ length: 6 }),
   };
   cy.request({
-    method: 'POST',
-    url: '/users',
+    method: "POST",
+    url: "/users",
     body: fakeUserData,
   });
 });
 
 Cypress.Commands.add("logaUsuario", () => {
+  const usuarioAtual = Cypress.env("usuarioAtual");
+
+  if (usuarioAtual) {
+    cy.deletaUsuario();
+  }
+
   cy.criaMockUsuario().then((usuarioCriado) => {
     cy.request("POST", "/users", usuarioCriado)
       .then(({ body }) => {
@@ -62,6 +68,20 @@ Cypress.Commands.add("logaUsuarioCritico", () => {
   });
 });
 
+Cypress.Commands.add("recuperaUsuario", () => {
+  const usuarioAtual = Cypress.env("usuarioAtual");
+
+  cy.request({
+    method: "GET",
+    url: `/users/${usuarioAtual.id}`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env("accessToken")}`,
+    },
+  }).then(({ body }) => {
+    Cypress.env("usuarioAtual", body);
+  });
+});
+
 Cypress.Commands.add("deletaUsuario", () => {
   const { type, id } = Cypress.env("usuarioAtual");
 
@@ -72,13 +92,14 @@ Cypress.Commands.add("deletaUsuario", () => {
       headers: {
         Authorization: `Bearer ${Cypress.env("accessToken")}`,
       },
+      failOnStatusCode: false,
     }).then(() => {
       Cypress.env("usuarioAtual", null);
       Cypress.env("accessToken", null);
     });
   }
 
-  if (type === 1 && id) {
+  if ((type === 1 || type === 2) && id) {
     cy.request({
       method: "DELETE",
       url: `/users/${id}`,

@@ -45,23 +45,30 @@ Cypress.Commands.add("deletaFilme", () => {
 
 Cypress.Commands.add("criaERecuperaFilme", () => {
   cy.logaUsuarioAdmin().then(() => {
-    cy.criaMockFilme().then((filme) => {
+    cy.criaFilme().then((filme) => {
       cy.request({
-        method: "POST",
-        url: "/movies",
-        body: filme,
+        method: "GET",
+        url: `/movies/${filme.id}`,
         headers: {
           Authorization: `Bearer ${Cypress.env("accessToken")}`,
         },
-      }).then(() => {
-        cy.request("GET", `/movies/search?title=${filme.title}`).then(
-          ({ body }) => {
-            const filmeCriado = body[0];
-            Cypress.env("filmeAtual", filmeCriado);
-            return filmeCriado;
-          },
-        );
+      }).then((response) => {
+        const filme = response.body;
+        Cypress.env("filmeAtual", filme);
+        return filme;
       });
     });
+  });
+});
+
+Cypress.Commands.add("recuperaFilme", (filmeId) => {
+  cy.request({
+    method: "GET",
+    url: `/movies/${filmeId}`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env("accessToken")}`,
+    },
+  }).then((response) => {
+    return response.body;
   });
 });
