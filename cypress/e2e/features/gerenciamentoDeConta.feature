@@ -30,3 +30,9 @@ Funcionalidade: Gerenciamento de conta
   Cenário: CT005 - Não deve ser possivel alterar o email no gerenciamento de conta
    E que acesso a pagina de gerenciamento de conta
    Então o campo de email deve estar desabilitado
+
+  Cenário: CT006 - Deve ser possivel alterar o nome no gerenciamento de conta
+   E que acesso a pagina de gerenciamento de conta
+   Quando alterar o nome para um nome válido
+   E clicar em Salvar
+   Então devo visualizar a mensagem que a informação foi alterada com sucesso
