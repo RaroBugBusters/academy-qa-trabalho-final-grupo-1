@@ -36,3 +36,11 @@ Funcionalidade: Gerenciamento de conta
    Quando alterar o nome para um nome válido
    E clicar em Salvar
    Então devo visualizar a mensagem que a informação foi alterada com sucesso
+
+  Cenário: CT007 - Deve ser possivel alterar a senha no gerenciamento de conta
+   E que acesso a pagina de gerenciamento de conta
+   E os campos de senha e confirmação de senha estão desabilitados
+   Quando clicar em Alterar senha
+   E preencher os campos de senha e confirmação de senha corretamente
+   E clicar em Salvar
+   Então devo visualizar a mensagem que a informação foi alterada com sucesso
