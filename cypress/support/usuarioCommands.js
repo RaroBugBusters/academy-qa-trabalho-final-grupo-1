@@ -38,6 +38,18 @@ Cypress.Commands.add("logaUsuario", () => {
   });
 });
 
+Cypress.Commands.add("listaReviews", () => {
+  cy.logaUsuarioAdmin().then(() => {
+    cy.request({
+      method: 'GET',
+      url: '/users/review/all',
+      headers: {
+        Authorization: `Bearer ${Cypress.env("accessToken")}`,
+      }
+    });
+  });
+});
+
 Cypress.Commands.add("logaUsuarioAdmin", () => {
   cy.logaUsuario().then(() => {
     cy.request({
