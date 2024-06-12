@@ -1,4 +1,4 @@
-import { filmeFixture } from "../fixture/filmes/filmeFixture";
+import { filmeFixture } from "../../fixture/filmeFixture";
 
 const verificaListaDeFilmes = (responseFilmes) => {
   const { body, status } = responseFilmes;
