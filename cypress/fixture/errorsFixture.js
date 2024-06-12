@@ -1,9 +1,9 @@
-export const filmesErrorsFixture = {
+export const errorsFixture = {
   type: {
     badRequest: "Bad Request",
     unauthorized: "Unauthorized",
     forbidden: "Forbidden",
-    notFound: "Movie not found",
+    notFound: "Not Found",
   },
   code: {
     badRequest: 400,
@@ -13,6 +13,7 @@ export const filmesErrorsFixture = {
   },
   messages: {
     unauthorized: "Access denied.",
+    movieNotFound: "Movie not found",
     title: {
       empty: "title should not be empty",
       minLength: "title must be longer than or equal to 1 characters",
@@ -35,6 +36,15 @@ export const filmesErrorsFixture = {
     durationInMinutes: {
       min: "durationInMinutes must not be less than 1",
       max: "durationInMinutes must not be greater than 43200",
+    },
+    reviewText: {
+      minLength: "reviewText must be longer than or equal to 1 characters",
+      maxLength: "reviewText must be shorter than or equal to 500 characters",
+    },
+    score: {
+      empty: "score should not be empty",
+      number: "score must be a number conforming to the specified constraints",
+      interval: "Score should be between 1 and 5",
     },
   },
 };

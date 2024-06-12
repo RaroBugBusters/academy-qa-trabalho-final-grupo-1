@@ -1,4 +1,4 @@
-import { filmesErrorsFixture } from "../fixture/filmes/errorsFixture";
+import { errorsFixture } from "../../fixture/errorsFixture";
 
 describe("Cadastro de filmes", () => {
   beforeEach(() => {
@@ -73,12 +73,12 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(filmesErrorsFixture.code.badRequest);
-          expect(body.error).to.eq(filmesErrorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(filmesErrorsFixture.code.badRequest);
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
           expect(body.message).to.include(
-            filmesErrorsFixture.messages.title.empty,
-            filmesErrorsFixture.messages.title.minLength
+            errorsFixture.messages.title.empty,
+            errorsFixture.messages.title.minLength
           );
         });
       });
@@ -99,11 +99,11 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(filmesErrorsFixture.code.badRequest);
-          expect(body.error).to.eq(filmesErrorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(filmesErrorsFixture.code.badRequest);
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
           expect(body.message).to.include(
-            filmesErrorsFixture.messages.title.maxLength
+            errorsFixture.messages.title.maxLength
           );
         });
       });
@@ -124,12 +124,12 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(filmesErrorsFixture.code.badRequest);
-          expect(body.error).to.eq(filmesErrorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(filmesErrorsFixture.code.badRequest);
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
           expect(body.message).to.include(
-            filmesErrorsFixture.messages.genre.empty,
-            filmesErrorsFixture.messages.genre.minLength
+            errorsFixture.messages.genre.empty,
+            errorsFixture.messages.genre.minLength
           );
         });
       });
@@ -150,11 +150,11 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(filmesErrorsFixture.code.badRequest);
-          expect(body.error).to.eq(filmesErrorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(filmesErrorsFixture.code.badRequest);
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
           expect(body.message).to.include(
-            filmesErrorsFixture.messages.genre.maxLength
+            errorsFixture.messages.genre.maxLength
           );
         });
       });
@@ -175,12 +175,12 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(filmesErrorsFixture.code.badRequest);
-          expect(body.error).to.eq(filmesErrorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(filmesErrorsFixture.code.badRequest);
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
           expect(body.message).to.include(
-            filmesErrorsFixture.messages.description.empty,
-            filmesErrorsFixture.messages.description.minLength
+            errorsFixture.messages.description.empty,
+            errorsFixture.messages.description.minLength
           );
         });
       });
@@ -201,11 +201,11 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(filmesErrorsFixture.code.badRequest);
-          expect(body.error).to.eq(filmesErrorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(filmesErrorsFixture.code.badRequest);
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
           expect(body.message).to.include(
-            filmesErrorsFixture.messages.description.maxLength
+            errorsFixture.messages.description.maxLength
           );
         });
       });
@@ -226,11 +226,11 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(filmesErrorsFixture.code.badRequest);
-          expect(body.error).to.eq(filmesErrorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(filmesErrorsFixture.code.badRequest);
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
           expect(body.message).to.include(
-            filmesErrorsFixture.messages.durationInMinutes.min
+            errorsFixture.messages.durationInMinutes.min
           );
         });
       });
@@ -251,11 +251,11 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(filmesErrorsFixture.code.badRequest);
-          expect(body.error).to.eq(filmesErrorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(filmesErrorsFixture.code.badRequest);
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
           expect(body.message).to.include(
-            filmesErrorsFixture.messages.durationInMinutes.max
+            errorsFixture.messages.durationInMinutes.max
           );
         });
       });
@@ -276,11 +276,11 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(filmesErrorsFixture.code.badRequest);
-          expect(body.error).to.eq(filmesErrorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(filmesErrorsFixture.code.badRequest);
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
           expect(body.message).to.include(
-            filmesErrorsFixture.messages.releaseYear.min
+            errorsFixture.messages.releaseYear.min
           );
         });
       });
@@ -301,11 +301,11 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(filmesErrorsFixture.code.badRequest);
-          expect(body.error).to.eq(filmesErrorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(filmesErrorsFixture.code.badRequest);
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
           expect(body.message).to.include(
-            filmesErrorsFixture.messages.releaseYear.max
+            errorsFixture.messages.releaseYear.max
           );
         });
       });
@@ -322,13 +322,11 @@ describe("Cadastro de filmes", () => {
           body: filme,
         }).then((response) => {
           const { body, status } = response;
-          expect(status).to.eq(filmesErrorsFixture.code.unauthorized);
+          expect(status).to.eq(errorsFixture.code.unauthorized);
 
-          expect(body.error).to.eq(filmesErrorsFixture.type.unauthorized);
-          expect(body.statusCode).to.eq(filmesErrorsFixture.code.unauthorized);
-          expect(body.message).to.include(
-            filmesErrorsFixture.messages.unauthorized
-          );
+          expect(body.error).to.eq(errorsFixture.type.unauthorized);
+          expect(body.statusCode).to.eq(errorsFixture.code.unauthorized);
+          expect(body.message).to.include(errorsFixture.messages.unauthorized);
         });
       });
     });
@@ -349,9 +347,9 @@ describe("Cadastro de filmes", () => {
           }).then((response) => {
             const { body, status } = response;
 
-            expect(status).to.eq(filmesErrorsFixture.code.forbidden);
-            expect(body.statusCode).to.eq(filmesErrorsFixture.code.forbidden);
-            expect(body.message).to.include(filmesErrorsFixture.type.forbidden);
+            expect(status).to.eq(errorsFixture.code.forbidden);
+            expect(body.statusCode).to.eq(errorsFixture.code.forbidden);
+            expect(body.message).to.include(errorsFixture.type.forbidden);
           });
         });
       });
@@ -371,9 +369,9 @@ describe("Cadastro de filmes", () => {
           }).then((response) => {
             const { body, status } = response;
 
-            expect(status).to.eq(filmesErrorsFixture.code.forbidden);
-            expect(body.statusCode).to.eq(filmesErrorsFixture.code.forbidden);
-            expect(body.message).to.include(filmesErrorsFixture.type.forbidden);
+            expect(status).to.eq(errorsFixture.code.forbidden);
+            expect(body.statusCode).to.eq(errorsFixture.code.forbidden);
+            expect(body.message).to.include(errorsFixture.type.forbidden);
           });
         });
       });
