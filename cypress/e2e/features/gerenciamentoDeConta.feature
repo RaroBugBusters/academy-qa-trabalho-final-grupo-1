@@ -20,3 +20,9 @@ Funcionalidade: Gerenciamento de conta
    E que acesso a pagina de gerenciamento de conta
    Então devo visualizar as minhas informações
    E o tipo de usuário deve ser "Crítico(a)"
+
+  Cenário: CT004 - Deve redirecionar para a página de login ao acessar a página de gerenciamento de conta sem estar logado
+   E que acesso a pagina de gerenciamento de conta
+   Quando realizar o logout
+   E acessar a página de gerenciamento de conta sem estar logado
+   Então devo ser redirecionado para página de login
