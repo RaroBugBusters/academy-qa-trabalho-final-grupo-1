@@ -8,6 +8,19 @@ Cypress.Commands.add("criaMockUsuario", () => {
   };
 });
 
+Cypress.Commands.add("criaUsuario", () => {
+  const fakeUserData = {
+    name: faker.person.fullName(),
+    email: faker.internet.email(),
+    password: faker.internet.password({ length: 6 })
+  };
+  cy.request({
+    method: 'POST',
+    url: '/users',
+    body: fakeUserData,
+  });
+});
+
 Cypress.Commands.add("logaUsuario", () => {
   cy.criaMockUsuario().then((usuarioCriado) => {
     cy.request("POST", "/users", usuarioCriado)
