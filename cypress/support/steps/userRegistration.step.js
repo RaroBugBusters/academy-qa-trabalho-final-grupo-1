@@ -64,7 +64,7 @@ When("eu informar os dados de {string}, {string}, {string} e {string} vazios", (
 
 When("eu informar um nome com caracteres especiais", () => {
 
-  userRegistrationPage.typeName("!@#$$%^&*()")	
+  userRegistrationPage.typeName("!@#$$%^&*()")
   userRegistrationPage.typeEmail(faker.internet.email())
   userRegistrationPage.typePassword("123456")
   userRegistrationPage.typeConfirmPassword("123456")

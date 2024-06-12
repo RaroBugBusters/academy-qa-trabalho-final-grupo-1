@@ -1,21 +1,17 @@
-import { faker } from "@faker-js/faker";
+Cypress.Commands.add("newUser", (name, email, password, confirmPassword) => {
+    cy.visit("https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/register");
 
-const email = faker.internet.email();
-
-Cypress.Commands.add("newUser", () => {
-    const fakeUserData = {
-        name: faker.person.fullName(),
-        email: email,
-        password: "123456",
-        confirmPassword: "123456",
-    };
-    cy.request("POST", "register", fakeUserData);
+    cy.get("input[name='name']").type(name);
+    cy.get("input[name='email']").type(email);
+    cy.get("input[name='password']").type(password);
+    cy.get("input[name='confirmPassword']").type(confirmPassword);
+    cy.get("button[class='account-save-button']").click();
+    cy.get("div.modal-actions > button").click();
 });
 
-Cypress.Commands.add("login", () => {
-    const fakeUserData = {
-        email: email,
-        password: "123456",
-    };
-    cy.request("POST", "login", fakeUserData);
+Cypress.Commands.add("userLogin", () => {
+    cy.visit("https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/login");
+    cy.get("input[name='email']").type(email);
+    cy.get("input[name='password']").type(password);
+    cy.get("button[class='account-save-button']").click();
 });

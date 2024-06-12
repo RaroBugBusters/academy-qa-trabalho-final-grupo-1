@@ -2,29 +2,32 @@ export default class MovieRating {
 
     movieCard = ".movie-card";
 
-    movieStars = ".movie-stars";
     inputReview = "textarea[name='reviewText']";
     buttonSubmit = "button[type='submit']";
-    reviewCard = ".user-review-card";
+    userReviewCard = ".user-review-card";
+    errorMessage1 = ".modal-content";
 
     movie() {
         cy.get(this.movieCard).first().click();
     };
 
     rate(stars) {
-        cy.get(this.movieStars).eq(stars - 4).click();
+        cy.get(`#root > div > main > div > form > div.stars > span:nth-child(${stars})`).click();
     };
 
     review(review) {
-        cy.get(this.inputReview).type(review);
+        cy.get(this.inputReview).click().type(review);
     };
 
     submit() {
-        cy.get(this.buttonSubmit).click();
+        cy.contains(this.buttonSubmit, "Enviar").click();
     };
 
     reviewCard(review) {
-        cy.get(this.reviewCard).contains(review);
+        cy.get(this.userReviewCard).contains(review);
     };
 
+    errorMessage() {
+        cy.get(this.errorMessage1).should("contain", "Selecione uma estrela para avaliar o filme");
+    };
 };
