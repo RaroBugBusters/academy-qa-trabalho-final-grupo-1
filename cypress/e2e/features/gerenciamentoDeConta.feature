@@ -68,3 +68,15 @@ Funcionalidade: Gerenciamento de conta
     | senha            |
     | 1234567890123    |
     | 1234567890123456 |
+
+  Esquema do Cenário: CT010 - Deve exibir mensagem de erro ao tentar alterar a senha com senhas diferentes
+   E que acesso a pagina de gerenciamento de conta
+   E os campos de senha e confirmação de senha estão desabilitados
+   Quando clicar em Alterar senha
+   E preencher os campos de senha e confirmação de senha incorretamente "<senha>" e "<confirmacaoSenha>"
+   E clicar em Salvar
+   Então devo visualizar a mensagem de erro que as senhas não são iguais
+   Exemplos:
+    | senha     | confirmacaoSenha |
+    | 123456    | 1234567          |
+    | 123456789 | 12345678         |
