@@ -4,11 +4,18 @@ describe('Testes Registro de Usuários', function () {
     var randomPassword;
 
     it('Criar um usuário preenchendo os campos obrigatórios deve retornar sucesso', function () {
-        cy.criaUsuario()
-        .then((response) => {
+        cy.criaUsuario().then((response) => {
+            const fakeUserData = Cypress.env('fakeUserData');
+    
             expect(response.status).to.equal(201);
-          });
+            expect(response.body).to.have.property('id');
+            expect(response.body).to.have.property('name', fakeUserData.name);
+            expect(response.body).to.have.property('email', fakeUserData.email.toLowerCase());
+            expect(response.body).to.have.property('type', 0);
+            expect(response.body).to.have.property('active', true);
+            });
     });
+
 
     it('O usuário criado deve ser tipo 0 (administrador)', function () {
         const fakeUserData = {
@@ -228,10 +235,11 @@ describe('Testes Registro de Usuários', function () {
             body: fakeUserData,
             failOnStatusCode: false
         })
-        .then((response) => {
-            expect(response.status).to.equal(409);
-            expect(response.body.message).to.include('Email already in use');
-        });
+            .then((response) => {
+                expect(response.status).to.equal(409);
+                expect(response.body.message).to.include('Email already in use');
+            });
     });
 });
+
 

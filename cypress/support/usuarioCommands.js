@@ -14,11 +14,12 @@ Cypress.Commands.add("criaUsuario", () => {
     email: faker.internet.email(),
     password: faker.internet.password({ length: 6 })
   };
+  Cypress.env('fakeUserData', fakeUserData);
   cy.request({
     method: 'POST',
     url: '/users',
     body: fakeUserData,
-  });
+  })
 });
 
 Cypress.Commands.add("logaUsuario", () => {
@@ -26,6 +27,7 @@ Cypress.Commands.add("logaUsuario", () => {
     cy.request("POST", "/users", usuarioCriado)
       .then(({ body }) => {
         Cypress.env("usuarioAtual", body);
+        Cypress.env("id", body.id);
 
         cy.request("POST", `/auth/login`, {
           email: usuarioCriado.email,
@@ -35,18 +37,6 @@ Cypress.Commands.add("logaUsuario", () => {
       .then(({ body }) => {
         Cypress.env("accessToken", body.accessToken);
       });
-  });
-});
-
-Cypress.Commands.add("listaReviews", () => {
-  cy.logaUsuarioAdmin().then(() => {
-    cy.request({
-      method: 'GET',
-      url: '/users/review/all',
-      headers: {
-        Authorization: `Bearer ${Cypress.env("accessToken")}`,
-      }
-    });
   });
 });
 
@@ -102,4 +92,20 @@ Cypress.Commands.add("deletaUsuario", () => {
       Cypress.env("accessToken", null);
     });
   }
+});
+
+Cypress.Commands.add("atualizaUsuario", () => {
+  cy.logaUsuarioAdmin().then(() => {
+    cy.request({
+      method: 'PUT',
+      url: `/users/${Cypress.env("id")}`,
+      headers: {
+        Authorization: `Bearer ${Cypress.env("accessToken")}`,
+      },
+      body: {
+        name: 'Testando Teste',
+        password: '123456'
+      }
+    });
+  });
 });
