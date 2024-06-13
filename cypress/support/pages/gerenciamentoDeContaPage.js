@@ -14,4 +14,8 @@ export class gerenciamentoDeContaPage {
   visitar() {
     cy.visit(this.urlGerenciamento);
   }
+
+  logout() {
+    cy.visit(this.urlLogout);
+  }
 }
