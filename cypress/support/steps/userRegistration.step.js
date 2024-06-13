@@ -116,6 +116,15 @@ When("eu informar um nome com 100 caracteres", () => {
   userRegistrationPage.Submit();
 });
 
+When("eu informar um email com 61 caracteres", () => {
+
+  userRegistrationPage.typeName(faker.person.fullName())
+  userRegistrationPage.typeEmail("")
+  userRegistrationPage.typePassword("123456")
+  userRegistrationPage.typeConfirmPassword("123456")
+  userRegistrationPage.Submit();
+});
+
 Then("uma mensagem de sucesso deve ser exibida", () => {
 
   cy.get(".error-message").should("contain", "Cadastro realizado!");
