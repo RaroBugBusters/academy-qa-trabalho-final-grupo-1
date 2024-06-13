@@ -18,4 +18,8 @@ export class gerenciamentoDeContaPage {
   logout() {
     cy.visit(this.urlLogout);
   }
+
+  obterCampoNome() {
+    return cy.get(this.nameInput);
+  }
 }
