@@ -10,4 +10,8 @@ export class gerenciamentoDeContaPage {
   urlGerenciamento =
     "https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/account";
   urlLogout = "https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/logout";
+
+  visitar() {
+    cy.visit(this.urlGerenciamento);
+  }
 }
