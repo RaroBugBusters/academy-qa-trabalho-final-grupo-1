@@ -76,3 +76,15 @@ Cypress.Commands.add("criaReviewGenericaDeCritico", (movieId) => {
       });
   });
 });
+
+Cypress.Commands.add("listaReviews", () => {
+  cy.logaUsuarioAdmin().then(() => {
+    cy.request({
+      method: 'GET',
+      url: '/users/review/all',
+      headers: {
+        Authorization: `Bearer ${Cypress.env("accessToken")}`,
+      }
+    });
+  });
+});

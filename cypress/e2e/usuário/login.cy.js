@@ -129,4 +129,26 @@ describe('Testes Login de Usuários', function () {
                 expect(response.body.message).to.include('Invalid username or password.');
             });
     });
+
+    it('O usuário deve permanecer logado por no máximo 60 minutos', function () {
+        cy.clock();
+        cy.logaUsuarioAdmin()
+            .then((response) => {
+                expect(response.status).to.equal(204);
+            });
+        cy.listaReviews()
+            .then((response) => {
+                expect(response.status).to.equal(200);
+            })
+        cy.tick(60 * 60 * 1000);
+        cy.request({
+            method: 'GET',
+            url: '/users/review/all',
+            failOnStatusCode: false
+        })
+            .then((response) => {
+                expect(response.status).to.equal(401);
+            });
+    });
 });
+
