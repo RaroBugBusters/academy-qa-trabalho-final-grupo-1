@@ -2,6 +2,8 @@ export default class MovieRating {
 
     movieCard = ".movie-card";
 
+    movieSearch = "input[name='search']";
+    buttonSearch = "button[class='search-button']";
     inputReview = "textarea[name='reviewText']";
     buttonSubmit = "button[type='submit']";
     userReviewCard = ".user-review-card";
@@ -29,5 +31,11 @@ export default class MovieRating {
 
     errorMessage() {
         cy.get(this.errorMessage1).should("contain", "Selecione uma estrela para avaliar o filme");
+    };
+
+    search(movie) {
+        cy.get(this.movieSearch).click().type(movie);
+        cy.get(this.buttonSearch).click();
+        cy.get(this.movieCard).first().click();
     };
 };
