@@ -1,1 +1,2 @@
-import "./usuarioCommands";
+import "allure-cypress";
+import "./userCommands";
