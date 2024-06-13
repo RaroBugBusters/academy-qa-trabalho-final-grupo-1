@@ -1,6 +1,13 @@
-import { Before, BeforeAll, AfterAll, Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
-import MovieRating from "../pages/movieRating.page";
+import {
+  AfterAll,
+  Before,
+  BeforeAll,
+  Given,
+  Then,
+  When,
+} from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
+import MovieRating from "../pages/movieRating.page";
 
 const movieRating = new MovieRating();
 
@@ -24,7 +31,6 @@ BeforeAll(() => {
 AfterAll(() => {
   cy.movieDelete();
 });
-
 
 Given("que eu acesso o site e estou logado", () => {
   cy.visit("");
@@ -56,7 +62,7 @@ When("não selecionar o rating e escrever uma review", () => {
   movieRating.submit();
 });
 
-When("selecionar o rating {int} e não escrever uma review", (stars) => {
+When("selecionar o rating {int} e não escrever uma review", (stars) => {
   movieRating.rate(stars);
   movieRating.submit();
 });
@@ -75,10 +81,8 @@ Then("a avaliação deve gerar uma mensagem de erro", () => {
   movieRating.errorMessage();
 });
 
-Then("não deve ser possível gerar uma avaliação", () => {
-  
-});
+Then("não deve ser possível gerar uma avaliação", () => {});
 
 Then("a avaliação e o rating devem ser atualizados", () => {
-  movieRating.reviewCard("Um bom filme")
+  movieRating.reviewCard("Um bom filme");
 });

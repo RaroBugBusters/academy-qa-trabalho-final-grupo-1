@@ -1,30 +1,30 @@
 # language: pt
 Funcionalidade: Avaliação de filmes
 
-Cenario: Avaliação de filmes
+  Cenário: CT001 - Avaliação de filmes com sucesso
 
-    Dado que eu acesso o site e estou logado
-    Quando pesquisar pelo filme "Duna"
-    E selecionar o rating 5 e escrever uma review
-    Então a avaliação deve ser registrada
+   Dado que eu acesso o site e estou logado
+   Quando pesquisar pelo filme "Duna"
+   E selecionar o rating 5 e escrever uma review
+   Então a avaliação deve ser registrada
 
-Cenario: Avaliação de filmes com rating 0
+  Cenário: CT002 - Avaliação de filmes com rating 0
 
-    Dado que eu acesso o site e crio um usuário
-    Quando pesquisar pelo filme "Duna"
-    E não selecionar o rating e escrever uma review
-    Então a avaliação deve gerar uma mensagem de erro
+   Dado que eu acesso o site e crio um usuário
+   Quando pesquisar pelo filme "Duna"
+   E não selecionar o rating e escrever uma review
+   Então a avaliação deve gerar uma mensagem de erro
 
-Cenario: Avaliação de filmes sem review
+  Cenário: CT003 - Avaliação de filmes sem review
 
-    Dado que eu acesso o site e loguei
-    Quando pesquisar pelo filme "Duna"
-    E selecionar o rating 5 e não escrever uma review
-    Então não deve ser possível gerar uma avaliação
+   Dado que eu acesso o site e loguei
+   Quando pesquisar pelo filme "Duna"
+   E selecionar o rating 5 e não escrever uma review
+   Então não deve ser possível gerar uma avaliação
 
-Cenario: Avaliação de filmes com mesmo usuario
+  Cenário: CT004 - Avaliação de filmes com mesmo usuário
 
-    Dado que eu acesso o site e loguei
-    Quando pesquisar pelo filme "Duna"
-    E selecionar o rating 3 e escrever uma nova review
-    Então a avaliação e o rating devem ser atualizados
+   Dado que eu acesso o site e loguei
+   Quando pesquisar pelo filme "Duna"
+   E selecionar o rating 3 e escrever uma nova review
+   Então a avaliação e o rating devem ser atualizados
