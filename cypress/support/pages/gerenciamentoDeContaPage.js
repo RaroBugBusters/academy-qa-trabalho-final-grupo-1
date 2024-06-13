@@ -26,4 +26,8 @@ export class gerenciamentoDeContaPage {
   obterCampoEmail() {
     return cy.get(this.emailInput);
   }
+
+  obterTipoUsuario() {
+    return cy.get(this.userType);
+  }
 }
