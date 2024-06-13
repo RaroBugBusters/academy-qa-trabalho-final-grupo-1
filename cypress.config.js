@@ -6,6 +6,7 @@ const {
   createEsbuildPlugin,
 } = require("@badeball/cypress-cucumber-preprocessor/esbuild");
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
+const { allureCypress } = require("allure-cypress/reporter");
 
 module.exports = defineConfig({
   e2e: {
@@ -18,7 +19,7 @@ module.exports = defineConfig({
         "file:preprocessor",
         createBundler({ plugins: [createEsbuildPlugin(config)] })
       );
-
+      allureCypress(on, config);
       return config;
     },
   },
