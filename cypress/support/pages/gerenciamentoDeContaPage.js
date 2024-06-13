@@ -34,4 +34,8 @@ export class gerenciamentoDeContaPage {
   obterModal() {
     return cy.get(this.modal);
   }
+
+  obterCampoSenha() {
+    return cy.get(this.passwordInput);
+  }
 }
