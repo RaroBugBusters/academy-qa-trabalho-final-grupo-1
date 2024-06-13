@@ -5,11 +5,11 @@ import {
   When,
 } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
-import { UserLoginPage } from "../pages/UserLoginPage";
-import { UserManagementPage } from "../pages/UserManagementPage";
+// import { PaginaLogin } from "../pages/PaginaLogin";
+import { GerenciamentoDeContaPage } from "../pages/GerenciamentoDeContaPage";
 
-const userManagementPage = new UserManagementPage();
-const userLoginPage = new UserLoginPage();
+const paginaGerenciamentoDeConta = new GerenciamentoDeContaPage();
+// const paginaLogin = new PaginaLogin();
 
 Before(() => {
   cy.viewport("macbook-16");
@@ -19,12 +19,12 @@ Before(() => {
 });
 
 Given("que estou cadastrado e logado no sistema", () => {
-  cy.registerUser().then(() => {
-    const email = Cypress.env("CURRENT_USER").email;
-    const password = Cypress.env("CURRENT_USER").password;
+  cy.registrarUsuario().then(() => {
+    const email = Cypress.env("USUARIO_ATUAL").email;
+    const password = Cypress.env("USUARIO_ATUAL").password;
 
-    userLoginPage.visit();
-    userLoginPage.login(email, password);
+    paginaLoginUsuario.visit();
+    paginaLoginUsuario.login(email, password);
 
     cy.wait("@authUser");
     cy.wait("@getUser");
@@ -32,118 +32,42 @@ Given("que estou cadastrado e logado no sistema", () => {
 });
 
 Given("que acesso a página de gerenciamento de conta", () => {
-  userManagementPage.visit();
+  paginaGerenciamentoDeConta.visitar();
 });
 
-When("alterar o nome para um nome válido", () => {
-  const name = faker.person.fullName();
-  userManagementPage.getNameInput().clear().type(name);
-});
-
-When("clicar em Salvar", () => {
-  userManagementPage.clickSaveButton();
-});
-
-When("os campos de senha e confirmação de senha estão desabilitados", () => {
-  userManagementPage
-    .getPasswordInput()
-    .should("be.disabled")
-    .and("have.value", "");
-
-  userManagementPage
-    .getConfirmPasswordInput()
-    .should("be.disabled")
-    .and("have.value", "");
-});
-
-When("clicar em Alterar senha", () => {
-  userManagementPage.clickChangePasswordButton();
-});
-
-When("o tipo de usuário for do tipo {string}", (type) => {
+When("o tipo de usuário for {string}", (tipo) => {
   cy.window().then((win) => {
-    let sessionInfo = JSON.parse(
+    let infoSessao = JSON.parse(
       win.sessionStorage.getItem("user-session-info")
     );
-    sessionInfo.state.user.type = parseInt(type, 10);
-    win.sessionStorage.setItem(
-      "user-session-info",
-      JSON.stringify(sessionInfo)
-    );
+    infoSessao.state.user.type = parseInt(tipo, 10);
+    win.sessionStorage.setItem("user-session-info", JSON.stringify(infoSessao));
 
     cy.reload();
   });
 });
 
-When("preencher os campos de senha e confirmação de senha corretamente", () => {
-  const password = "12345678";
-  userManagementPage.getPasswordInput().type(password);
-  userManagementPage.getConfirmPasswordInput().clear().type(password);
-});
-
-When(
-  "preencher os campos de senha e confirmação de senha incorretamente {string}",
-  (password) => {
-    userManagementPage.getPasswordInput().type(password);
-    userManagementPage.getConfirmPasswordInput().clear().type(password);
-  }
-);
-
-When("realizar o logout", () => {
-  userManagementPage.logout();
-});
-
-When("acessar a página de gerenciamento de conta sem estar logado", () => {
-  userManagementPage.visit();
-});
-
-When(
-  "preencher os campos de senha e confirmação de senha incorretamente {string} e {string}",
-  (password, confirmPassword) => {
-    userManagementPage.getPasswordInput().type(password);
-    userManagementPage.getConfirmPasswordInput().type(confirmPassword);
-  }
-);
-
-Then(
-  "devo visualizar a mensagem de erro que a senha deve ter pelo menos 6 dígitos",
-  () => {
-    const errorMessage = "A senha deve ter pelo menos 6 dígitos";
-
-    userManagementPage
-      .getErrorPasswordInput()
-      .should("be.visible")
-      .and("contain.text", errorMessage);
-
-    userManagementPage
-      .getErrorConfirmPasswordInput()
-      .should("be.visible")
-      .and("contain.text", errorMessage);
-  }
-);
-
-Then("devo visualizar a mensagem de erro que as senhas não são iguais", () => {
-  const errorMessage = "As senhas devem ser iguais.";
-
-  userManagementPage
-    .getErrorConfirmPasswordInput()
-    .should("be.visible")
-    .and("contain.text", errorMessage);
-});
-
 Then("devo visualizar as minhas informações", () => {
-  const email = Cypress.env("CURRENT_USER").email;
-  const name = Cypress.env("CURRENT_USER").name;
+  const email = Cypress.env("USUARIO_ATUAL").email;
+  const nome = Cypress.env("USUARIO_ATUAL").name;
 
-  userManagementPage
-    .getNameInput()
+  paginaGerenciamentoDeConta
+    .obterCampoNome()
     .should("be.visible")
-    .and("have.value", name);
+    .and("have.value", nome);
 
-  userManagementPage
-    .getEmailInput()
+  paginaGerenciamentoDeConta
+    .obterCampoEmail()
     .should("be.disabled")
     .and("have.value", email);
+});
+
+Then("o tipo de usuário deve ser {string}", (tipo) => {
+  paginaGerenciamentoDeConta.obterTipoUsuario().should("have.text", tipo);
+});
+
+When("realizo o logout", () => {
+  paginaGerenciamentoDeConta.logout();
 });
 
 Then("devo ser redirecionado para a página de login", () => {
@@ -154,50 +78,112 @@ Then("devo ser redirecionado para a página de login", () => {
 });
 
 Then("o campo de email deve estar desabilitado", () => {
-  userManagementPage.getEmailInput().should("be.disabled");
+  paginaGerenciamentoDeConta.obterCampoEmail().should("be.disabled");
 });
 
-Then("o tipo de usuário deve ser {string}", (type) => {
-  userManagementPage.getTypeUser().should("have.text", type);
+When("altero o nome para um nome válido", () => {
+  const nome = faker.person.fullName();
+  paginaGerenciamentoDeConta.obterCampoNome().clear().type(nome);
+});
+
+When("clico em Salvar", () => {
+  paginaGerenciamentoDeConta.clicarBotaoSalvar();
 });
 
 Then(
-  "devo visualizar a mensagem que a informação foi alterada com sucesso",
+  "devo visualizar a mensagem de que a informação foi alterada com sucesso",
   () => {
-    const successMessage = "Informações atualizadas!";
-    userManagementPage
-      .getModal()
+    const mensagemSucesso = "Informações atualizadas!";
+    paginaGerenciamentoDeConta
+      .obterModal()
       .should("be.visible")
       .and("contain.text", "Sucesso")
-      .and("contain.text", successMessage);
+      .and("contain.text", mensagemSucesso);
+  }
+);
+
+When("os campos de senha e confirmação de senha estão desabilitados", () => {
+  paginaGerenciamentoDeConta
+    .obterCampoSenha()
+    .should("be.disabled")
+    .and("have.value", "");
+
+  paginaGerenciamentoDeConta
+    .obterCampoConfirmacaoSenha()
+    .should("be.disabled")
+    .and("have.value", "");
+});
+
+When("clico em Alterar senha", () => {
+  paginaGerenciamentoDeConta.clicarBotaoAlterarSenha();
+});
+
+When("preencho os campos de senha e confirmação de senha corretamente", () => {
+  const senha = "12345678";
+  paginaGerenciamentoDeConta.obterCampoSenha().type(senha);
+  paginaGerenciamentoDeConta.obterCampoConfirmacaoSenha().clear().type(senha);
+});
+
+When(
+  "preencho os campos de senha e confirmação de senha com {string}",
+  (senha) => {
+    paginaGerenciamentoDeConta.obterCampoSenha().type(senha);
+    paginaGerenciamentoDeConta.obterCampoConfirmacaoSenha().clear().type(senha);
   }
 );
 
 Then(
-  "devo visualizar a mensagem de erro que a senha deve ter no máximo 12 dígitos",
+  "devo visualizar a mensagem de erro de que a senha deve ter pelo menos 6 dígitos",
   () => {
-    const errorMessage = "A senha deve ter no máximo 12 dígitos";
+    const mensagemErro = "A senha deve ter pelo menos 6 dígitos";
 
-    userManagementPage
-      .getErrorPasswordInput()
+    paginaGerenciamentoDeConta
+      .obterErroCampoSenha()
       .should("be.visible")
-      .and("contain.text", errorMessage);
+      .and("contain.text", mensagemErro);
 
-    userManagementPage
-      .getErrorConfirmPasswordInput()
+    paginaGerenciamentoDeConta
+      .obterErroCampoConfirmacaoSenha()
       .should("be.visible")
-      .and("contain.text", errorMessage);
+      .and("contain.text", mensagemErro);
   }
 );
 
 Then(
-  "devo visualizar a mensagem de erro que não foi possível atualizar a informação",
+  "devo visualizar a mensagem de erro de que a senha deve ter no máximo 12 dígitos",
   () => {
-    const errorMessage = "Não foi possível atualizar os dados.";
-    userManagementPage
-      .getModal()
+    const mensagemErro = "A senha deve ter no máximo 12 dígitos";
+
+    paginaGerenciamentoDeConta
+      .obterErroCampoSenha()
       .should("be.visible")
-      .and("contain.text", "Erro")
-      .and("contain.text", errorMessage);
+      .and("contain.text", mensagemErro);
+
+    paginaGerenciamentoDeConta
+      .obterErroCampoConfirmacaoSenha()
+      .should("be.visible")
+      .and("contain.text", mensagemErro);
+  }
+);
+
+When(
+  "preencho os campos de senha com {string} e confirmação de senha com {string}",
+  (senha, confirmacaoSenha) => {
+    paginaGerenciamentoDeConta.obterCampoSenha().type(senha);
+    paginaGerenciamentoDeConta
+      .obterCampoConfirmacaoSenha()
+      .type(confirmacaoSenha);
+  }
+);
+
+Then(
+  "devo visualizar a mensagem de erro de que as senhas não são iguais",
+  () => {
+    const mensagemErro = "As senhas devem ser iguais.";
+
+    paginaGerenciamentoDeConta
+      .obterErroCampoConfirmacaoSenha()
+      .should("be.visible")
+      .and("contain.text", mensagemErro);
   }
 );
