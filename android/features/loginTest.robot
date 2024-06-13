@@ -34,3 +34,13 @@ CT004 - Deve ser exibida uma mensagem de erro ao tentar logar sem preencher o ca
    E não preencher o email com um e-mail
    E não preencher a senha com uma senha
    Então devo ver a mensagem de erro que deve ser preenchido o campo email e senha
+
+CT005 - Não deve ser possível acessar a página de registro quando estiver logado
+   Dado que estou logado
+   Então não devo conseguir acessar a página de registro
+
+CT006 - Deve ser possível realizar o logout
+   Dado que estou logado
+   Quando clico no botão de logout
+   Então devo visualizar as opções de login e registro
+   
