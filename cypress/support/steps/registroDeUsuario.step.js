@@ -49,7 +49,7 @@ When("eu informar os dados com senha e confirmar senha diferentes", () => {
   userRegistrationPage.Submit();
 });
 
-When("eu informar os dados de email ja existente", () => {
+When("eu informar os dados de email já existente", () => {
   userRegistrationPage.typeName(faker.person.fullName());
   userRegistrationPage.typeEmail(mail);
   userRegistrationPage.typePassword("123456");
@@ -123,11 +123,10 @@ When("eu informar um nome com 100 caracteres", () => {
 });
 
 When("eu informar um email com 61 caracteres", () => {
-
-  userRegistrationPage.typeName(faker.person.fullName())
-  userRegistrationPage.typeEmail("")
-  userRegistrationPage.typePassword("123456")
-  userRegistrationPage.typeConfirmPassword("123456")
+  userRegistrationPage.typeName(faker.person.fullName());
+  userRegistrationPage.typeEmail("");
+  userRegistrationPage.typePassword("123456");
+  userRegistrationPage.typeConfirmPassword("123456");
   userRegistrationPage.Submit();
 });
 
@@ -156,6 +155,6 @@ Then("uma mensagem de preenchimento obrigatório deve ser exibida", () => {
   cy.get(".input-error").should("be.visible");
 });
 
-Then("uma mensagem de máximo de 100 deve ser exibida", () => {
+Then("uma mensagem de máximo de 100 caracteres deve ser exibida", () => {
   cy.get(".input-error").should("be.visible");
 });
