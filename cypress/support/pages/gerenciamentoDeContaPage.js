@@ -30,4 +30,8 @@ export class gerenciamentoDeContaPage {
   obterTipoUsuario() {
     return cy.get(this.userType);
   }
+
+  obterModal() {
+    return cy.get(this.modal);
+  }
 }
