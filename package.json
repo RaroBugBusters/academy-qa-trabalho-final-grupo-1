@@ -6,7 +6,6 @@
   "scripts": {
     "test": "cypress open",
     "test:headless": "cypress run",
-    "test:allure": "npx cypress run && npx allure serve",
     "clear": "rimraf allure-results && rimraf cypress/screenshots"
   },
   "keywords": [],
