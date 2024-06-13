@@ -1,9 +1,9 @@
 export class gerenciamentoDeContaPage {
   emailInput = "input[name='email']";
-  nameInput = 'input[name="name"]';
-  userType = 'select[name="type"] option:selected';
-  passwordInput = 'input[name="password"]';
-  confirmPasswordInput = 'input[name="confirmPassword"]';
+  nomeInput = 'input[name="name"]';
+  tipoDeUsuario = 'select[name="type"] option:selected';
+  senhaInput = 'input[name="password"]';
+  confirmarSenhaInput = 'input[name="confirmPassword"]';
   botaoSalvar = "button.account-save-button";
   botaoAlterarSenha = "button.account-password-button";
   modal = ".modal-body";
@@ -20,7 +20,7 @@ export class gerenciamentoDeContaPage {
   }
 
   obterCampoNome() {
-    return cy.get(this.nameInput);
+    return cy.get(this.nomeInput);
   }
 
   obterCampoEmail() {
@@ -28,7 +28,7 @@ export class gerenciamentoDeContaPage {
   }
 
   obterTipoUsuario() {
-    return cy.get(this.userType);
+    return cy.get(this.tipoDeUsuario);
   }
 
   obterModal() {
@@ -36,6 +36,26 @@ export class gerenciamentoDeContaPage {
   }
 
   obterCampoSenha() {
-    return cy.get(this.passwordInput);
+    return cy.get(this.senhaInput);
+  }
+
+  obterCampoConfirmacaoSenha() {
+    return cy.get(this.confirmarSenhaInput);
+  }
+
+  obterErroCampoSenha() {
+    return cy.get(this.senhaInput).siblings(".input-error");
+  }
+
+  obterErroCampoConfirmacaoSenha() {
+    return cy.get(this.confirmarSenhaInput).siblings(".input-error");
+  }
+
+  clicarBotaoSalvar() {
+    cy.get(this.botaoSalvar).click();
+  }
+
+  clicarBotaoAlterarSenha() {
+    cy.get(this.botaoAlterarSenha).click();
   }
 }
