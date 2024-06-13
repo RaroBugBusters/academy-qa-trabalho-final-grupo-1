@@ -1,4 +1,4 @@
-export class gerenciamentoDeContaPage {
+export class GerenciamentoDeContaPage {
   emailInput = "input[name='email']";
   nomeInput = 'input[name="name"]';
   tipoDeUsuario = 'select[name="type"] option:selected';
