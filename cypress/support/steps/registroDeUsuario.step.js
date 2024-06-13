@@ -5,7 +5,7 @@ import {
   When,
 } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
-import UserRegistrationPage from "../pages/UserRegistration.page";
+import UserRegistrationPage from "../pages/registroDeUsuarioPage";
 
 const userRegistrationPage = new UserRegistrationPage();
 var mail = faker.internet.email();
@@ -119,6 +119,15 @@ When("eu informar um nome com 100 caracteres", () => {
   userRegistrationPage.typeEmail(faker.internet.email());
   userRegistrationPage.typePassword("123456");
   userRegistrationPage.typeConfirmPassword("123456");
+  userRegistrationPage.Submit();
+});
+
+When("eu informar um email com 61 caracteres", () => {
+
+  userRegistrationPage.typeName(faker.person.fullName())
+  userRegistrationPage.typeEmail("")
+  userRegistrationPage.typePassword("123456")
+  userRegistrationPage.typeConfirmPassword("123456")
   userRegistrationPage.Submit();
 });
 
