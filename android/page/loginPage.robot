@@ -3,11 +3,9 @@
 Resource    ../../base.robot
 
 *** Variables ***
-${HOST}         https://raromdb-3c39614e42d4.herokuapp.com/api
 ${USER_NOME}   
 ${USER_EMAIL}
 ${USER_SENHA}    123456
-
 ${MENU_LOGIN}    xpath=//android.view.View[@content-desc="Login"]
 ${BTN_LOGIN}      xpath=//android.widget.Button[@content-desc="Login"]
 ${MENU_LOGOUT}    xpath=//android.view.View[@content-desc="Sair"]
@@ -23,21 +21,8 @@ ${TEXTO_LOGIN_SUCESSO}    xpath=//android.view.View[@content-desc="Login realiza
 
 *** Keywords ***
 
-Cria sessao na api
-  ${HEADERS}=  Create Dictionary    accept=application/json    Content-Type=application/json
-  Create Session    alias=CreateUser    url=${HOST}    headers=${HEADERS}
-
 Dado que estou cadastrado
-  Cria sessao na api
-  ${FAKER_NOME}=     FakerLibrary.name
-  ${FAKER_EMAIL}=    FakerLibrary.Email
-  Set Global Variable    ${USER_NOME}     ${FAKER_NOME}
-  Set Global Variable    ${USER_EMAIL}    ${FAKER_EMAIL}
-
-  ${body}=   Create Dictionary    name=${FAKER_NOME}  email=${USER_EMAIL}  password=${USER_SENHA}
-
-  ${resposta}=  POST On Session    alias=CreateUser    url=/users  json=&{body}
-  Wait Until Keyword Succeeds    10    1    Should Be Equal As Numbers    ${resposta.status_code}    201
+  Cadastrar usuário
 
 Dado que estou logado
   Dado que estou cadastrado
