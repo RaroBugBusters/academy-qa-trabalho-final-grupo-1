@@ -7,9 +7,9 @@ import {
   When,
 } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
-import MovieRating from "../pages/movieRating.page";
+import AvaliacaoDeFilmePage from "../pages/AvaliacaoDeFilmePage";
 
-const movieRating = new MovieRating();
+const movieRating = new AvaliacaoDeFilmePage();
 
 const name = faker.person.fullName();
 const email = faker.internet.email();

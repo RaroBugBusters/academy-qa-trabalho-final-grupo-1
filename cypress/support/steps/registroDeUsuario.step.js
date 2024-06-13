@@ -5,9 +5,9 @@ import {
   When,
 } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
-import UserRegistrationPage from "../pages/registroDeUsuarioPage";
+import RegistroDeUsuarioPage from "../pages/RegistroDeUsuarioPage";
 
-const userRegistrationPage = new UserRegistrationPage();
+const userRegistrationPage = new RegistroDeUsuarioPage();
 var mail = faker.internet.email();
 
 Before(() => {

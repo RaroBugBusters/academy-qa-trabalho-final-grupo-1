@@ -1,44 +1,51 @@
-import { BeforeAll, Before, AfterAll, Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
-import MovieSearch from "../pages/movieSearch.page";
+import {
+  AfterAll,
+  Before,
+  BeforeAll,
+  Given,
+  Then,
+  When,
+} from "@badeball/cypress-cucumber-preprocessor";
+import PesquisaDeFilmePage from "../pages/PesquisaDeFilmePage";
 
-const movieSearch = new MovieSearch();
+const movieSearch = new PesquisaDeFilmePage();
 
 Before(() => {
-    cy.viewport("macbook-16");
+  cy.viewport("macbook-16");
 });
 
 BeforeAll(() => {
-    cy.userCreate();
-    cy.userLogIn();
-    cy.userMakeAdmin();
-    cy.movieCreate();
+  cy.userCreate();
+  cy.userLogIn();
+  cy.userMakeAdmin();
+  cy.movieCreate();
 });
 
 AfterAll(() => {
-    cy.movieDelete();
+  cy.movieDelete();
 });
 
 Given("que eu acesso o site", () => {
-    cy.visit("");
+  cy.visit("");
 });
 
 When("pesquiso pelo filme existente {string}", (movie) => {
-    movieSearch.search(movie);
-    movieSearch.movie();
+  movieSearch.search(movie);
+  movieSearch.movie();
 });
 
 When("pesquiso pelo filme {string}", (movie) => {
-    movieSearch.search(movie);
+  movieSearch.search(movie);
 });
 
 Then("deve ser exibido o resultado da busca", () => {
-    cy.get(movieSearch.movieCard).should("be.visible");
+  cy.get(movieSearch.movieCard).should("be.visible");
 });
 
 Then("deve ser exibido que nenhum filme foi encontrado", () => {
-    cy.get(movieSearch.noMovieFound).should("contain", "Nenhum filme encontrado");
+  cy.get(movieSearch.noMovieFound).should("contain", "Nenhum filme encontrado");
 });
 
 Then("deve ser exibido a lista com todos os filmes", () => {
-    cy.get(movieSearch.movieCardFull).should("be.visible");
-})
+  cy.get(movieSearch.movieCardFull).should("be.visible");
+});
