@@ -5,11 +5,11 @@ import {
   When,
 } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
-// import { PaginaLogin } from "../pages/PaginaLogin";
 import { GerenciamentoDeContaPage } from "../pages/GerenciamentoDeContaPage";
+import { LoginUsuarioPage } from "../pages/LoginUsuarioPage";
 
 const paginaGerenciamentoDeConta = new GerenciamentoDeContaPage();
-// const paginaLogin = new PaginaLogin();
+const paginaLogin = new LoginUsuarioPage();
 
 Before(() => {
   cy.viewport("macbook-16");
@@ -23,15 +23,15 @@ Given("que estou cadastrado e logado no sistema", () => {
     const email = Cypress.env("USUARIO_ATUAL").email;
     const password = Cypress.env("USUARIO_ATUAL").password;
 
-    paginaLoginUsuario.visit();
-    paginaLoginUsuario.login(email, password);
+    paginaLogin.visitar();
+    paginaLogin.fazerLogin(email, password);
 
     cy.wait("@authUser");
     cy.wait("@getUser");
   });
 });
 
-Given("que acesso a página de gerenciamento de conta", () => {
+When("acesso a página de gerenciamento de conta", () => {
   paginaGerenciamentoDeConta.visitar();
 });
 
@@ -48,7 +48,7 @@ When("o tipo de usuário for {string}", (tipo) => {
 });
 
 Then("devo visualizar as minhas informações", () => {
-  const email = Cypress.env("USUARIO_ATUAL").email;
+  const email = Cypress.env("USUARIO_ATUAL").email.toLowerCase();
   const nome = Cypress.env("USUARIO_ATUAL").name;
 
   paginaGerenciamentoDeConta
@@ -150,17 +150,12 @@ Then(
 );
 
 Then(
-  "devo visualizar a mensagem de erro de que a senha deve ter no máximo 12 dígitos",
+  "devo visualizar a mensagem de erro de que não foi possível atualizar os dados.",
   () => {
-    const mensagemErro = "A senha deve ter no máximo 12 dígitos";
+    const mensagemErro = "Não foi possível atualizar os dados.";
 
     paginaGerenciamentoDeConta
-      .obterErroCampoSenha()
-      .should("be.visible")
-      .and("contain.text", mensagemErro);
-
-    paginaGerenciamentoDeConta
-      .obterErroCampoConfirmacaoSenha()
+      .obterModal()
       .should("be.visible")
       .and("contain.text", mensagemErro);
   }
