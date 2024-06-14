@@ -1,4 +1,4 @@
-export default class PesquisaDeFilmePage {
+export class PesquisaDeFilmePage {
   inputSearch = "input[name='search']";
   buttonSearch = "button[class='search-button']";
   movieCard = ".movie-card";

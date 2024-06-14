@@ -1,4 +1,4 @@
-export default class RegistroDeUsuarioPage {
+export class RegistroDeUsuarioPage {
   registryButton = "[href='/register']";
   inputName = "input[name='name']";
   inputEmail = "input[name='email']";

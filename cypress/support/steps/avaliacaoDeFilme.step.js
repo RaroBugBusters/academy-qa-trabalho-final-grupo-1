@@ -7,7 +7,7 @@ import {
   When,
 } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
-import AvaliacaoDeFilmePage from "../pages/AvaliacaoDeFilmePage";
+import { AvaliacaoDeFilmePage } from "../pages/avaliacaoDeFilmePage";
 
 const movieRating = new AvaliacaoDeFilmePage();
 
@@ -33,7 +33,7 @@ AfterAll(() => {
 });
 
 Given("que eu acesso o site e estou logado", () => {
-  cy.visit("");
+  cy.visit();
 });
 
 Given("que eu acesso o site e loguei", () => {
