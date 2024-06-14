@@ -1,4 +1,4 @@
-export default class AvaliacaoDeFilmePage {
+export class AvaliacaoDeFilmePage {
   movieCard = ".movie-card";
 
   movieSearch = "input[name='search']";

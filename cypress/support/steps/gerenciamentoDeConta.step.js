@@ -5,8 +5,8 @@ import {
   When,
 } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
-import { GerenciamentoDeContaPage } from "../pages/GerenciamentoDeContaPage";
-import { LoginUsuarioPage } from "../pages/LoginUsuarioPage";
+import { GerenciamentoDeContaPage } from "../pages/gerenciamentoDeContaPage";
+import { LoginUsuarioPage } from "../pages/loginUsuarioPage";
 
 const paginaGerenciamentoDeConta = new GerenciamentoDeContaPage();
 const paginaLogin = new LoginUsuarioPage();

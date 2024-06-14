@@ -6,7 +6,7 @@ import {
   Then,
   When,
 } from "@badeball/cypress-cucumber-preprocessor";
-import PesquisaDeFilmePage from "../pages/PesquisaDeFilmePage";
+import { PesquisaDeFilmePage } from "../pages/pesquisaDeFilmePage";
 
 const movieSearch = new PesquisaDeFilmePage();
 

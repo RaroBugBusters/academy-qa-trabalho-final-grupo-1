@@ -4,7 +4,7 @@ import {
   Then,
   When,
 } from "@badeball/cypress-cucumber-preprocessor";
-import { LoginUsuarioPage } from "../pages/LoginUsuarioPage";
+import { LoginUsuarioPage } from "../pages/loginUsuarioPage";
 
 const paginaLoginUsuario = new LoginUsuarioPage();
 

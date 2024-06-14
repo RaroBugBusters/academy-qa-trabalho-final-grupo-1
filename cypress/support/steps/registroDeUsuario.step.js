@@ -5,7 +5,7 @@ import {
   When,
 } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
-import RegistroDeUsuarioPage from "../pages/RegistroDeUsuarioPage";
+import { RegistroDeUsuarioPage } from "../pages/registroDeUsuarioPage";
 
 const userRegistrationPage = new RegistroDeUsuarioPage();
 var mail = faker.internet.email();
