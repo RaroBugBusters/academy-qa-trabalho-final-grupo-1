@@ -1,36 +1,56 @@
-import { Given, When } from "@badeball/cypress-cucumber-preprocessor";
-import { LoginUsuario } from "../pages/loginUsuario";
+import {
+  Before,
+  Given,
+  Then,
+  When,
+} from "@badeball/cypress-cucumber-preprocessor";
+import { PaginaLoginUsuario } from "../pages/LoginUsuarioPage";
 
-const loginPage = new LoginUsuario();
+const paginaLoginUsuario = new PaginaLoginUsuario();
 
-Given("que acessei a página de login", function () {
-  cy.visit("/login");
+Before(() => {
+  cy.clearLocalStorage();
+  cy.clearAllSessionStorage();
+  cy.viewport("macbook-16");
+  cy.intercept("POST", "/api/auth/login").as("authUser");
+  cy.intercept("GET", "/api/users/**").as("getUser");
 });
 
-When("coloco a minha senha", function () {
-  loginPage.digitarSenha("123456");
+Given("que acessei a página de login", () => {
+  paginaLoginUsuario.visitar();
 });
 
-When("confirmo a operação", function () {
-  loginPage.clicarlogin();
+Given("que estou cadastrado", () => {
+  cy.registerUser();
 });
 
-When("não coloco a minha senha", function () {});
+When("preencher o email com um e-mail válido", () => {
+  const email = Cypress.env("USUARIO_ATUAL").email;
 
-When("digito a senha incorreta", function () {
-  loginPage.digitarSenha("12355555");
+  paginaLoginUsuario.digitarEmail(email);
 });
 
-When("coloco meu email", function () {
-  loginPage.digitarEmail("carolteste@email.com");
+When("preencher a senha com uma senha válida", () => {
+  const password = Cypress.env("USUARIO_ATUAL").password;
+
+  paginaLoginUsuario.digitarSenha(password);
 });
 
-When("eu não digito o email", function () {});
+When("preencher a senha com uma senha inválida", () => {
+  paginaLoginUsuario.digitarSenha("senhainvalida");
+});
 
-Then(
-  "devo ser autenticado e ser redirecionado para a página inicial",
-  function () {
-    cy.wait(5000);
+When("clicar no botão Login", () => {
+  paginaLoginUsuario.clicarBotaoSubmit();
+});
+
+When("preencher o email com um e-mail inválido", () => {
+  paginaLoginUsuario.digitarEmail("emailinvalido");
+});
+
+Then("devo ser autenticado e ser redirecionado para a página inicial", () => {
+  cy.wait("@authUser").then(() => {
+    cy.wait(2000);
     cy.window().then((win) => {
       const sessionInfo = JSON.parse(
         win.sessionStorage.getItem("session-info")
@@ -41,19 +61,16 @@ Then(
       expect(sessionInfo.state.accessToken).to.not.be.null;
       expect(sessionInfo.state.accessToken).to.not.be.empty;
     });
-  }
-);
+  });
 
-Then("devo ver a mensagem de erro falha ao autenticar", function () {
-  const MENSAGEM_DE_ERRO = "Usuário ou senha inválidos.";
-  loginPage
+  cy.url().should("eq", "https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/");
+});
+
+Then("devo ver a mensagem de erro falha ao autenticar", () => {
+  const errorMessage = "Usuário ou senha inválidos.";
+  paginaLoginUsuario
     .obterModal()
     .should("be.visible")
     .and("contain.text", "Falha ao autenticar")
-    .and("contain.text", MENSAGEM_DE_ERRO);
+    .and("contain.text", errorMessage);
 });
-
-Then(
-  "deve ser exibida uma mensagem de erro solicitando a senha",
-  function () {}
-);
