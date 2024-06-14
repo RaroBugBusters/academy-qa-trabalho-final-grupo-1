@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { errorsFixture } from "../../fixture/errorsFixture";
 
 describe('Testes Login de Usuários', function () {
     var randomPassword;
@@ -34,7 +35,7 @@ describe('Testes Login de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(400);
+                expect(response.status).to.equal(errorsFixture.code.badRequest);
                 expect(response.body.message).to.include('email should not be empty');
                 expect(response.body.message).to.include('email must be an email');
             });
@@ -64,7 +65,7 @@ describe('Testes Login de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(400);
+                expect(response.status).to.equal(errorsFixture.code.badRequest);
                 expect(response.body.message).to.include('password must be a string');
                 expect(response.body.message).to.include('password should not be empty');
             });
@@ -95,7 +96,7 @@ describe('Testes Login de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(401);
+                expect(response.status).to.equal(errorsFixture.code.unauthorized);
                 expect(response.body.message).to.include('Invalid username or password.');
             });
     });
@@ -125,7 +126,7 @@ describe('Testes Login de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(401);
+                expect(response.status).to.equal(errorsFixture.code.unauthorized);
                 expect(response.body.message).to.include('Invalid username or password.');
             });
     });
@@ -135,20 +136,41 @@ describe('Testes Login de Usuários', function () {
         cy.logaUsuarioAdmin()
             .then((response) => {
                 expect(response.status).to.equal(204);
+
+                cy.listaReviews()
+                    .then((response) => {
+                        expect(response.status).to.equal(200);
+                    });
+                cy.tick(60 * 60 * 1000);
+                cy.request({
+                    method: 'GET',
+                    url: '/users/review/all',
+                    headers: {
+                        Authorization: `Bearer ${Cypress.env("accessToken")}`,
+                    },
+                    failOnStatusCode: false
+                })
+                    .then((response) => {
+                        expect(response.status).to.equal(errorsFixture.code.unauthorized);
+                    });
             });
-        cy.listaReviews()
+    });
+
+    it('O usuário deve permanecer logado após a passagem de 59 minutos ', function () {
+        cy.clock();
+        cy.logaUsuarioAdmin()
             .then((response) => {
-                expect(response.status).to.equal(200);
-            })
-        cy.tick(60 * 60 * 1000);
-        cy.request({
-            method: 'GET',
-            url: '/users/review/all',
-            failOnStatusCode: false
-        })
-            .then((response) => {
-                expect(response.status).to.equal(401);
+                expect(response.status).to.equal(204);
+
+                cy.listaReviews()
+                    .then((response) => {
+                        expect(response.status).to.equal(200);
+                    });
+                cy.tick(59 * 60 * 1000);
+                cy.listaReviews()
+                    .then((response) => {
+                        expect(response.status).to.equal(200);
+                    });
             });
     });
 });
-
