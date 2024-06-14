@@ -96,14 +96,11 @@ Cadastrar Filme
 Verifica se existe filmes cadastrados
     Cria sessao na api
     ${resposta}=  GET On Session    alias=apiRaro    url=/movies
-    Wait Until Keyword Succeeds    10    1    Should Be Equal As Numbers    ${resposta.status_code}    200
+    Wait Until Keyword Succeeds    5    1    Should Be Equal As Numbers    ${resposta.status_code}    200
     IF   ${resposta.json()} == []
         Log To Console    Não existem filmes cadastrados, Cadastrando...
         Cadastrar Filme
     ELSE
-        Set Global Variable    ${TITULO_FILME}    ${resposta.json()[0]['title']}
-        Set Global Variable    ${GENERO_FILME}    ${resposta.json()[0]['description']}
-        Log To Console    ${resposta.json()[0]['title']}
-        Log To Console    ${resposta.json()[0]['genre']}
-        Log To Console    Filmes cadastrados encontrados
+        Set Global Variable    ${FILME_CADASTRADO}    ${resposta.json()[0]}
+        Log To Console    FilmeS cadastrados encontrados
     END

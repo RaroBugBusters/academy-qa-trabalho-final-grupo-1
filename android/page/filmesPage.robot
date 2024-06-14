@@ -9,10 +9,7 @@ ${FAKER_DESCRICAO}
 ${FAKER_DURACAO}
 ${FAKER_ANO}
 
-${TITULO_FILME}=
-${DESCRICAO_FILME}= 
-
-${FILME_UM}=    xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.view.View[1]
+${FILME_CADASTRADO}
 
 *** Keywords ***
 
@@ -20,8 +17,7 @@ Dado que existe um filme cadastrado
     Verifica se existe filmes cadastrados
 
 Quando selecionar um filme
-    Wait Until Element Is Visible    ${TEXTO_PAGINA_INICIAL}
-    Click Element    ${FILME_UM}
+   Aguarda o elemento e faz o clique    ${FILME_CADASTRADO.get('title')}   ${FILME_CADASTRADO.get('title')}
 
 Então deve ser exibido o detalhe do filme
     Sleep    5
@@ -31,7 +27,7 @@ Então deve ser exibido o detalhe do filme
     # Verifica se o elemento contém o texto    ${GENERO_FILME}    ${FAKER_GENERO}
 
 Então deve ser exibido o filme na lista de filmes
-    Wait Until Page Contains    ${TITULO_FILME}
-    Wait Until Page Contains    ${DESCRICAO_FILME}
-    Page Should Contain Text    ${TITULO_FILME}
-    Page Should Contain Text    ${DESCRICAO_FILME}
+    Wait Until Page Contains    ${FILME_CADASTRADO.get('title')}
+    Wait Until Page Contains    ${FILME_CADASTRADO.get('genre')}
+    Page Should Contain Text    ${FILME_CADASTRADO.get('title')}
+    Page Should Contain Text    ${FILME_CADASTRADO.get('genre')}
