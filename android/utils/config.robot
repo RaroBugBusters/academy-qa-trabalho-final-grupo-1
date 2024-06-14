@@ -19,5 +19,5 @@ Abrir App
 
 Teardown
     [Arguments]
-    Wait Until Keyword Succeeds    10    1    Run Keyword If Test Failed    Capture Page Screenshot
+    Run Keyword If Test Failed    Capture Page Screenshot
     Close All Applications
