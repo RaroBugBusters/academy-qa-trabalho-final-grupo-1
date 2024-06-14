@@ -7,7 +7,7 @@ Resource     ../../base.robot
 
 ${ANDROID_AUTOMATION_NAME}   UIAutomator2
 ${ANDROID_PLATFORM_NAME}     Android
-${ANDROID_PLATFORM_VERSION}  14
+${ANDROID_PLATFORM_VERSION}  11
 ${ANDROID_APP_PACKAGE}       com.example.raromdb
 ${ANDROID_APP_ACTIVITY}      .MainActivity
 ${autoGrantPermissions}      true
