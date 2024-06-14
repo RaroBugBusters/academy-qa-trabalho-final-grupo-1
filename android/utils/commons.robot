@@ -5,6 +5,7 @@ Resource   ../../base.robot
 *** Variables ***
 ${HOST}         https://raromdb-3c39614e42d4.herokuapp.com/api
 ${TOKEN_USUARIO}
+${LISTA_DE_FILMES}
 
 *** Keywords ***
 
@@ -77,20 +78,32 @@ Tornar usuário administrador
     Log To Console    Usuário promovido a administrador com sucesso
 
 Cadastrar Filme
-    [Arguments]   ${FAKER_TITULO}    ${FAKER_GENERO}    ${FAKER_DESCRICAO}    ${FAKER_DURACAO}    ${FAKER_ANO}
     Cadastrar usuário
     Loga o usuário
     Tornar usuário administrador    ${TOKEN_USUARIO}
+    ${FAKER_TITULO}=     FakerLibrary.Job
+    ${FAKER_GENERO}=     FakerLibrary.Prefix
+    ${FAKER_DESCRICAO}=  FakerLibrary.Paragraph
+    ${FAKER_DURACAO}=    FakerLibrary.RandomInt    60    180
+    ${FAKER_ANO}=        FakerLibrary.RandomInt    1900    2024
     ${HEADERS}=  Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=Bearer ${TOKEN_USUARIO}
     ${body}=   Create Dictionary    title=${FAKER_TITULO}  genre=${FAKER_GENERO}  description=${FAKER_DESCRICAO}  durationInMinutes=${FAKER_DURACAO}  releaseYear=${FAKER_ANO}
     ${resposta}=  POST On Session    alias=apiRaro    url=/movies  headers=${HEADERS}    json=${body}    
     Wait Until Keyword Succeeds    10    1    Should Be Equal As Strings    ${resposta.status_code}    201
     Log To Console    Filme cadastrado com sucesso
+    Abrir App
 
-# Scroll até o elemento ficar visivel
-#     [Arguments]   ${element}
-#     ${is_element_visible}=  Run Keyword And Return Status    Element Should Be Visible    ${element}
-#     WHILE    '${is_element_visible}'=='False'
-#         ${is_element_visible}=  Run Keyword And Return Status    Wait Until Page Contains Element    ${element}    2
-#         Run Keyword Unless    ${is_element_visible}    Scroll Up   ${TITULO_FILME}    
-#     END
+Verifica se existe filmes cadastrados
+    Cria sessao na api
+    ${resposta}=  GET On Session    alias=apiRaro    url=/movies
+    Wait Until Keyword Succeeds    10    1    Should Be Equal As Numbers    ${resposta.status_code}    200
+    IF   ${resposta.json()} == []
+        Log To Console    Não existem filmes cadastrados, Cadastrando...
+        Cadastrar Filme
+    ELSE
+        Set Global Variable    ${TITULO_FILME}    ${resposta.json()[0]['title']}
+        Set Global Variable    ${GENERO_FILME}    ${resposta.json()[0]['description']}
+        Log To Console    ${resposta.json()[0]['title']}
+        Log To Console    ${resposta.json()[0]['genre']}
+        Log To Console    Filmes cadastrados encontrados
+    END
