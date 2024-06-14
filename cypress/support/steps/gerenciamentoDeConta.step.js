@@ -36,15 +36,40 @@ When("acesso a página de gerenciamento de conta", () => {
 });
 
 When("o tipo de usuário for {string}", (tipo) => {
-  cy.window().then((win) => {
-    let infoSessao = JSON.parse(
-      win.sessionStorage.getItem("user-session-info")
-    );
-    infoSessao.state.user.type = parseInt(tipo, 10);
-    win.sessionStorage.setItem("user-session-info", JSON.stringify(infoSessao));
+  switch (tipo) {
+    case "0":
+      break;
+    case "1":
+      cy.window().then((win) => {
+        let sessionInfo = JSON.parse(
+          win.sessionStorage.getItem("user-session-info")
+        );
+        sessionInfo.state.user.type = 1;
+        win.sessionStorage.setItem(
+          "user-session-info",
+          JSON.stringify(sessionInfo)
+        );
 
-    cy.reload();
-  });
+        cy.reload();
+      });
+      break;
+    case "2":
+      cy.window().then((win) => {
+        let sessionInfo = JSON.parse(
+          win.sessionStorage.getItem("user-session-info")
+        );
+        sessionInfo.state.user.type = 2;
+        win.sessionStorage.setItem(
+          "user-session-info",
+          JSON.stringify(sessionInfo)
+        );
+
+        cy.reload();
+      });
+      break;
+    default:
+      break;
+  }
 });
 
 Then("devo visualizar as minhas informações", () => {
