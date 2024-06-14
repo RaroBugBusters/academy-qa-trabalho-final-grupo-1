@@ -49,7 +49,7 @@ Cria sessao na api
 
 Cadastrar usuário
     [Arguments]
-    Cria sessao na api
+      Cria sessao na api
       ${FAKER_NOME}=     FakerLibrary.name
       ${FAKER_EMAIL}=    FakerLibrary.Email
       Set Global Variable    ${USER_NOME}     ${FAKER_NOME}
@@ -95,14 +95,10 @@ Cadastrar Filme
 Verifica se existe filmes cadastrados
     Cria sessao na api
     ${resposta}=  GET On Session    alias=apiRaro    url=/movies
-    Wait Until Keyword Succeeds    10    1    Should Be Equal As Numbers    ${resposta.status_code}    200
     IF   ${resposta.json()} == []
         Log To Console    Não existem filmes cadastrados, Cadastrando...
         Cadastrar Filme
     ELSE
-        Set Global Variable    ${TITULO_FILME}    ${resposta.json()[0]['title']}
-        Set Global Variable    ${GENERO_FILME}    ${resposta.json()[0]['description']}
-        Log To Console    ${resposta.json()[0]['title']}
-        Log To Console    ${resposta.json()[0]['genre']}
+        Set Global Variable    ${FILME_CADASTRADO}    ${resposta.json()[0]}
         Log To Console    Filmes cadastrados encontrados
     END
