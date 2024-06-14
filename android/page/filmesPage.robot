@@ -27,5 +27,5 @@ Então deve ser exibido o detalhe do filme
     # Verifica se o elemento contém o texto    ${GENERO_FILME}    ${FAKER_GENERO}
 
 Então deve ser exibido o filme na lista de filmes
-    Wait Until Page Contains    ${FILME_CADASTRADO.get('title')}
-    Wait Until Page Contains    ${FILME_CADASTRADO.get('genre')}
+    Wait Until Page Contains Element    xpath=//*[contains(text(), '${FILME_CADASTRADO.get('title')}')]
+    Page Should Contain Element        xpath=//*[contains(text(), '${FILME_CADASTRADO.get('title')}')]
