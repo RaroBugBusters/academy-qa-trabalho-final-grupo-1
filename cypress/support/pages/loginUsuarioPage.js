@@ -25,6 +25,14 @@ export class LoginUsuarioPage {
     return cy.get(this.modal);
   }
 
+  obterErroCampoSenha() {
+    return cy.get(this.campoSenha).siblings(".input-error");
+  }
+
+  obterErroCampoEmail() {
+    return cy.get(this.campoEmail).siblings(".input-error");
+  }
+
   fazerLogin(email, senha) {
     this.digitarSenha(senha);
     this.digitarEmail(email);

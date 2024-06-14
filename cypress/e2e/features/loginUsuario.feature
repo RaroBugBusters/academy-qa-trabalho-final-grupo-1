@@ -15,7 +15,7 @@ Funcionalidade: Login de usuário
    Quando preencher o email com um e-mail inválido
    E preencher a senha com uma senha válida
    E clicar no botão Login
-   Então devo ver a mensagem de erro falha ao autenticar
+   Então devo ver a mensagem que o email é inválido
 
   Cenário: Deve ser exibida uma mensagem de erro ao tentar logar com senha inválida
    Quando preencher o email com um e-mail válido

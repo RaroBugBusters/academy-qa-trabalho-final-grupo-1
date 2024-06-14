@@ -4,9 +4,9 @@ import {
   Then,
   When,
 } from "@badeball/cypress-cucumber-preprocessor";
-import { PaginaLoginUsuario } from "../pages/LoginUsuarioPage";
+import { LoginUsuarioPage } from "../pages/LoginUsuarioPage";
 
-const paginaLoginUsuario = new PaginaLoginUsuario();
+const paginaLoginUsuario = new LoginUsuarioPage();
 
 Before(() => {
   cy.clearLocalStorage();
@@ -21,7 +21,7 @@ Given("que acessei a página de login", () => {
 });
 
 Given("que estou cadastrado", () => {
-  cy.registerUser();
+  cy.registrarUsuario();
 });
 
 When("preencher o email com um e-mail válido", () => {
@@ -72,5 +72,13 @@ Then("devo ver a mensagem de erro falha ao autenticar", () => {
     .obterModal()
     .should("be.visible")
     .and("contain.text", "Falha ao autenticar")
+    .and("contain.text", errorMessage);
+});
+
+Then("devo ver a mensagem que o email é inválido", () => {
+  const errorMessage = "Informe um e-mail válido.";
+  paginaLoginUsuario
+    .obterErroCampoEmail()
+    .should("be.visible")
     .and("contain.text", errorMessage);
 });
