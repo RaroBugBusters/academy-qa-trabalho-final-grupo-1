@@ -33,7 +33,7 @@ AfterAll(() => {
 });
 
 Given("que eu acesso o site e estou logado", () => {
-  cy.visit("");
+  cy.visit();
 });
 
 Given("que eu acesso o site e loguei", () => {
