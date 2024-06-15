@@ -88,7 +88,6 @@ Então devo ver a mensagem de erro que deve estar logado para avaliar um filme
     Verifica se o elemento contém o texto    ${TEXTO_ERRO_AVALIACAO_LOGIN}    Faça login e tente novamente.
 
 Então deve exibir a mensagem que a review foi adicionada com sucesso
-    Sleep    5
     Wait Until Page Contains Element        ${TEXTO_REVIEW_SUCESSO} 
     Page Should Contain Element             ${TEXTO_REVIEW_SUCESSO} 
     Verifica se o elemento contém o texto   ${TEXTO_REVIEW_SUCESSO}   Sua review foi adicionada!

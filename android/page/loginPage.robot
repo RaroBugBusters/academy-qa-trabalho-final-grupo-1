@@ -36,6 +36,7 @@ Quando acesso a pagina de login
   Aguarda o elemento e faz o clique  ${MENU_LOGIN}       ${MENU_LOGIN}
 
 Quando clico no botão de logout
+  Wait Until Element Is Visible      ${TEXTO_PAGINA_INICIAL}
   Aguarda o elemento e faz o clique  ${MENU_HAMBURGUER}  ${MENU_HAMBURGUER}
   Aguarda o elemento e faz o clique  ${MENU_LOGOUT}      ${MENU_LOGOUT}
 
@@ -91,6 +92,3 @@ Então devo visualizar as opções de login e registro
   Wait Until Element Is Visible    ${MENU_LOGIN}
   Page Should Contain Element    ${MENU_LOGIN}
   Page Should Contain Element    ${BTN_MENU_REGISTRO}
-
-
-
