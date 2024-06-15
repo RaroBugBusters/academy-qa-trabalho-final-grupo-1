@@ -85,6 +85,33 @@ describe("Cadastro de filmes", () => {
       });
     });
 
+    // BUG: O teste abaixo não está passando, pois o backend não está validando o campo
+    it("Deve retornar erro ao tentar criar um filme com informação de título possuindo apenas espaços vazios", () => {
+      cy.criaMockFilme().then((filme) => {
+        filme.title = "          ";
+
+        cy.request({
+          method: "POST",
+          url: "/movies",
+          failOnStatusCode: false,
+          body: filme,
+          headers: {
+            Authorization: `Bearer ${Cypress.env("accessToken")}`,
+          },
+        }).then((response) => {
+          const { body, status } = response;
+
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.message).to.include(
+            errorsFixture.messages.title.empty,
+            errorsFixture.messages.title.minLength
+          );
+        });
+      });
+    });
+
     it("Deve retornar erro ao tentar criar um filme com informação de título maior que cem caracteres", () => {
       cy.criaMockFilme().then((filme) => {
         filme.title = "f".repeat(101);
@@ -105,6 +132,33 @@ describe("Cadastro de filmes", () => {
           expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.title.maxLength
+          );
+        });
+      });
+    });
+
+    // BUG: O teste abaixo não está passando, pois o backend não está validando o campo
+    it("Deve retornar erro ao tentar criar um filme com informação de gênero possuindo apenas espaços vazios", () => {
+      cy.criaMockFilme().then((filme) => {
+        filme.genre = "             ";
+
+        cy.request({
+          method: "POST",
+          url: "/movies",
+          failOnStatusCode: false,
+          body: filme,
+          headers: {
+            Authorization: `Bearer ${Cypress.env("accessToken")}`,
+          },
+        }).then((response) => {
+          const { body, status } = response;
+
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.message).to.include(
+            errorsFixture.messages.genre.empty,
+            errorsFixture.messages.genre.minLength
           );
         });
       });
@@ -156,6 +210,33 @@ describe("Cadastro de filmes", () => {
           expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.genre.maxLength
+          );
+        });
+      });
+    });
+
+    // BUG: O teste abaixo não está passando, pois o backend não está validando o campo
+    it("Deve retornar erro ao tentar criar um filme com informação de descrição possuindo apenas espaços vazios", () => {
+      cy.criaMockFilme().then((filme) => {
+        filme.description = "              ";
+
+        cy.request({
+          method: "POST",
+          url: "/movies",
+          failOnStatusCode: false,
+          body: filme,
+          headers: {
+            Authorization: `Bearer ${Cypress.env("accessToken")}`,
+          },
+        }).then((response) => {
+          const { body, status } = response;
+
+          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(body.error).to.eq(errorsFixture.type.badRequest);
+          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.message).to.include(
+            errorsFixture.messages.description.empty,
+            errorsFixture.messages.description.minLength
           );
         });
       });

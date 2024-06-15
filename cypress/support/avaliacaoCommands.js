@@ -17,7 +17,9 @@ Cypress.Commands.add("criaReview", (movieId) => {
         Authorization: `Bearer ${Cypress.env("accessToken")}`,
       },
       body: reviewCriada,
-    });
+    }).then(()=> {
+      return reviewCriada;
+    })
   });
 });
 
