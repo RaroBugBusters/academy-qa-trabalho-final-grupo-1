@@ -1,4 +1,5 @@
 import { errorsFixture } from "../../fixture/errorsFixture";
+import { StatusCode } from "../../support/utils/StatusCode";
 
 describe("Atualização de filmes", () => {
   let filme = Cypress.env("filmeAtual");
@@ -59,9 +60,9 @@ describe("Atualização de filmes", () => {
       }).then((response) => {
         const { body, status } = response;
 
-        expect(status).to.eq(errorsFixture.code.badRequest);
+        expect(status).to.eq(StatusCode.BAD_REQUEST);
         expect(body.error).to.eq(errorsFixture.type.badRequest);
-        expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+        expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
         expect(body.message).to.include(errorsFixture.messages.title.minLength);
       });
     });
@@ -80,9 +81,9 @@ describe("Atualização de filmes", () => {
       }).then((response) => {
         const { body, status } = response;
 
-        expect(status).to.eq(errorsFixture.code.badRequest);
+        expect(status).to.eq(StatusCode.BAD_REQUEST);
         expect(body.error).to.eq(errorsFixture.type.badRequest);
-        expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+        expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
         expect(body.message).to.include(errorsFixture.messages.title.maxLength);
       });
     });
@@ -101,9 +102,9 @@ describe("Atualização de filmes", () => {
       }).then((response) => {
         const { body, status } = response;
 
-        expect(status).to.eq(errorsFixture.code.badRequest);
+        expect(status).to.eq(StatusCode.BAD_REQUEST);
         expect(body.error).to.eq(errorsFixture.type.badRequest);
-        expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+        expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
         expect(body.message).to.include(errorsFixture.messages.genre.minLength);
       });
     });
@@ -122,9 +123,9 @@ describe("Atualização de filmes", () => {
       }).then((response) => {
         const { body, status } = response;
 
-        expect(status).to.eq(errorsFixture.code.badRequest);
+        expect(status).to.eq(StatusCode.BAD_REQUEST);
         expect(body.error).to.eq(errorsFixture.type.badRequest);
-        expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+        expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
         expect(body.message).to.include(errorsFixture.messages.genre.maxLength);
       });
     });
@@ -143,9 +144,9 @@ describe("Atualização de filmes", () => {
       }).then((response) => {
         const { body, status } = response;
 
-        expect(status).to.eq(errorsFixture.code.badRequest);
+        expect(status).to.eq(StatusCode.BAD_REQUEST);
         expect(body.error).to.eq(errorsFixture.type.badRequest);
-        expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+        expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
         expect(body.message).to.include(
           errorsFixture.messages.description.minLength
         );
@@ -166,9 +167,9 @@ describe("Atualização de filmes", () => {
       }).then((response) => {
         const { body, status } = response;
 
-        expect(status).to.eq(errorsFixture.code.badRequest);
+        expect(status).to.eq(StatusCode.BAD_REQUEST);
         expect(body.error).to.eq(errorsFixture.type.badRequest);
-        expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+        expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
         expect(body.message).to.include(
           errorsFixture.messages.description.maxLength
         );
@@ -189,9 +190,9 @@ describe("Atualização de filmes", () => {
       }).then((response) => {
         const { body, status } = response;
 
-        expect(status).to.eq(errorsFixture.code.badRequest);
+        expect(status).to.eq(StatusCode.BAD_REQUEST);
         expect(body.error).to.eq(errorsFixture.type.badRequest);
-        expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+        expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
         expect(body.message).to.include(
           errorsFixture.messages.durationInMinutes.min
         );
@@ -212,9 +213,9 @@ describe("Atualização de filmes", () => {
       }).then((response) => {
         const { body, status } = response;
 
-        expect(status).to.eq(errorsFixture.code.badRequest);
+        expect(status).to.eq(StatusCode.BAD_REQUEST);
         expect(body.error).to.eq(errorsFixture.type.badRequest);
-        expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+        expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
         expect(body.message).to.include(
           errorsFixture.messages.durationInMinutes.max
         );
@@ -235,9 +236,9 @@ describe("Atualização de filmes", () => {
       }).then((response) => {
         const { body, status } = response;
 
-        expect(status).to.eq(errorsFixture.code.badRequest);
+        expect(status).to.eq(StatusCode.BAD_REQUEST);
         expect(body.error).to.eq(errorsFixture.type.badRequest);
-        expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+        expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
         expect(body.message).to.include(errorsFixture.messages.releaseYear.min);
       });
     });
@@ -256,9 +257,9 @@ describe("Atualização de filmes", () => {
       }).then((response) => {
         const { body, status } = response;
 
-        expect(status).to.eq(errorsFixture.code.badRequest);
+        expect(status).to.eq(StatusCode.BAD_REQUEST);
         expect(body.error).to.eq(errorsFixture.type.badRequest);
-        expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+        expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
         expect(body.message).to.include(errorsFixture.messages.releaseYear.max);
       });
     });
@@ -274,9 +275,9 @@ describe("Atualização de filmes", () => {
       }).then((response) => {
         const { body, status } = response;
 
-        expect(status).to.eq(errorsFixture.code.unauthorized);
+        expect(status).to.eq(StatusCode.UNAUTHORIZED);
         expect(body.error).to.eq(errorsFixture.type.unauthorized);
-        expect(body.statusCode).to.eq(errorsFixture.code.unauthorized);
+        expect(body.statusCode).to.eq(StatusCode.UNAUTHORIZED);
         expect(body.message).to.include(errorsFixture.messages.unauthorized);
       });
     });
@@ -296,8 +297,8 @@ describe("Atualização de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.forbidden);
-          expect(body.statusCode).to.eq(errorsFixture.code.forbidden);
+          expect(status).to.eq(StatusCode.FORBIDDEN);
+          expect(body.statusCode).to.eq(StatusCode.FORBIDDEN);
           expect(body.message).to.include(errorsFixture.type.forbidden);
         });
       });
@@ -316,8 +317,8 @@ describe("Atualização de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.forbidden);
-          expect(body.statusCode).to.eq(errorsFixture.code.forbidden);
+          expect(status).to.eq(StatusCode.FORBIDDEN);
+          expect(body.statusCode).to.eq(StatusCode.FORBIDDEN);
           expect(body.message).to.include(errorsFixture.type.forbidden);
         });
       });
