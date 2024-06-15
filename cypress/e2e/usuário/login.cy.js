@@ -50,12 +50,6 @@ describe("Testes Login de Usuários", function () {
 
     cy.request({
       method: "POST",
-      url: "/users",
-      body: fakeUserData,
-    });
-
-    cy.request({
-      method: "POST",
       url: "/auth/login",
       body: {
         email: fakeUserData.email,
@@ -79,16 +73,10 @@ describe("Testes Login de Usuários", function () {
 
     cy.request({
       method: "POST",
-      url: "/users",
-      body: fakeUserData,
-    });
-
-    cy.request({
-      method: "POST",
       url: "/auth/login",
       body: {
-        email: faker.internet.email(),
-        password: fakeUserData.password,
+        email: fakeUserData.email,
+        password: randomPassword,
       },
       failOnStatusCode: false,
     }).then((response) => {
@@ -130,17 +118,50 @@ describe("Testes Login de Usuários", function () {
     cy.clock();
     cy.logaUsuarioAdmin().then((response) => {
       expect(response.status).to.equal(204);
+
+      cy.listaReviews().then((response) => {
+        expect(response.status).to.equal(200);
+      });
+
+      cy.tick(60 * 60 * 1000);
+
+      cy.request({
+        method: "GET",
+        url: "/users/review/all",
+        headers: {
+          Authorization: `Bearer ${Cypress.env("accessToken")}`,
+        },
+        failOnStatusCode: false,
+      }).then((response) => {
+        expect(response.status).to.equal(StatusCode.UNAUTHORIZED);
+      });
     });
-    cy.listaReviews().then((response) => {
-      expect(response.status).to.equal(200);
-    });
-    cy.tick(60 * 60 * 1000);
-    cy.request({
-      method: "GET",
-      url: "/users/review/all",
-      failOnStatusCode: false,
-    }).then((response) => {
-      expect(response.status).to.equal(StatusCode.UNAUTHORIZED);
+  });
+
+  it("O usuário deve permanecer logado após a passagem de 59 minutos", function () {
+    cy.clock();
+    cy.logaUsuarioAdmin().then((response) => {
+      expect(response.status).to.equal(204);
+
+      cy.listaReviews().then((response) => {
+        expect(response.status).to.equal(200);
+      });
+
+      cy.tick(59 * 60 * 1000);
+
+      cy.listaReviews().then((response) => {
+        expect(response.status).to.equal(200);
+      });
+
+      cy.tick(60 * 60 * 1000);
+
+      cy.request({
+        method: "GET",
+        url: "/users/review/all",
+        failOnStatusCode: false,
+      }).then((response) => {
+        expect(response.status).to.equal(StatusCode.UNAUTHORIZED);
+      });
     });
   });
 });
