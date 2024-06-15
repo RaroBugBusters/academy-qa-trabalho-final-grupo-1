@@ -10,6 +10,13 @@ ${FAKER_DURACAO}
 ${FAKER_ANO}
 
 ${TEXTO_PAGINA_DETALHES}    xpath=//android.view.View[@content-desc="Detalhes do filme"]
+${BOTAO_AVALIAR}            xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.Button
+${CAMPO_AVALIACAO}          xpath=//android.widget.EditText
+${TRES_ESTRELAS}            xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.view.View[3]/android.view.View[3]
+${BOTAO_SALVAR}             xpath=//android.widget.Button[@content-desc="Salvar"]
+
+${TEXTO_REVIEW_SUCESSO}     xpath=//android.view.View[@content-desc="Sua review foi adicionada!"]
+${TEXTO_ERRO_AVALIACAO}     xpath=//android.view.View[@content-desc="Faça login e tente novamente."]
 
 ${FILME_CADASTRADO}
 
@@ -18,20 +25,35 @@ ${FILME_CADASTRADO}
 Dado que existe um filme cadastrado
     Verifica se existe filmes cadastrados
 
-Converter Duracao Para Horas E Minutos
-    [Arguments]    ${duracao_em_minutos}
-    ${horas}    Evaluate    ${duracao_em_minutos} // 60
-    ${minutos}  Evaluate    ${duracao_em_minutos} % 60
-    ${duracao_formatada}  Set Variable    ${horas}h ${minutos}m
-    RETURN    ${duracao_formatada}
+Quando selecionar um filme
+   Aguarda o texto e faz o clique    ${FILME_CADASTRADO.get('title')}
+
 
 E existe avaliações para o filme
     Adiciona avaliações ao filme com texto e score    ${FILME_CADASTRADO.get('id')}
 
-# E clicar em avaliar
+E clicar em avaliar
+    Wait Until Element Is Visible    ${BOTAO_AVALIAR}
+    Click Element    ${BOTAO_AVALIAR}
+    Wait Until Page Contains    Review
 
-Quando selecionar um filme
-   Aguarda o texto e faz o clique    ${FILME_CADASTRADO.get('title')}
+
+
+E preencher o campo de texto
+    ${FAKER_TEXT}=    FakerLibrary.Paragraph
+    Clica no elemento e insere o texto    ${CAMPO_AVALIACAO}    ${FAKER_TEXT}
+E dar uma nota de 3 estrelas
+    Click Element    ${TRES_ESTRELAS}
+
+E clicar em Salvar
+    Click Element    ${BOTAO_SALVAR}
+
+E estou logado
+    Dado que estou cadastrado
+    Quando acesso a pagina de login
+    E preencher o email com um e-mail válido
+    E preencher a senha com uma senha válida
+    Click Element    ${BTN_LOGIN}
 
 Então deve ser exibido o detalhe do filme
     ${duracao_formatada}  Converter Duracao Para Horas E Minutos  ${FILME_CADASTRADO.get('durationInMinutes')}
@@ -58,3 +80,14 @@ Então deve ser exibido as avaliações do filme
     Wait Until Keyword Succeeds   30    1    Deslizar Até Texto Visível  Por "${USER_NOME}" em ${data_atual}
     Page Should Contain Text    Por "${USER_NOME}" em ${data_atual}
     Page Should Contain Text    ${REVIEW_TEXT}
+
+Então devo ver a mensagem de erro que deve estar logado para avaliar um filme
+    Wait Until Page Contains Element    ${TEXTO_ERRO_AVALIACAO}
+    Page Should Contain Element         ${TEXTO_ERRO_AVALIACAO}  
+    Verifica se o elemento contém o texto    ${TEXTO_ERRO_AVALIACAO}    Faça login e tente novamente.
+
+Então deve exibir a mensagem que a review foi adicionada com sucesso
+    Sleep    5
+    Wait Until Page Contains Element        ${TEXTO_REVIEW_SUCESSO} 
+    Page Should Contain Element             ${TEXTO_REVIEW_SUCESSO} 
+    Verifica se o elemento contém o texto   ${TEXTO_REVIEW_SUCESSO}   Sua review foi adicionada!

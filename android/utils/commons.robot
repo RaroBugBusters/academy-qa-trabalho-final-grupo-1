@@ -53,7 +53,13 @@ Deslizar Até Texto Visível
       Swipe By Percent    50    70    50    10
     END
     RETURN    ${texto_presente}
-
+    
+Converter Duracao Para Horas E Minutos
+    [Arguments]    ${duracao_em_minutos}
+    ${horas}    Evaluate    ${duracao_em_minutos} // 60
+    ${minutos}  Evaluate    ${duracao_em_minutos} % 60
+    ${duracao_formatada}  Set Variable    ${horas}h ${minutos}m
+    RETURN    ${duracao_formatada}
 
 #API
 
