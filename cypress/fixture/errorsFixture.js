@@ -5,12 +5,6 @@ export const errorsFixture = {
     forbidden: "Forbidden",
     notFound: "Not Found",
   },
-  code: {
-    badRequest: 400,
-    unauthorized: 401,
-    forbidden: 403,
-    notFound: 404,
-  },
   messages: {
     unauthorized: "Access denied.",
     movieNotFound: "Movie not found",

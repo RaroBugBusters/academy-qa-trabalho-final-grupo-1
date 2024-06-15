@@ -243,10 +243,10 @@ describe("Listagem de Avaliações do usuário", () => {
         url: "/users/review/all",
         failOnStatusCode: false,
       }).then(({ body, status }) => {
-        expect(status).to.eq(errorsFixture.code.unauthorized);
+        expect(status).to.eq(StatusCode.UNAUTHORIZED);
 
         expect(body.error).to.eq(errorsFixture.type.unauthorized);
-        expect(body.statusCode).to.eq(errorsFixture.code.unauthorized);
+        expect(body.statusCode).to.eq(StatusCode.UNAUTHORIZED);
         expect(body.message).to.include(errorsFixture.messages.unauthorized);
       });
     });
