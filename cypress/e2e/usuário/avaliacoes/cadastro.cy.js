@@ -1,4 +1,5 @@
 import { errorsFixture } from "../../../fixture/errorsFixture";
+import { StatusCode } from "../../../support/utils/StatusCode";
 
 describe("Cadastro de Avaliação", () => {
   beforeEach(() => {
@@ -26,7 +27,7 @@ describe("Cadastro de Avaliação", () => {
             },
             body: reviewCriada,
           }).then((response) => {
-            expect(response.status).to.be.eq(201);
+            expect(response.status).to.be.eq(StatusCode.CREATED);
 
             cy.recuperaFilme(filme.id).then((filmeDepois) => {
               const user = Cypress.env("usuarioAtual");
@@ -68,7 +69,7 @@ describe("Cadastro de Avaliação", () => {
             },
             body: reviewCriada,
           }).then((response) => {
-            expect(response.status).to.be.eq(201);
+            expect(response.status).to.be.eq(StatusCode.CREATED);
 
             cy.recuperaFilme(filme.id).then((filmeDepois) => {
               const user = Cypress.env("usuarioAtual");
@@ -111,7 +112,7 @@ describe("Cadastro de Avaliação", () => {
           },
           body: reviewCriada,
         }).then((response) => {
-          expect(response.status).to.be.eq(201);
+          expect(response.status).to.be.eq(StatusCode.CREATED);
 
           cy.recuperaFilme(filmeAntes.id).then((filmeDepois) => {
             expect(filmeDepois.reviews.length).to.be.eq(
@@ -134,7 +135,7 @@ describe("Cadastro de Avaliação", () => {
           },
           body: reviewCriada,
         }).then((response) => {
-          expect(response.status).to.be.eq(201);
+          expect(response.status).to.be.eq(StatusCode.CREATED);
 
           cy.recuperaFilme(filmeAntes.id).then((filmeDepois) => {
             const media = filmeDepois.reviews.reduce(
@@ -177,7 +178,7 @@ describe("Cadastro de Avaliação", () => {
             },
             body: reviewCriada,
           }).then((response) => {
-            expect(response.status).to.be.eq(201);
+            expect(response.status).to.be.eq(StatusCode.CREATED);
 
             cy.recuperaFilme(filmeAntes.id).then((filmeDepois) => {
               expect(filmeDepois.reviews.length).to.be.eq(
@@ -202,7 +203,7 @@ describe("Cadastro de Avaliação", () => {
             },
             body: reviewCriada,
           }).then((response) => {
-            expect(response.status).to.be.eq(201);
+            expect(response.status).to.be.eq(StatusCode.CREATED);
 
             cy.recuperaFilme(filmeAntes.id).then((filmeDepois) => {
               const media = filmeDepois.reviews.reduce(
@@ -245,10 +246,10 @@ describe("Cadastro de Avaliação", () => {
           body: reviewCriada,
           failOnStatusCode: false,
         }).then(({ body, status }) => {
-          expect(status).to.eq(errorsFixture.code.unauthorized);
+          expect(status).to.eq(StatusCode.UNAUTHORIZED);
 
           expect(body.error).to.eq(errorsFixture.type.unauthorized);
-          expect(body.statusCode).to.eq(errorsFixture.code.unauthorized);
+          expect(body.statusCode).to.eq(StatusCode.UNAUTHORIZED);
           expect(body.message).to.include(errorsFixture.messages.unauthorized);
         });
       });
@@ -269,10 +270,10 @@ describe("Cadastro de Avaliação", () => {
             },
             failOnStatusCode: false,
           }).then(({ body, status }) => {
-            expect(status).to.eq(errorsFixture.code.notFound);
+            expect(status).to.eq(StatusCode.NOT_FOUND);
 
             expect(body.error).to.eq(errorsFixture.type.notFound);
-            expect(body.statusCode).to.eq(errorsFixture.code.notFound);
+            expect(body.statusCode).to.eq(StatusCode.NOT_FOUND);
             expect(body.message).to.include(
               errorsFixture.messages.movieNotFound
             );
@@ -297,10 +298,10 @@ describe("Cadastro de Avaliação", () => {
           },
           failOnStatusCode: false,
         }).then(({ body, status }) => {
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
 
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.reviewText.minLength
           );
@@ -322,10 +323,10 @@ describe("Cadastro de Avaliação", () => {
           },
           failOnStatusCode: false,
         }).then(({ body, status }) => {
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
 
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.reviewText.maxLength
           );
@@ -347,10 +348,10 @@ describe("Cadastro de Avaliação", () => {
           },
           failOnStatusCode: false,
         }).then(({ body, status }) => {
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
 
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.score.empty,
             errorsFixture.messages.score.number
@@ -373,10 +374,10 @@ describe("Cadastro de Avaliação", () => {
           },
           failOnStatusCode: false,
         }).then(({ body, status }) => {
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
 
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.score.interval
           );
@@ -398,10 +399,10 @@ describe("Cadastro de Avaliação", () => {
           },
           failOnStatusCode: false,
         }).then(({ body, status }) => {
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
 
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.score.interval
           );

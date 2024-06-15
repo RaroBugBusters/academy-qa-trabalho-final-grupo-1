@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { errorsFixture } from "../../fixture/errorsFixture";
 
 describe('Testes Registro de Usuários', function () {
     var randomPassword;
@@ -48,7 +49,7 @@ describe('Testes Registro de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(400);
+                expect(response.status).to.equal(errorsFixture.code.badRequest);
                 expect(response.body.message).to.include('name must be longer than or equal to 1 characters')
                 expect(response.body.message).to.include('name must be a string')
                 expect(response.body.message).to.include('name should not be empty')
@@ -69,7 +70,7 @@ describe('Testes Registro de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(400);
+                expect(response.status).to.equal(errorsFixture.code.badRequest);
                 expect(response.body.message).to.include('email must be longer than or equal to 5 characters')
                 expect(response.body.message).to.include('email must be an email')
                 expect(response.body.message).to.include('email should not be empty')
@@ -88,7 +89,7 @@ describe('Testes Registro de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(400);
+                expect(response.status).to.equal(errorsFixture.code.badRequest);
                 expect(response.body.message).to.include('password must be longer than or equal to 6 characters')
                 expect(response.body.message).to.include('password must be a string')
                 expect(response.body.message).to.include('password should not be empty')
@@ -110,7 +111,7 @@ describe('Testes Registro de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(400);
+                expect(response.status).to.equal(errorsFixture.code.badRequest);
                 expect(response.body.message).to.include('name must be shorter than or equal to 100 characters');
             });
     });
@@ -130,7 +131,7 @@ describe('Testes Registro de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(400);
+                expect(response.status).to.equal(errorsFixture.code.badRequest);
                 expect(response.body.message).to.include('password must be longer than or equal to 6 characters');
             });
     });
@@ -150,7 +151,7 @@ describe('Testes Registro de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(400);
+                expect(response.status).to.equal(errorsFixture.code.badRequest);
                 expect(response.body.message).to.include('password must be shorter than or equal to 12 characters');
             });
     });
@@ -170,7 +171,7 @@ describe('Testes Registro de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(400);
+                expect(response.status).to.equal(errorsFixture.code.badRequest);
                 expect(response.body.message).to.include('email must be an email');
             });
     });
@@ -190,7 +191,7 @@ describe('Testes Registro de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(400);
+                expect(response.status).to.equal(errorsFixture.code.badRequest);
                 expect(response.body.message).to.include('email must be an email');
             });
     });
@@ -210,7 +211,7 @@ describe('Testes Registro de Usuários', function () {
             failOnStatusCode: false
         })
             .then((response) => {
-                expect(response.status).to.equal(400);
+                expect(response.status).to.equal(errorsFixture.code.badRequest);
                 expect(response.body.message).to.include('email must be shorter than or equal to 60 characters');
             });
     });
