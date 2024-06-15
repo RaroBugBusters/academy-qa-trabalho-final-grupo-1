@@ -1,4 +1,5 @@
 import { errorsFixture } from "../../../fixture/errorsFixture";
+import { StatusCode } from "../../support/utils/StatusCode";
 
 describe("Listagem de Avaliações do usuário", () => {
   let filmes = [];
