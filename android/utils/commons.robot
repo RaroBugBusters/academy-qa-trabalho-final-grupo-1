@@ -14,6 +14,11 @@ Aguarda o elemento e faz o clique
     Wait Until Element Is Visible        ${localizadorVisivel}
     Click Element                        ${localizadorParaClicar}
 
+Aguarda o texto e faz o clique
+    [Arguments]    ${texto}
+    ${locator}    Set Variable    //*[contains(@content-desc,"${texto}")]
+    Wait Until Page Contains Element    ${locator}
+    Click Element    ${locator}
 
 Aguarda o elemento estar visível e verifica o texto
     [Arguments]    ${localizador}    ${texto}
