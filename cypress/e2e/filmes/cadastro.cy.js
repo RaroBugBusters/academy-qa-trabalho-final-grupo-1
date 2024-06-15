@@ -1,4 +1,5 @@
 import { errorsFixture } from "../../fixture/errorsFixture";
+import { StatusCode } from "../../support/utils/StatusCode";
 
 describe("Cadastro de filmes", () => {
   beforeEach(() => {
@@ -73,9 +74,9 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.title.empty,
             errorsFixture.messages.title.minLength
@@ -99,9 +100,9 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.title.maxLength
           );
@@ -124,9 +125,9 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.genre.empty,
             errorsFixture.messages.genre.minLength
@@ -150,9 +151,9 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.genre.maxLength
           );
@@ -175,9 +176,9 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.description.empty,
             errorsFixture.messages.description.minLength
@@ -201,9 +202,9 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.description.maxLength
           );
@@ -226,9 +227,9 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.durationInMinutes.min
           );
@@ -251,9 +252,9 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.durationInMinutes.max
           );
@@ -276,9 +277,9 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.releaseYear.min
           );
@@ -301,9 +302,9 @@ describe("Cadastro de filmes", () => {
         }).then((response) => {
           const { body, status } = response;
 
-          expect(status).to.eq(errorsFixture.code.badRequest);
+          expect(status).to.eq(StatusCode.BAD_REQUEST);
           expect(body.error).to.eq(errorsFixture.type.badRequest);
-          expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+          expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.releaseYear.max
           );
@@ -322,10 +323,10 @@ describe("Cadastro de filmes", () => {
           body: filme,
         }).then((response) => {
           const { body, status } = response;
-          expect(status).to.eq(errorsFixture.code.unauthorized);
+          expect(status).to.eq(StatusCode.UNAUTHORIZED);
 
           expect(body.error).to.eq(errorsFixture.type.unauthorized);
-          expect(body.statusCode).to.eq(errorsFixture.code.unauthorized);
+          expect(body.statusCode).to.eq(StatusCode.UNAUTHORIZED);
           expect(body.message).to.include(errorsFixture.messages.unauthorized);
         });
       });
@@ -347,8 +348,8 @@ describe("Cadastro de filmes", () => {
           }).then((response) => {
             const { body, status } = response;
 
-            expect(status).to.eq(errorsFixture.code.forbidden);
-            expect(body.statusCode).to.eq(errorsFixture.code.forbidden);
+            expect(status).to.eq(StatusCode.FORBIDDEN);
+            expect(body.statusCode).to.eq(StatusCode.FORBIDDEN);
             expect(body.message).to.include(errorsFixture.type.forbidden);
           });
         });
@@ -369,8 +370,8 @@ describe("Cadastro de filmes", () => {
           }).then((response) => {
             const { body, status } = response;
 
-            expect(status).to.eq(errorsFixture.code.forbidden);
-            expect(body.statusCode).to.eq(errorsFixture.code.forbidden);
+            expect(status).to.eq(StatusCode.FORBIDDEN);
+            expect(body.statusCode).to.eq(StatusCode.FORBIDDEN);
             expect(body.message).to.include(errorsFixture.type.forbidden);
           });
         });
