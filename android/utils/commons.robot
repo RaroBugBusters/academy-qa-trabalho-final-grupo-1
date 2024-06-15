@@ -6,6 +6,7 @@ Resource   ../../base.robot
 ${HOST}         https://raromdb-3c39614e42d4.herokuapp.com/api
 ${TOKEN_USUARIO}
 ${LISTA_DE_FILMES}
+${REVIEW_TEXT}
 
 *** Keywords ***
 
@@ -22,7 +23,7 @@ Aguarda o texto e faz o clique
 
 Aguarda o elemento estar visível e verifica o texto
     [Arguments]    ${localizador}    ${texto}
-    Wait Until Keyword Succeeds    5x    1s    Elemento deve estar visível    ${localizador}
+    Wait Until Keyword Succeeds    5    1   Elemento deve estar visível    ${localizador}
     ${descricao}=    Get Element Attribute    ${localizador}    content-desc
     Should Contain    ${descricao}    ${texto}
 
@@ -44,6 +45,14 @@ Clica no elemento e insere o texto
     Input Text       ${localizador}    ${texto}
     Hide Keyboard
 
+Deslizar Até Texto Visível
+    [Arguments]    ${texto_para_encontrar}
+    FOR    ${i}    IN RANGE    30
+      ${texto_presente}    Run Keyword And Return Status    Wait Until Page Contains    ${texto_para_encontrar}    timeout=1
+      Exit For Loop If    ${texto_presente}
+      Swipe By Percent    50    70    50    10
+    END
+    RETURN    ${texto_presente}
 
 
 #API
@@ -107,3 +116,18 @@ Verifica se existe filmes cadastrados
         Set Global Variable    ${FILME_CADASTRADO}    ${resposta.json()[0]}
         Log To Console    Filmes cadastrados encontrados
     END
+
+Adiciona avaliações ao filme com texto e score
+    [Arguments]    ${id}
+    Cria sessao na api
+    Cadastrar usuário
+    Loga o usuário
+    Tornar usuário administrador    ${TOKEN_USUARIO}
+    ${FAKER_AVALIACAO_SCORE}=    FakerLibrary.RandomInt    1    5
+    ${FAKER_REVIEW}=    FakerLibrary.Paragraph
+    Set Global Variable    ${REVIEW_TEXT}    ${FAKER_REVIEW}
+    ${HEADERS}=  Create Dictionary    accept=application/json    Content-Type=application/json    Authorization=Bearer ${TOKEN_USUARIO}
+    ${body}=   Create Dictionary    movieId=${id}  score=${FAKER_AVALIACAO_SCORE}    reviewText=${FAKER_REVIEW}
+    ${resposta}=  POST On Session    alias=apiRaro    url=users/review  headers=${HEADERS}    json=${body}
+    Wait Until Keyword Succeeds    10    1    Should Be Equal As Strings    ${resposta.status_code}    201
+    Log To Console    Avaliação adicionada ao filme com sucesso

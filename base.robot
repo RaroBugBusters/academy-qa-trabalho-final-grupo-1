@@ -3,6 +3,7 @@
 Library         AppiumLibrary
 Library         FakerLibrary    locale=pt_BR
 Library         RequestsLibrary
+Library         DateTime
 
 #Utils
 Resource     android/utils/commons.robot

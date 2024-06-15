@@ -25,6 +25,10 @@ Converter Duracao Para Horas E Minutos
     ${duracao_formatada}  Set Variable    ${horas}h ${minutos}m
     RETURN    ${duracao_formatada}
 
+E existe avaliações para o filme
+    Adiciona avaliações ao filme com texto e score    ${FILME_CADASTRADO.get('id')}
+
+# E clicar em avaliar
 
 Quando selecionar um filme
    Aguarda o texto e faz o clique    ${FILME_CADASTRADO.get('title')}
@@ -48,3 +52,9 @@ Então deve ser exibido o filme na lista de filmes
     Wait Until Page Contains         ${FILME_CADASTRADO.get('title')}
     Page Should Contain Text         ${FILME_CADASTRADO.get('title')}
     Page Should Contain Text         ${FILME_CADASTRADO.get('description')}
+
+Então deve ser exibido as avaliações do filme
+    ${data_atual}=   Get Current Date    result_format=%d/%m/%Y
+    Wait Until Keyword Succeeds   30    1    Deslizar Até Texto Visível  Por "${USER_NOME}" em ${data_atual}
+    Page Should Contain Text    Por "${USER_NOME}" em ${data_atual}
+    Page Should Contain Text    ${REVIEW_TEXT}
