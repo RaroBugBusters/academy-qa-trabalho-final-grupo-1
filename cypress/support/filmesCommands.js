@@ -27,8 +27,8 @@ Cypress.Commands.add("criaFilme", () => {
   });
 });
 
-Cypress.Commands.add("deletaFilme", () => {
-  const filmeId = Cypress.env("filmeAtual")?.id;
+Cypress.Commands.add("deletaFilme", (id) => {
+  const filmeId = id ?? Cypress.env("filmeAtual")?.id;
 
   if (filmeId) {
     cy.request({
@@ -71,4 +71,30 @@ Cypress.Commands.add("recuperaFilme", (filmeId) => {
   }).then((response) => {
     return response.body;
   });
+});
+
+Cypress.Commands.add("criaFilmesGenericos", (quantidade) => {
+  const filmes = [];
+
+  cy.logaUsuarioAdmin()
+    .then(() => {
+      for (let i = 0; i < quantidade; i++) {
+        cy.criaFilme().then((filme) => {
+          cy.request({
+            method: "GET",
+            url: `/movies/${filme.id}`,
+            headers: {
+              Authorization: `Bearer ${Cypress.env("accessToken")}`,
+            },
+          }).then((response) => {
+            const filme = response.body;
+            filmes.push(filme);
+            return filme;
+          });
+        });
+      }
+    })
+    .then(() => {
+      return filmes;
+    });
 });
