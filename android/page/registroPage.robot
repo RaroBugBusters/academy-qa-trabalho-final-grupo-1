@@ -12,6 +12,9 @@ ${TEXTO_EMAIL_INVALIDO}         Informe um e-mail válido.
 ${TEXTO_CADASTRO_FALHOU}        Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde.
 ${TEXTO_SENHAS_DIFERENTES}      As senhas não coincidem.
 ${TEXTO_EMAIL_CADASTRADO}       E-mail já cadastrado. Utilize outro e-mail.
+${TEXTO_NOME_OBRIGATORIO}       Informe o nome.
+${TEXTO_SENHA_OBRIGATORIA}      Informe uma senha.
+${TEXTO_EMAIL_OBRIGATORIO}      Informe o e-mail.
 
 
 #input
@@ -28,6 +31,9 @@ ${BTN_MENU_REGISTRO}       xpath=//android.view.View[@content-desc="Registre-se"
 ${MODAL_CADASTRO}           xpath=//android.view.View[@content-desc="Cadastro realizado!"]
 ${MODAL_CADASTRO_FALHOU}    xpath=//android.view.View[@content-desc="Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde."]
 ${MODAL_EMAIL_CADASTRADO}   xpath=//android.view.View[@content-desc="E-mail já cadastrado. Utilize outro e-mail."]
+${MODAL_NOME_OBRIGATORIO}   xpath=//android.view.View[@content-desc="Informe o nome."]
+${MODAL_SENHA_OBRIGATORIA}  xpath=//android.view.View[@content-desc="Informe uma senha."]
+${MODAL_EMAIL_OBRIGATORIO}  xpath=//android.view.View[@content-desc="Informe o e-mail."]
 
 
 ${MENU_HAMBURGUER}            xpath=//android.widget.Button[@content-desc="Open navigation menu"]
@@ -64,6 +70,22 @@ Quando o usuário preencher um nome válido
 Quando preencher um email inválido
     Clica no elemento e insere o texto    ${INPUT_EMAIL_REGISTRO}    emailinvalido
 
+Quando o usuário preencher um nome com 100 caracteres
+    ${FAKER_NOME}=    Random Letters    100
+    Clica no elemento e insere o texto    ${INPUT_NOME}    ${FAKER_NOME}
+    
+Quando o usuário preencher um nome com 101 caracteres
+    ${FAKER_NOME}=    Random Letters    101
+    Clica no elemento e insere o texto    ${INPUT_NOME}    ${FAKER_NOME}
+
+Quando o usuário não preencher o campo de nome
+    Click Element    ${INPUT_NOME}
+    Hide Keyboard
+    
+Quando preencher um email inválido com 4 caracteres
+    Clica no elemento e insere o texto    ${INPUT_EMAIL_REGISTRO}    a@g.c
+
+    
 E preencher um email válido
     ${FAKER_EMAIL}=    FakerLibrary.Email
     Clica no elemento e insere o texto    ${INPUT_EMAIL_REGISTRO}    ${FAKER_EMAIL}
@@ -96,6 +118,21 @@ E preencher os campos de senha e confirmação de senha com uma senha maior que 
     Clica no elemento e insere o texto    ${INPUT_SENHA_REGISTRO}         ${SENHA}
     Clica no elemento e insere o texto    ${INPUT_CONF_SENHA}    ${SENHA}
 
+E não preencher o campo de senha
+    Click Element    ${INPUT_SENHA_REGISTRO}
+    Hide Keyboard
+
+E não preencher o campo de email
+    Click Element    ${INPUT_EMAIL_REGISTRO}
+    Hide Keyboard
+
+E confirmar a senha incorretamente
+    Clica no elemento e insere o texto    ${INPUT_CONF_SENHA}    1234567
+
+E preencher um email com 61 caracteres
+    ${FAKER_EMAIL}=    Set Variable     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@g.com
+    Clica no elemento e insere o texto    ${INPUT_EMAIL_REGISTRO}    ${FAKER_EMAIL}
+
 Então o cadastro deve ser realizado com sucesso e o usuário deve ver a mensagem de sucesso
     Click Element                    ${BTN_REGISTRAR}
     Wait Until Keyword Succeeds    5    0.3    Page Should Contain Text    ${TEXTO_CADASTRO_SUCESSO}     
@@ -104,17 +141,9 @@ Então o usuário deve ver a mensagem de erro que o email é inválido
     Click Element                    ${BTN_REGISTRAR}
     Page Should Contain Text         ${TEXTO_EMAIL_INVALIDO}
 
-  
-Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro que a senha deve ter pelo menos 6 dígitos
+Então o cadastro não deve ser realizado e o usuário deve ver a mensagem que o cadastro falhou
     Click Element                                          ${BTN_REGISTRAR}
     Aguarda o elemento estar visível e verifica o texto    ${MODAL_CADASTRO_FALHOU}    ${TEXTO_CADASTRO_FALHOU}
-  
-Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro que a senha deve ter no máximo 12 dígitos
-    Click Element                                          ${BTN_REGISTRAR}
-    Aguarda o elemento estar visível e verifica o texto    ${MODAL_CADASTRO_FALHOU}    ${TEXTO_CADASTRO_FALHOU}
-
-E confirmar a senha incorretamente
-    Clica no elemento e insere o texto    ${INPUT_CONF_SENHA}    1234567
 
 Então o cadastro não deve ser realizado e o usuário deve ver a mensagem que as senhas devem ser iguais.
     Click Element                                          ${BTN_REGISTRAR}
@@ -123,6 +152,18 @@ Então o cadastro não deve ser realizado e o usuário deve ver a mensagem que a
 Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro que o e-mail já está cadastrado
     Click Element                    ${BTN_REGISTRAR}
     Aguarda o elemento estar visível e verifica o texto    ${MODAL_EMAIL_CADASTRADO}    ${TEXTO_EMAIL_CADASTRADO}
+
+Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro que o nome é obrigatório
+    Click Element                    ${BTN_REGISTRAR}
+    Aguarda o elemento estar visível e verifica o texto    ${MODAL_NOME_OBRIGATORIO}    ${TEXTO_NOME_OBRIGATORIO}
+
+Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro que a senha é obrigatória
+    Click Element                    ${BTN_REGISTRAR}
+    Aguarda o elemento estar visível e verifica o texto    ${MODAL_SENHA_OBRIGATORIA}    ${TEXTO_SENHA_OBRIGATORIA}
+
+Então o cadastro não deve ser realizado e o usuário deve ver a mensagem de erro que o email é obrigatório
+    Click Element                    ${BTN_REGISTRAR}
+    Aguarda o elemento estar visível e verifica o texto    ${MODAL_EMAIL_OBRIGATORIO}    ${TEXTO_EMAIL_OBRIGATORIO}
  
 
 

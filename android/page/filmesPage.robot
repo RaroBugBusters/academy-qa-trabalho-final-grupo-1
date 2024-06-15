@@ -13,6 +13,8 @@ ${TEXTO_PAGINA_DETALHES}    xpath=//android.view.View[@content-desc="Detalhes do
 ${BOTAO_AVALIAR}            xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.Button
 ${CAMPO_AVALIACAO}          xpath=//android.widget.EditText
 ${TRES_ESTRELAS}            xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.view.View[3]/android.view.View[3]
+${CINCO_ESTRELAS}           xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.view.View[3]/android.view.View[5]
+
 ${BOTAO_SALVAR}             xpath=//android.widget.Button[@content-desc="Salvar"]
 
 ${TEXTO_REVIEW_SUCESSO}          xpath=//android.view.View[@content-desc="Sua review foi adicionada!"]
@@ -26,10 +28,25 @@ ${FILME_CADASTRADO}
 Dado que existe um filme cadastrado
     Verifica se existe filmes cadastrados
 
+Dado que já realizei uma avaliação para um filme
+    Dado que existe um filme cadastrado
+    E estou logado
+    Quando selecionar um filme
+    E clicar em avaliar
+    E dar uma nota de 3 estrelas
+    E preencher o campo de texto
+    E clicar em Salvar
+
 Quando selecionar um filme
    Aguarda o texto e faz o clique    ${FILME_CADASTRADO.get('title')}
 
+Quando retornar para tela de detalhes do filme
+    Go Back
+    Wait Until Page Contains    ${FILME_CADASTRADO.get('title')}
 
+E retornar para a tela anterior
+    Go Back
+    
 E existe avaliações para o filme
     Adiciona avaliações ao filme com texto e score    ${FILME_CADASTRADO.get('id')}
 
@@ -38,7 +55,9 @@ E clicar em avaliar
     Click Element    ${BOTAO_AVALIAR}
     Wait Until Page Contains    Review
 
-
+E preencher o campo de texto com um texto maior que 500 caracteres
+    ${REVIEW_TEXT}=    Random Letters    501
+    Clica no elemento e insere o texto    ${CAMPO_AVALIACAO}    ${REVIEW_TEXT}
 
 E preencher o campo de texto
     ${FAKER_TEXT}=    FakerLibrary.Paragraph
@@ -92,7 +111,7 @@ Então deve exibir a mensagem que a review foi adicionada com sucesso
     Page Should Contain Element             ${TEXTO_REVIEW_SUCESSO} 
     Verifica se o elemento contém o texto   ${TEXTO_REVIEW_SUCESSO}   Sua review foi adicionada!
 
-Então devo ver a mensagem de erro que deve preencher o campo de texto para avaliar um filme
+Então devo ver a mensagem de erro que não foi possivel adicionar a review
     Wait Until Page Contains Element    ${TEXTO_ERRO_AVALIACAO_CAMPO}
     Page Should Contain Element         ${TEXTO_ERRO_AVALIACAO_CAMPO}  
     Verifica se o elemento contém o texto    ${TEXTO_ERRO_AVALIACAO_CAMPO}    Não foi possível adicionar sua review.
