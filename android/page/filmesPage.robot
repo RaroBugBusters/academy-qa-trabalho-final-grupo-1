@@ -15,8 +15,9 @@ ${CAMPO_AVALIACAO}          xpath=//android.widget.EditText
 ${TRES_ESTRELAS}            xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.view.View[3]/android.view.View[3]
 ${BOTAO_SALVAR}             xpath=//android.widget.Button[@content-desc="Salvar"]
 
-${TEXTO_REVIEW_SUCESSO}     xpath=//android.view.View[@content-desc="Sua review foi adicionada!"]
-${TEXTO_ERRO_AVALIACAO}     xpath=//android.view.View[@content-desc="Faça login e tente novamente."]
+${TEXTO_REVIEW_SUCESSO}          xpath=//android.view.View[@content-desc="Sua review foi adicionada!"]
+${TEXTO_ERRO_AVALIACAO_LOGIN}     xpath=//android.view.View[@content-desc="Faça login e tente novamente."]
+${TEXTO_ERRO_AVALIACAO_CAMPO}    xpath=//android.view.View[@content-desc="Não foi possível adicionar sua review."]
 
 ${FILME_CADASTRADO}
 
@@ -82,12 +83,17 @@ Então deve ser exibido as avaliações do filme
     Page Should Contain Text    ${REVIEW_TEXT}
 
 Então devo ver a mensagem de erro que deve estar logado para avaliar um filme
-    Wait Until Page Contains Element    ${TEXTO_ERRO_AVALIACAO}
-    Page Should Contain Element         ${TEXTO_ERRO_AVALIACAO}  
-    Verifica se o elemento contém o texto    ${TEXTO_ERRO_AVALIACAO}    Faça login e tente novamente.
+    Wait Until Page Contains Element    ${TEXTO_ERRO_AVALIACAO_LOGIN}
+    Page Should Contain Element         ${TEXTO_ERRO_AVALIACAO_LOGIN}  
+    Verifica se o elemento contém o texto    ${TEXTO_ERRO_AVALIACAO_LOGIN}    Faça login e tente novamente.
 
 Então deve exibir a mensagem que a review foi adicionada com sucesso
     Sleep    5
     Wait Until Page Contains Element        ${TEXTO_REVIEW_SUCESSO} 
     Page Should Contain Element             ${TEXTO_REVIEW_SUCESSO} 
     Verifica se o elemento contém o texto   ${TEXTO_REVIEW_SUCESSO}   Sua review foi adicionada!
+
+Então devo ver a mensagem de erro que deve preencher o campo de texto para avaliar um filme
+    Wait Until Page Contains Element    ${TEXTO_ERRO_AVALIACAO_CAMPO}
+    Page Should Contain Element         ${TEXTO_ERRO_AVALIACAO_CAMPO}  
+    Verifica se o elemento contém o texto    ${TEXTO_ERRO_AVALIACAO_CAMPO}    Não foi possível adicionar sua review.

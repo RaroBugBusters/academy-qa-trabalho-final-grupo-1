@@ -40,3 +40,12 @@ CT005 - Não deve ser possivel avaliar um filme sem estar logado
     E preencher o campo de texto
     E clicar em Salvar
     Então devo ver a mensagem de erro que deve estar logado para avaliar um filme
+
+CT006 - Não deve ser possivel avaliar um filme sem preencher o campo de texto
+    Dado que existe um filme cadastrado
+    E estou logado
+    Quando selecionar um filme
+    E clicar em avaliar
+    E dar uma nota de 3 estrelas
+    E clicar em Salvar
+    Então devo ver a mensagem de erro que deve preencher o campo de texto para avaliar um filme
