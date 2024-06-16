@@ -30,9 +30,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: List directory contents
-        run: ls -alh ./api
-
       - name: Instala Dependencias
         run: npm install
         working-directory: ./api
