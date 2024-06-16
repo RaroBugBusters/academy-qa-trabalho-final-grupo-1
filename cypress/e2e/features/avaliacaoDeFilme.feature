@@ -1,12 +1,12 @@
 # language: pt
 Funcionalidade: Avaliação de filmes
 
-  # Cenário: CT001 - Avaliação de filmes com sucesso
+  Cenário: CT001 - Avaliação de filmes com sucesso
 
-  #  Dado que eu acesso o site e estou logado
-  #  Quando pesquisar pelo filme "Duna"
-  #  E selecionar o rating 3 e escrever uma review
-  #  Então a avaliação deve ser registrada
+   Dado que eu acesso o site e estou logado
+   Quando pesquisar pelo filme "Duna"
+   E selecionar o rating 3 e escrever uma review
+   Então a avaliação deve ser registrada
 
   Cenário: CT002 - Avaliação de filmes com rating 0
 
