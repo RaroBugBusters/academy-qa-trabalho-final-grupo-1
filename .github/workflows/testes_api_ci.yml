@@ -23,6 +23,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
+      - name: Lista diretorios
+        run: ls -alh ./api
+
       - name: Instala Dependencias
         run: npm install
         working-directory: ./api
