@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { StatusCode } from "../../support/utils/StatusCode";
 
-describe("Testes Login de Usuários", function () {
+describe("Testes Gerenciamento de Usuários", function () {
   it("Um usuário autenticado pode acessar a edição das próprias informações", function () {
     cy.atualizaUsuario().then((response) => {
       expect(response.status).to.equal(StatusCode.OK);
@@ -252,60 +252,6 @@ describe("Testes Login de Usuários", function () {
       });
     });
   });
-
-  // it('As informações e avaliações de um usuário inativado permanecem registradas no sistema', function () {
-  //     const fakeUserData = {
-  //         name: faker.person.fullName(),
-  //         email: faker.internet.email(),
-  //         password: faker.internet.password({ length: 6 }),
-  //     };
-
-  //     cy.request({
-  //         method: "POST",
-  //         url: "/users",
-  //         body: fakeUserData,
-  //     })
-  //         .then((response) => {
-  //             const userId = response.body.id;
-
-  //             cy.request({
-  //                 method: "POST",
-  //                 url: "/auth/login",
-  //                 body: {
-  //                     email: fakeUserData.email,
-  //                     password: fakeUserData.password,
-  //                 }
-  //             })
-  //                 .then((response) => {
-  //                     const accessToken = response.body.accessToken;
-
-  //                     cy.request({
-  //                         method: 'PATCH',
-  //                         url: `/users/inactivate`,
-  //                         headers: {
-  //                             Authorization: `Bearer ` + accessToken
-  //                         }
-  //                     });
-  //                     cy.logaUsuarioAdmin().then(() => {
-  //                         cy.request({
-  //                             method: 'GET',
-  //                             url: `/users/${userId}`,
-  //                             headers: {
-  //                                 Authorization: `Bearer ${Cypress.env("accessToken")}`,
-  //                             }
-  //                         })
-  //                             .then((response) => {
-  //                                 expect(response.status).to.equal(StatusCode.OK);
-  //                                 expect(response.body).to.have.property('id', userId);
-  //                                 expect(response.body).to.have.property('name', name);
-  //                                 expect(response.body).to.have.property('email', email);
-  //                                 expect(response.body).to.have.property('type');
-  //                                 expect(response.body).to.have.property('active', false);
-  //                             });
-  //                     });
-  //                 });
-  //         });
-  // });
 
   it("Quando um usuário é inativado, seu email fica disponível para um novo cadastro", function () {
     const fakeUserData = {
