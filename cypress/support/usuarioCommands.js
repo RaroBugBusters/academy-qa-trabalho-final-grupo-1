@@ -9,6 +9,31 @@ Cypress.Commands.add("criarUsuarioAleatorio", () => {
   };
 });
 
+Cypress.Commands.add("createReviewMock", (movieId) => {
+  return {
+    movieId,
+    score: faker.number.float({ min: 0, max: 5, multipleOf: 0.01 }),
+    reviewText: faker.lorem.sentence(),
+  };
+});
+
+Cypress.Commands.add("createReview", () => {
+  const actualMovie = Cypress.env("actualMovie");
+
+  if (actualMovie) {
+    cy.createReviewMock(actualMovie.id).then((review) => {
+      cy.request({
+        method: "POST",
+        url: `${Cypress.env("API_URL")}/users/review`,
+        body: review,
+        headers: {
+          Authorization: `Bearer ${Cypress.env("accessToken")}`,
+        },
+      });
+    });
+  }
+});
+
 Cypress.Commands.add("registrarUsuario", () => {
   cy.criarUsuarioAleatorio().then((usuarioAleatorio) => {
     cy.request("POST", `${apiUrl}/users`, usuarioAleatorio).then(() => {
@@ -38,7 +63,7 @@ Cypress.Commands.add("userLogin", () => {
 Cypress.Commands.add("movieCreate", () => {
   cy.request({
     method: "POST",
-    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/movies",
+    url: `${Cypress.env("API_URL")}/movies`,
     body: {
       title: "Duna (1984)",
       genre: "ficção científica",
@@ -56,13 +81,24 @@ Cypress.Commands.add("movieCreate", () => {
   });
 });
 
+Cypress.Commands.add("getMovie", (movieId) => {
+  const id = movieId || Cypress.env("actualMovie")?.id;
+
+  cy.request({
+    method: "GET",
+    url: `${Cypress.env("API_URL")}/movies/${id}`,
+  }).then(({ body }) => {
+    Cypress.env("actualDetailMovie", body);
+  });
+});
+
 Cypress.Commands.add("movieDelete", () => {
   const movieId = Cypress.env("actualMovie")?.id;
 
   if (movieId) {
     cy.request({
       method: "DELETE",
-      url: `https://raromdb-3c39614e42d4.herokuapp.com/api/movies/${movieId}`,
+      url: `${Cypress.env("API_URL")}/movies/${movieId}`,
       headers: {
         Authorization: `Bearer ${Cypress.env("accessToken")}`,
       },
@@ -88,7 +124,7 @@ Cypress.Commands.add("userCreate", () => {
   };
   cy.request({
     method: "POST",
-    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users",
+    url: `${Cypress.env("API_URL")}/users`,
     body: fakeUserData,
   });
 });
@@ -97,26 +133,18 @@ Cypress.Commands.add("userLogIn", () => {
   const actualUser = Cypress.env("actualUser");
 
   // if (actualUser) {
-  //     cy.userDelete();
-  // };
+  //   cy.userDelete();
+  // }
 
   cy.userMock().then((createdUser) => {
-    cy.request(
-      "POST",
-      "https://raromdb-3c39614e42d4.herokuapp.com/api/users",
-      createdUser
-    )
+    cy.request("POST", `${Cypress.env("API_URL")}/users`, createdUser)
       .then(({ body }) => {
         Cypress.env("actualUser", body);
 
-        return cy.request(
-          "POST",
-          "https://raromdb-3c39614e42d4.herokuapp.com/api/auth/login",
-          {
-            email: createdUser.email,
-            password: createdUser.password,
-          }
-        );
+        return cy.request("POST", `${Cypress.env("API_URL")}/auth/login`, {
+          email: createdUser.email,
+          password: createdUser.password,
+        });
       })
       .then(({ body }) => {
         Cypress.env("accessToken", body.accessToken);
@@ -128,7 +156,7 @@ Cypress.Commands.add("userMakeAdmin", () => {
   cy.userLogIn().then(() => {
     cy.request({
       method: "PATCH",
-      url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/admin",
+      url: `${Cypress.env("API_URL")}/users/admin`,
       headers: {
         Authorization: `Bearer ${Cypress.env("accessToken")}`,
       },
@@ -142,7 +170,7 @@ Cypress.Commands.add("userDelete", () => {
   if (actualUser) {
     cy.request({
       method: "DELETE",
-      url: `https://raromdb-3c39614e42d4.herokuapp.com/api/users/${actualUser.id}`,
+      url: `${Cypress.env("API_URL")}/users/${actualUser.id}`,
       headers: {
         Authorization: `Bearer ${Cypress.env("accessToken")}`,
       },
