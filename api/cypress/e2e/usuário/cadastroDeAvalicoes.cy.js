@@ -1,5 +1,5 @@
-import { errorsFixture } from "../../../fixture/errorsFixture";
-import { StatusCode } from "../../../support/utils/StatusCode";
+import { errorsFixture } from "../../fixture/errorsFixture";
+import { StatusCode } from "../../support/utils/StatusCode";
 
 describe("Cadastro de Avaliação", () => {
   beforeEach(() => {
@@ -33,12 +33,12 @@ describe("Cadastro de Avaliação", () => {
               const user = Cypress.env("usuarioAtual");
               const usuarioTipoComum = 0;
               const reviewDoUsuario = filmeDepois.reviews.find(
-                (review) => review.user.id === user.id,
+                (review) => review.user.id === user.id
               );
 
               expect(reviewDoUsuario.score).to.be.eq(reviewCriada.score);
               expect(reviewDoUsuario.reviewText).to.be.eq(
-                reviewCriada.reviewText,
+                reviewCriada.reviewText
               );
 
               expect(filmeDepois.reviews.length).to.be.eq(1);
@@ -77,12 +77,12 @@ describe("Cadastro de Avaliação", () => {
               const user = Cypress.env("usuarioAtual");
               const usuarioTipoComum = 0;
               const reviewDoUsuario = filmeDepois.reviews.find(
-                (review) => review.user.id === user.id,
+                (review) => review.user.id === user.id
               );
 
               expect(reviewDoUsuario.score).to.be.eq(reviewCriada.score);
               expect(reviewDoUsuario.reviewText).to.be.eq(
-                reviewCriada.reviewText,
+                reviewCriada.reviewText
               );
 
               expect(filmeDepois.reviews.length).to.be.eq(1);
@@ -119,12 +119,12 @@ describe("Cadastro de Avaliação", () => {
               const user = Cypress.env("usuarioAtual");
               const usuarioTipoCritico = 1;
               const reviewDoUsuario = filmeDepois.reviews.find(
-                (review) => review.user.id === user.id,
+                (review) => review.user.id === user.id
               );
 
               expect(reviewDoUsuario.score).to.be.eq(reviewCriada.score);
               expect(reviewDoUsuario.reviewText).to.be.eq(
-                reviewCriada.reviewText,
+                reviewCriada.reviewText
               );
 
               expect(filmeDepois.reviews.length).to.be.eq(1);
@@ -160,7 +160,7 @@ describe("Cadastro de Avaliação", () => {
 
           cy.recuperaFilme(filmeAntes.id).then((filmeDepois) => {
             expect(filmeDepois.reviews.length).to.be.eq(
-              filmeAntes.reviews.length + 1,
+              filmeAntes.reviews.length + 1
             );
           });
         });
@@ -184,11 +184,11 @@ describe("Cadastro de Avaliação", () => {
           cy.recuperaFilme(filmeAntes.id).then((filmeDepois) => {
             const media = filmeDepois.reviews.reduce(
               (acc, review) => acc + review.score,
-              0,
+              0
             );
 
             expect(filmeDepois.audienceScore).to.be.eq(
-              media / filmeDepois.reviews.length,
+              media / filmeDepois.reviews.length
             );
 
             cy.logaUsuarioAdmin(() => {
@@ -197,10 +197,10 @@ describe("Cadastro de Avaliação", () => {
               cy.recuperaFilme(filmeAntes.id).then((filmeDepois) => {
                 const media = filmeDepois.reviews.reduce(
                   (acc, review) => acc + review.score,
-                  0,
+                  0
                 );
                 expect(filmeDepois.audienceScore).to.be.eq(
-                  media / filmeDepois.reviews.length,
+                  media / filmeDepois.reviews.length
                 );
               });
             });
@@ -226,7 +226,7 @@ describe("Cadastro de Avaliação", () => {
 
             cy.recuperaFilme(filmeAntes.id).then((filmeDepois) => {
               expect(filmeDepois.reviews.length).to.be.eq(
-                filmeAntes.reviews.length + 1,
+                filmeAntes.reviews.length + 1
               );
             });
           });
@@ -252,11 +252,11 @@ describe("Cadastro de Avaliação", () => {
             cy.recuperaFilme(filmeAntes.id).then((filmeDepois) => {
               const media = filmeDepois.reviews.reduce(
                 (acc, review) => acc + review.score,
-                0,
+                0
               );
 
               expect(filmeDepois.criticScore).to.be.eq(
-                media / filmeDepois.reviews.length,
+                media / filmeDepois.reviews.length
               );
 
               cy.logaUsuarioAdmin(() => {
@@ -265,10 +265,10 @@ describe("Cadastro de Avaliação", () => {
                 cy.recuperaFilme(filmeAntes.id).then((filmeDepois) => {
                   const media = filmeDepois.reviews.reduce(
                     (acc, review) => acc + review.score,
-                    0,
+                    0
                   );
                   expect(filmeDepois.criticScore).to.be.eq(
-                    media / filmeDepois.reviews.length,
+                    media / filmeDepois.reviews.length
                   );
                 });
               });
@@ -319,7 +319,7 @@ describe("Cadastro de Avaliação", () => {
             expect(body.error).to.eq(errorsFixture.type.notFound);
             expect(body.statusCode).to.eq(StatusCode.NOT_FOUND);
             expect(body.message).to.include(
-              errorsFixture.messages.movieNotFound,
+              errorsFixture.messages.movieNotFound
             );
           });
         });
@@ -347,7 +347,7 @@ describe("Cadastro de Avaliação", () => {
           expect(body.error).to.eq(errorsFixture.type.badRequest);
           expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
-            errorsFixture.messages.reviewText.maxLength,
+            errorsFixture.messages.reviewText.maxLength
           );
         });
       });
@@ -373,7 +373,7 @@ describe("Cadastro de Avaliação", () => {
           expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
             errorsFixture.messages.score.empty,
-            errorsFixture.messages.score.number,
+            errorsFixture.messages.score.number
           );
         });
       });
@@ -398,7 +398,7 @@ describe("Cadastro de Avaliação", () => {
           expect(body.error).to.eq(errorsFixture.type.badRequest);
           expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
-            errorsFixture.messages.score.interval,
+            errorsFixture.messages.score.interval
           );
         });
       });
@@ -423,7 +423,7 @@ describe("Cadastro de Avaliação", () => {
           expect(body.error).to.eq(errorsFixture.type.badRequest);
           expect(body.statusCode).to.eq(StatusCode.BAD_REQUEST);
           expect(body.message).to.include(
-            errorsFixture.messages.score.interval,
+            errorsFixture.messages.score.interval
           );
         });
       });
