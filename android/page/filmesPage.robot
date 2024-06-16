@@ -31,51 +31,52 @@ Dado que existe um filme cadastrado
 Dado que já realizei uma avaliação para um filme
     Dado que existe um filme cadastrado
     E estou logado
-    Quando selecionar um filme
-    E clicar em avaliar
-    E dar uma nota de 3 estrelas
-    E preencher o campo de texto
-    E clicar em Salvar
+    Quando seleciono um filme
+    E clico em avaliar
+    E dou uma nota de 3 estrelas
+    E preencho o campo de texto
+    E clico em Salvar
 
-Quando selecionar um filme
+Quando seleciono um filme
    Aguarda o texto e faz o clique    ${FILME_CADASTRADO.get('title')}
 
 Quando retornar para tela de detalhes do filme
     Go Back
     Wait Until Page Contains    ${FILME_CADASTRADO.get('title')}
 
-E retornar para a tela anterior
+E retorno para a tela anterior
     Go Back
     
-E existe avaliações para o filme
+E existem avaliações para o filme
     Adiciona avaliações ao filme com texto e score    ${FILME_CADASTRADO.get('id')}
 
-E clicar em avaliar
+E clico em avaliar
     Wait Until Element Is Visible    ${BOTAO_AVALIAR}
     Click Element    ${BOTAO_AVALIAR}
     Wait Until Page Contains    Review
 
-E preencher o campo de texto com um texto maior que 500 caracteres
+E preencho o campo de texto com um texto maior que 500 caracteres
     ${REVIEW_TEXT}=    Random Letters    501
     Clica no elemento e insere o texto    ${CAMPO_AVALIACAO}    ${REVIEW_TEXT}
 
-E preencher o campo de texto
+E preencho o campo de texto
     ${FAKER_TEXT}=    FakerLibrary.Paragraph
     Clica no elemento e insere o texto    ${CAMPO_AVALIACAO}    ${FAKER_TEXT}
-E dar uma nota de 3 estrelas
+
+E dou uma nota de 3 estrelas
     Click Element    ${TRES_ESTRELAS}
 
-E clicar em Salvar
+E clico em Salvar
     Click Element    ${BOTAO_SALVAR}
 
 E estou logado
     Dado que estou cadastrado
-    Quando acesso a pagina de login
-    E preencher o email com um e-mail válido
-    E preencher a senha com uma senha válida
+    Quando acesso a página de login
+    E preencho o campo de email com um email válido
+    E preencho o campo de senha com uma senha válida
     Click Element    ${BTN_LOGIN}
 
-Então deve ser exibido o detalhe do filme
+Então os detalhes do filme devem ser exibidos
     ${duracao_formatada}  Converter Duracao Para Horas E Minutos  ${FILME_CADASTRADO.get('durationInMinutes')}
 
     Wait Until Page Contains Element         ${TEXTO_PAGINA_DETALHES}
@@ -90,28 +91,28 @@ Então deve ser exibido o detalhe do filme
     Page Should Contain Text    Avaliação da crítica
     
 
-Então deve ser exibido o filme na lista de filmes
+Então o filme deve ser exibido na lista de filmes na página inicial
     Wait Until Page Contains         ${FILME_CADASTRADO.get('title')}
     Page Should Contain Text         ${FILME_CADASTRADO.get('title')}
     Page Should Contain Text         ${FILME_CADASTRADO.get('description')}
 
-Então deve ser exibido as avaliações do filme
+Então as avaliações do filme devem ser exibidas
     ${data_atual}=   Get Current Date    result_format=%d/%m/%Y
     Wait Until Keyword Succeeds   30    1    Deslizar Até Texto Visível  Por "${USER_NOME}" em ${data_atual}
     Page Should Contain Text    Por "${USER_NOME}" em ${data_atual}
     Page Should Contain Text    ${REVIEW_TEXT}
 
-Então devo ver a mensagem de erro que deve estar logado para avaliar um filme
+Então devo ver a mensagem de erro que é necessário estar logado para avaliar um filme
     Wait Until Page Contains Element    ${TEXTO_ERRO_AVALIACAO_LOGIN}
     Page Should Contain Element         ${TEXTO_ERRO_AVALIACAO_LOGIN}  
     Verifica se o elemento contém o texto    ${TEXTO_ERRO_AVALIACAO_LOGIN}    Faça login e tente novamente.
 
-Então deve exibir a mensagem que a review foi adicionada com sucesso
+Então deve ser exibida a mensagem que a review foi adicionada com sucesso
     Wait Until Page Contains Element        ${TEXTO_REVIEW_SUCESSO} 
     Page Should Contain Element             ${TEXTO_REVIEW_SUCESSO} 
     Verifica se o elemento contém o texto   ${TEXTO_REVIEW_SUCESSO}   Sua review foi adicionada!
 
-Então devo ver a mensagem de erro que não foi possivel adicionar a review
+Então devo ver a mensagem de erro que não foi possível adicionar a review
     Wait Until Page Contains Element    ${TEXTO_ERRO_AVALIACAO_CAMPO}
     Page Should Contain Element         ${TEXTO_ERRO_AVALIACAO_CAMPO}  
     Verifica se o elemento contém o texto    ${TEXTO_ERRO_AVALIACAO_CAMPO}    Não foi possível adicionar sua review.

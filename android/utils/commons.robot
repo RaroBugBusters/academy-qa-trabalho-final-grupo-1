@@ -50,7 +50,7 @@ Deslizar Até Texto Visível
     FOR    ${i}    IN RANGE    30
       ${texto_presente}    Run Keyword And Return Status    Wait Until Page Contains    ${texto_para_encontrar}    timeout=1
       Exit For Loop If    ${texto_presente}
-      Swipe By Percent    50    70    50    10
+      Swipe By Percent    50    50    50    15
     END
     RETURN    ${texto_presente}
     
