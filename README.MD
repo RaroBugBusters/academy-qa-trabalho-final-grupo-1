@@ -84,6 +84,6 @@ Seu navegador padrão irá abrir já com os resultados dos testes e caso queira 
 
 Exemplos dos relatórios de testes:
 
-![image](https://ibb.co/61m0mC5)
+![image](https://i.ibb.co/7RXtXmF/Gr-ficos.png)
 
-![image](https://ibb.co/26Ssd66)
+![image](https://i.ibb.co/6Z81FZZ/visao-Geral.png)
