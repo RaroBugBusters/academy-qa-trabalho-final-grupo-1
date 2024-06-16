@@ -49,10 +49,12 @@ Given("que eu acesso o site e crio um usuário", () => {
 
 When("pesquisar pelo filme {string}", (movie) => {
   movieRating.search(movie);
+  cy.wait(1000);
+  movieRating.clickOnMovie();
 });
 
-When("selecionar o rating {int} e escrever uma review", (stars) => {
-  movieRating.rate(stars);
+When("selecionar o rating 3 e escrever uma review", () => {
+  movieRating.rate();
   movieRating.review("Um excelente filme");
   movieRating.submit();
 });
@@ -62,12 +64,12 @@ When("não selecionar o rating e escrever uma review", () => {
   movieRating.submit();
 });
 
-When("selecionar o rating {int} e não escrever uma review", (stars) => {
-  movieRating.rate(stars);
+When("selecionar o rating 3 e não escrever uma review", () => {
+  movieRating.rate();
   movieRating.submit();
 });
 
-When("selecionar o rating {int} e escrever uma nova review", (star) => {
+When("selecionar o rating 3 e escrever uma nova review", (star) => {
   movieRating.rate(star);
   movieRating.review("Um bom filme");
   movieRating.submit();
