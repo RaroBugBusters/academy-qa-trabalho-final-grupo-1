@@ -26,12 +26,12 @@ Dado que estou cadastrado
 
 Dado que estou logado
   Dado que estou cadastrado
-  Quando acesso a pagina de login
-  E preencher o email com um e-mail válido
-  E preencher a senha com uma senha válida
+  Quando acesso a página de login
+  E preencho o campo de email com um email válido
+  E preencho o campo de senha com uma senha válida
   Click Element    ${BTN_LOGIN}
   
-Quando acesso a pagina de login
+Quando acesso a página de login
   Aguarda o elemento e faz o clique  ${MENU_HAMBURGUER}  ${MENU_HAMBURGUER}
   Aguarda o elemento e faz o clique  ${MENU_LOGIN}       ${MENU_LOGIN}
 
@@ -40,33 +40,39 @@ Quando clico no botão de logout
   Aguarda o elemento e faz o clique  ${MENU_HAMBURGUER}  ${MENU_HAMBURGUER}
   Aguarda o elemento e faz o clique  ${MENU_LOGOUT}      ${MENU_LOGOUT}
 
-E preencher o email com um e-mail válido
+Quando tento acessar a página de registro
+  Aguarda o elemento e faz o clique  ${MENU_HAMBURGUER}  ${MENU_HAMBURGUER}
+
+E preencho o campo de email com um email válido
   Clica no elemento e insere o texto  ${INPUT_EMAIL_LOGIN}  ${USER_EMAIL}
 
-E preencher a senha com uma senha válida
+E preencho o campo de senha com uma senha válida
   Clica no elemento e insere o texto  ${INPUT_SENHA_LOGIN}  ${USER_SENHA}
 
-E preencher o email com um e-mail inválido
+E preencho o campo de email com um email inválido
   Clica no elemento e insere o texto  ${INPUT_EMAIL_LOGIN}  j@gm342123
 
-E preencher a senha com uma senha inválida
+E preencho o campo de senha com uma senha inválida
   Clica no elemento e insere o texto  ${INPUT_SENHA_LOGIN}  123
 
-E não preencher o email com um e-mail
+E deixo o campo de email vazio
   Click Element    ${INPUT_EMAIL_LOGIN}
   Hide Keyboard
 
-E não preencher a senha com uma senha
+E deixo o campo de senha vazio
   Click Element    ${INPUT_SENHA_LOGIN}
   Hide Keyboard
   
-Então devo ser autenticado e ser redirecionado para a página inicial
-  Click Element    ${BTN_LOGIN}
-  Aguarda o elemento estar visível e verifica o texto    ${TEXTO_LOGIN_SUCESSO}    Login realizado!
+E devo ser redirecionado para a página inicial
   Page Should Contain Element      ${TEXTO_LOGIN_SUCESSO} 
   Aguarda o elemento estar visível e verifica o texto    ${TEXTO_PAGINA_INICIAL}    Home
 
-Então devo ver a mensagem de erro de e-mail inválido
+Então devo ser autenticado com sucesso
+  Click Element    ${BTN_LOGIN}
+  Aguarda o elemento estar visível e verifica o texto    ${TEXTO_LOGIN_SUCESSO}    Login realizado!
+  
+
+Então devo ver a mensagem de erro que o email é inválido
   Click Element    ${BTN_LOGIN}
   Aguarda o elemento estar visível e verifica o texto    ${ERROR_EMAIL_INVALIDO}    Informe um e-mail válido.
   Page Should Contain Element      ${ERROR_EMAIL_INVALIDO}
@@ -76,7 +82,7 @@ Então devo ver a mensagem de erro falha ao autenticar
   Aguarda o elemento estar visível e verifica o texto    ${ERROR_SENHA_INVALIDA}    Usuário ou senha inválidos.
   Page Should Contain Element      ${ERROR_SENHA_INVALIDA}
 
-Então devo ver a mensagem de erro que deve ser preenchido o campo email e senha
+Então devo ver a mensagem de erro que os campos email e senha devem ser preenchidos
   Click Element    ${BTN_LOGIN}
   Aguarda o elemento estar visível e verifica o texto    ${ERROR_EMAIL_SEM_PREENCHIMENTO}    Informe o e-mail.
   Page Should Contain Element      ${ERROR_EMAIL_SEM_PREENCHIMENTO}
