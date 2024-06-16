@@ -67,6 +67,28 @@ describe("Atualização de filmes", () => {
       });
     });
 
+    // BUG: O teste abaixo não está passando, pois o backend não está validando o campo
+    it("Deve retornar erro ao tentar atualizar um filme com informação de título  possuindo apenas espaços vazios", () => {
+      novoFilme.title = "    ";
+
+      cy.request({
+        method: "PUT",
+        url: `/movies/${filme.id}`,
+        failOnStatusCode: false,
+        body: novoFilme,
+        headers: {
+          Authorization: `Bearer ${Cypress.env("accessToken")}`,
+        },
+      }).then((response) => {
+        const { body, status } = response;
+
+        expect(status).to.eq(errorsFixture.code.badRequest);
+        expect(body.error).to.eq(errorsFixture.type.badRequest);
+        expect(body.statusCode).to.eq(errorsFixture.code.badRequest);
+        expect(body.message).to.include(errorsFixture.messages.title.minLength);
+      });
+    });
+
     it("Deve retornar erro ao tentar atualizar um filme com informação de título maior que cem caracteres", () => {
       novoFilme.title = "f".repeat(101);
 

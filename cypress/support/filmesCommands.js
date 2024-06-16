@@ -34,6 +34,7 @@ Cypress.Commands.add("deletaFilme", (id) => {
     cy.request({
       method: "DELETE",
       url: `/movies/${filmeId}`,
+      failOnStatusCode: false,
       headers: {
         Authorization: `Bearer ${Cypress.env("accessToken")}`,
       },
