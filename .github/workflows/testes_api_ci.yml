@@ -25,8 +25,8 @@ jobs:
 
       - name: Instala Dependencias
         run: npm install
-        working-directory: ./api/
+        working-directory: ../../api
 
       - name: Executa Testes
         run: npm run test:headless
-        working-directory: ./api/
+        working-directory: ../../api
