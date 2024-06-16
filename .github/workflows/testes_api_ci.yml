@@ -21,9 +21,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
 
-      - name: Lista diretorios
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ./api/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('api/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: List directory contents
         run: ls -alh ./api
 
       - name: Instala Dependencias
