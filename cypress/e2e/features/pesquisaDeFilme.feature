@@ -1,11 +1,11 @@
 # language: pt
 Funcionalidade: Pesquisa de Filmes
 
-  Cenário: CT001 - Pesquisa de Filmes com sucesso
+  # Cenário: CT001 - Pesquisa de Filmes com sucesso
 
-   Dado que eu acesso o site
-   Quando pesquiso pelo filme existente "Duna"
-   Então deve ser exibido o resultado da busca
+  #  Dado que eu acesso o site
+  #  Quando pesquiso pelo filme existente "Duna"
+  #  Então deve ser exibido o resultado da busca
 
   Cenário: CT002 - Pesquisa de Filmes não existente
 
