@@ -19,8 +19,8 @@ Funcionalidade: Pesquisa de Filmes
    Quando pesquiso pelo filme ""
    Então deve ser exibido a lista com todos os filmes
 
-  # Cenário: CT004 - Pesquisa de Filmes com caracteres especiais
+  Cenário: CT004 - Pesquisa de Filmes com caracteres especiais
 
-  #  Dado que eu acesso o site
-  #  Quando pesquiso pelo filme "@#$!!@"
-  #  Então deve ser exibido que nenhum filme foi encontrado
+   Dado que eu acesso o site
+   Quando pesquiso pelo filme "@#$!!@"
+   Então deve ser exibido que nenhum filme foi encontrado
