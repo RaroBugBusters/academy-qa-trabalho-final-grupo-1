@@ -1,0 +1,11 @@
+web/allure-results
+web/cypress/screenshots/
+web/node_modules/
+
+
+mobile/log.html
+mobile/output.xml
+mobile/report.html
+mobile/interactive_console_output.xml
+
+api/node_modules/

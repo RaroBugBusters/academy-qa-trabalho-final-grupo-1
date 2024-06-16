@@ -1,0 +1,39 @@
+name: Testes api CI
+
+on:
+  push:
+    branches: ["main", "api"]
+  pull_request:
+    branches: ["main", "api"]
+
+jobs:
+  build_e_testes:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ./api/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('api/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Instala Dependencias
+        run: npm install
+        working-directory: ./api
+
+      - name: Executa Testes
+        run: npm run test:headless
+        working-directory: ./api
