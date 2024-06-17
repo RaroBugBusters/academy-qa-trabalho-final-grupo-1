@@ -17,7 +17,7 @@ export class AvaliacaoDeFilmePage {
   }
 
   review(review) {
-    cy.get(this.inputReview).click().type(review);
+    cy.get(this.inputReview).click().clear().type(review);
   }
 
   submit() {
