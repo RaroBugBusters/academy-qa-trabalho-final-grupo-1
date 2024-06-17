@@ -2,9 +2,9 @@ name: Testes web CI
 
 on:
   push:
-    branches: ["main", "web"]
+    branches: ["main", "api"]
   pull_request:
-    branches: ["main", "web"]
+    branches: ["main", "api"]
 
 jobs:
   testes:
@@ -15,11 +15,25 @@ jobs:
         node-version: [20.x]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - run: npm install
-      - run: npm run test:headless
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ./api/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('api/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Instala Dependencias
+        run: npm install
+        working-directory: ./api
+
+      - name: Executa Testes
+        run: npm run test:headless
+        working-directory: ./api
