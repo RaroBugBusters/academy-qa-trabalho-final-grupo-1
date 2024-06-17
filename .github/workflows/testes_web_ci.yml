@@ -30,8 +30,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Cache binário Cypress
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('web/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-cypress-
+
       - name: Instala as Dependencias
         run: npm install
+        working-directory: ./web
+
+      - name: Certifique-se de que o Cypress esteja instalado
+        run: npx cypress install
         working-directory: ./web
 
       - name: Executa os Testes
