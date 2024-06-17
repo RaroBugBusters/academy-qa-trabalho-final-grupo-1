@@ -28,18 +28,13 @@ export class ConsultaDeDetalhesDeFilmePage {
     this.verificarDetalhesDuracaoEmMinutos(filme.durationInMinutes);
     this.verificarDetalhesAudience(
       filme.audienceScore,
-      contarReviews(filme.reviews, 0),
+      contarReviews(filme.reviews, 0)
     );
     this.verificarDetalhesCritic(
       filme.criticScore,
-      contarReviews(filme.reviews, 1),
+      contarReviews(filme.reviews, 1)
     );
     this.verificarReviews(filme.reviews);
-  }
-
-  verificarDetalhesTituloDeFilme(titulo) {
-    cy.get(this.labelTituloDeFilme).should("be.visible");
-    cy.get(this.labelTituloDeFilme).should("contain", titulo);
   }
 
   verificarDetalhesTituloDeFilme(titulo) {
@@ -66,7 +61,7 @@ export class ConsultaDeDetalhesDeFilmePage {
     cy.get(this.labelDuracaoEmMinutos).should("be.visible");
     cy.get(this.labelDuracaoEmMinutos).should(
       "contain",
-      formatarDuracaoEmTexto(duracaoEmMinutos),
+      formatarDuracaoEmTexto(duracaoEmMinutos)
     );
   }
 
@@ -86,7 +81,7 @@ export class ConsultaDeDetalhesDeFilmePage {
         } else {
           cy.get("div span.filled").should(
             "have.length",
-            Math.floor(notaDeAudiencia),
+            Math.floor(notaDeAudiencia)
           );
         }
       });
@@ -108,7 +103,7 @@ export class ConsultaDeDetalhesDeFilmePage {
         } else {
           cy.get("div span.filled").should(
             "have.length",
-            Math.floor(notaDeCritico),
+            Math.floor(notaDeCritico)
           );
         }
       });
