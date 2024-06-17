@@ -90,23 +90,23 @@ Funcionalidade: Cadastro de usuário
    Quando eu informar um nome com 100 caracteres
    Então uma mensagem de sucesso deve ser exibida
 
-# Cenario: Cadastro de email com 61 caracteres
+  Cenario: CT012 - Cadastro de email com 61 caracteres
 
-#     Dado que eu acesso o site
-#     E quero registrar um usuário
-#     Quando eu informar um email com 61 caracteres
-#     Então uma mensagem de máximo de 60 deve ser exibida
+   Dado que eu acesso o site
+   E quero registrar um usuário
+   Quando eu informar um email com 61 caracteres
+   Então uma mensagem de máximo de 60 deve ser exibida
 
-# Cenario: Cadastro de email com 60 caracteres
+  Cenario: CT013 - Cadastro de email com 60 caracteres
 
-#     Dado que eu acesso o site
-#     E quero registrar um usuário
-#     Quando eu informar um email com 60 caracteres
-#     Então uma mensagem de sucesso deve ser exibida
+   Dado que eu acesso o site
+   E quero registrar um usuário
+   Quando eu informar um email com 60 caracteres
+   Então uma mensagem de sucesso deve ser exibida
 
-# Cenario: Cadastro de email com 59 caracteres
+  Cenario: CT014 - Cadastro de email com 59 caracteres
 
-#     Dado que eu acesso o site
-#     E quero registrar um usuário
-#     Quando eu informar um email com 59 caracteres
-#     Então uma mensagem de sucesso deve ser exibida
+   Dado que eu acesso o site
+   E quero registrar um usuário
+   Quando eu informar um email com 59 caracteres
+   Então uma mensagem de sucesso deve ser exibida

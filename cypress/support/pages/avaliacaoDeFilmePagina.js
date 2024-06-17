@@ -12,10 +12,8 @@ export class AvaliacaoDeFilmePage {
     cy.get(this.movieCard).first().click();
   }
 
-  rate(stars) {
-    cy.get(
-      `#root > div > main > div > form > div.stars > span:nth-child(${stars})`
-    ).click();
+  rate() {
+    cy.get(".stars .review-form-star").eq(2).click();
   }
 
   review(review) {
@@ -40,6 +38,9 @@ export class AvaliacaoDeFilmePage {
   search(movie) {
     cy.get(this.movieSearch).click().type(movie);
     cy.get(this.buttonSearch).click();
+  }
+
+  clickOnMovie() {
     cy.get(this.movieCard).first().click();
   }
 }

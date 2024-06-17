@@ -123,8 +123,33 @@ When("eu informar um nome com 100 caracteres", () => {
 });
 
 When("eu informar um email com 61 caracteres", () => {
+  const email =
+    faker.person.firstName().substring(0, 3) +
+    "fsagfdasgfdsgfsdgdsffdfsgsfdgdgsfgsfdddgfssdafgg@gmail.com";
   userRegistrationPage.typeName(faker.person.fullName());
-  userRegistrationPage.typeEmail("");
+  userRegistrationPage.typeEmail(email);
+  userRegistrationPage.typePassword("123456");
+  userRegistrationPage.typeConfirmPassword("123456");
+  userRegistrationPage.Submit();
+});
+
+When("eu informar um email com 59 caracteres", () => {
+  const email =
+    faker.person.firstName().substring(0, 3) +
+    "fsagfdasgfdsgfsdgdsffdfsgsfdgdgsffdddgfssdafgg@gmail.com";
+  userRegistrationPage.typeName(faker.person.fullName());
+  userRegistrationPage.typeEmail(email);
+  userRegistrationPage.typePassword("123456");
+  userRegistrationPage.typeConfirmPassword("123456");
+  userRegistrationPage.Submit();
+});
+
+When("eu informar um email com 60 caracteres", () => {
+  const email =
+    faker.person.firstName().substring(0, 3) +
+    "fsagfdasgfdsgfsdgdsffdfsgsfdgdgsffdddgfdssdafgg@gmail.com";
+  userRegistrationPage.typeName(faker.person.fullName());
+  userRegistrationPage.typeEmail(email);
   userRegistrationPage.typePassword("123456");
   userRegistrationPage.typeConfirmPassword("123456");
   userRegistrationPage.Submit();
@@ -157,4 +182,10 @@ Then("uma mensagem de preenchimento obrigatório deve ser exibida", () => {
 
 Then("uma mensagem de máximo de 100 caracteres deve ser exibida", () => {
   cy.get(".input-error").should("be.visible");
+});
+
+Then("uma mensagem de máximo de 60 deve ser exibida", () => {
+  cy.get(".input-error")
+    .should("be.visible")
+    .should("contain.text", "O e-mail deve ter no máximo 60 dígitos.");
 });
