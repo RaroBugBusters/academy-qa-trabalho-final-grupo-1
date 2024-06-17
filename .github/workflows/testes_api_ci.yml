@@ -1,13 +1,13 @@
-name: Testes api CI
+name: Testes API CI
 
 on:
   push:
-    branches: ["main", "api"]
+    branches: ["main"]
   pull_request:
-    branches: ["main", "api"]
+    branches: ["main"]
 
 jobs:
-  build_e_testes:
+  Executa_Testes_API:
     runs-on: ubuntu-latest
 
     strategy:
