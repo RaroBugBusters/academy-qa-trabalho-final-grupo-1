@@ -41,6 +41,7 @@ Given("que eu acesso o site e loguei", () => {
   cy.get("input[name='email']").type(email);
   cy.get("input[name='password']").type(password);
   cy.get("button[class='login-button']").click();
+  cy.wait(1000);
 });
 
 Given("que eu acesso o site e crio um usuário", () => {
