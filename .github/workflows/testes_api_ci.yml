@@ -1,4 +1,4 @@
-name: Testes web CI
+name: Testes API CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  Executa_Testes_WEB:
+  Executa_Testes_API:
     runs-on: ubuntu-latest
 
     strategy:
@@ -25,15 +25,15 @@ jobs:
       - name: Cache Node.js modules
         uses: actions/cache@v3
         with:
-          path: ./web/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('web/package-lock.json') }}
+          path: ./api/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('api/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
       - name: Instala Dependencias
         run: npm install
-        working-directory: ./web
+        working-directory: ./api
 
       - name: Executa Testes
         run: npm run test:headless
-        working-directory: ./web
+        working-directory: ./api
