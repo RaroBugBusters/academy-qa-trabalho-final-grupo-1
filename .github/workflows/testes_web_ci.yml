@@ -30,10 +30,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Instala Dependencias
+      - name: Instala as Dependencias
         run: npm install
         working-directory: ./web
 
-      - name: Executa Testes
+      - name: Executa os Testes
         run: npm run test:headless
         working-directory: ./web
